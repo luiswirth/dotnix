@@ -12,8 +12,8 @@ export XDG_VIDEOS="$HOME/media/vids"
 
 export TERMINAL="kitty"
 export SHELL="zsh"
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR="hx"
+export VISUAL="hx"
 export BROWSER="chromium"
 export TASKMGR="btm"
 export READER="zathura"
@@ -43,6 +43,7 @@ alias yta="yt -x -f bestaudio/best -i"
 alias g="git"
 alias ssh="kitty +kitten ssh" # automatically copy terminfo to remote
 alias pi="ssh pi@192.168.1.102"
+alias zellij="zellij --layout compact"
 
 # clean home
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"

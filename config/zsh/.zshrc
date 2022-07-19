@@ -4,6 +4,9 @@ autoload -U colors && colors
 # prompt
 eval "$(starship init zsh)"
 
+# direnv
+eval "$(direnv hook zsh)"
+
 # command history
 HISTSIZE=10000
 SAVEHIST=10000

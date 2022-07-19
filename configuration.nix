@@ -75,13 +75,12 @@
   };
   users.defaultUserShell = pkgs.zsh;
 
+  # don't break my aliases defined in .zshenv
   environment.shellAliases = {
     ls = null;
     ll = null;
     l = null;
   };
-
-  #environment.loginShellInit = lib.mkAfter ''[[ "$(tty)" == /dev/tty1 ]] && sway'';
 
   users.users.luis = {
     isNormalUser = true;
@@ -106,11 +105,9 @@
   # allow setting brightness with function keys
   programs.light.enable = true;
 
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-  };
-  #services.thermald.enable = true;
+  # power saving
+  services.tlp.enable = true;
+
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchDocked = "ignore";
@@ -133,54 +130,25 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    openssl
-    cacert
-    wget
-    curl
-    pinentry-gtk2
-
-    xdg-user-dirs
-    xdg-utils
-    xdg-launch
-
-    kitty
-    alacritty
+    direnv
+    
     neovim
     zellij
-
-    starship
-    inotify-tools
-    nnn
-    fd
-    sd
-    exa
+    wget
+    curl
     git
     github-cli
-    tealdeer
-    trash-cli
-    rmtrash
+
+    exa
+    fd
+    sd
+    procs
     ripgrep
     ripgrep-all
-    procs
-    chezmoi
-
-    rustup
-    rust-analyzer
-    gcc-arm-embedded
-    gcc
-    gdb
-    clang
-    lldb
-    tectonic
-    python
-    #openocd # with rp2040 git overlay
-
-    brave
-    chromium
-    xournalpp
-    zathura
-    imv
-    spotify
+    
+    openssl
+    cacert
+    pinentry-gtk2
   ];
 
   fonts.fonts = with pkgs; [
@@ -220,20 +188,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
-  # rp2040 openocd
-  #nixpkgs.overlays = [
-  #  (self: super: {
-  #    openocd = super.openocd.overrideAttrs (old: {
-  #      src = super.fetchFromGitHub {
-  #        owner = "raspberrypi";
-  #        repo = "openocd";
-  #        rev = "228ede43db3665e470d2e518730de013a8c74411";
-  #        sha256 = "0cpdyrvddr8fj5ni1ygvzwhd33qygdwa4pp9cpd1w2l4mw922fjv";
-  #      };
-  #    });
-  #  })
-  #];
-
 }
 
