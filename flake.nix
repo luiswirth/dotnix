@@ -9,23 +9,27 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager }:
-  let
-    system = "x86_64-linux";
-    user = "luis";
-    location = "$HOME/.dotnix";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    lib = nixpkgs.lib;
-  in {
-    nixosConfigurations = {
-      lwirth-tp = lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager }@attrs:
+    let
+      system = "x86_64-linux";
+      hostname = "lwirth-tp";
+      user = "luis";
+      pkgs = import nixpkgs {
         inherit system;
+        config.allowUnfree = true;
+      };
+      lib = nixpkgs.lib;
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+
+      nixosConfigurations.${hostname} = lib.nixosSystem {
+        inherit system;
+        specialArgs = attrs;
         modules = [
           ./configuration.nix
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${user} = {
@@ -35,5 +39,4 @@
         ];
       };
     };
-  };
 }

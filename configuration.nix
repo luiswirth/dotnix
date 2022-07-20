@@ -5,29 +5,28 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./sway.nix
-    ];
-
-  # upgrade packages automatically on rebuild
-  #system.autoUpgrade = {
-  #  enable = true;
-  #  channel = "https://nixos.org/channels/nixos-22.05";
-  #};
+  imports = [
+    ./hardware-configuration.nix
+    ./sway.nix
+  ];
 
   # periodically collect garbage automatically
-  #nix = {
-  #  settings.auto-optimise-store = true;
-  #  gc = {
-  #    automatic = true;
-  #    dates = "monthly";
-  #    options = "--delete-older-than 31d";
-  #  };
-  #};
+  nix = {
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "monthly";
+      options = "--delete-older-than 31d";
+    };
+  };
 
-  # enable flakes
+  # protect nix shell against garbage collection
+  #nix.extraOptions = ''
+  #  keep-outputs = true
+  #  keep-derivations = true
+  #'';
+
+  # use flakes
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
@@ -61,46 +60,23 @@
     keyMap = "us";
   };
 
+
+  # completion for system packages (like systemd)
+  environment.pathsToLink = [ "/share/zsh" ];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # use zsh as default shell
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
-  users.defaultUserShell = pkgs.zsh;
-
-  # don't break my aliases defined in .zshenv
-  environment.shellAliases = {
-    ls = null;
-    ll = null;
-    l = null;
-  };
-
   users.users.luis = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "dialout" ]; 
-    packages = with pkgs; [];
+    extraGroups = [ "wheel" "video" "audio" "dialout" ];
+    packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
-
-  environment.etc = {
-    "xdg/user-dirs.defaults".text = ''
-      DESKTOP=/home/luis/desktop
-      DOWNLOAD=/home/luis/dl
-      TEMPLATES=/home/luis/tmp/templates
-      PUBLICSHARE=/home/luis/tmp/publicshare
-      DOCUMENTS=/home/luis/docs
-      MUSIC=/home/luis/media/music
-      PICTURES=/home/luis/media/img
-      VIDEOS=/home/luis/media/vid
-    '';
-  };
+  users.defaultUserShell = pkgs.zsh;
 
   # allow setting brightness with function keys
   programs.light.enable = true;
@@ -114,7 +90,7 @@
     lidSwitchExternalPower = "ignore";
   };
 
-  nixpkgs.config.allowUnfree = true;   
+  nixpkgs.config.allowUnfree = true;
 
   services.udev.extraRules = ''
     # Suspend the system when battery level drops to 5% or lower
@@ -130,8 +106,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    direnv
-    
+    helix
     neovim
     zellij
     wget
@@ -145,7 +120,7 @@
     procs
     ripgrep
     ripgrep-all
-    
+
     openssl
     cacert
     pinentry-gtk2
@@ -175,11 +150,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

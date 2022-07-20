@@ -6,6 +6,16 @@
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+  };
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
   home.packages = with pkgs; [
     kitty
     chromium
@@ -14,6 +24,7 @@
     zathura
     imv
     spotify
+    ffmpeg_5
 
     starship
     nnn
@@ -21,25 +32,52 @@
     trash-cli
     rmtrash
     tealdeer
+  ];
 
-    xdg-user-dirs
-    xdg-utils
-    xdg-launch
-  ];  
-  
-  xdg.configFile."zsh".source = ./config/zsh;
-  xdg.configFile."git/config".source = ./config/git;
-  xdg.configFile."nvim".source = ./config/nvim;
-  xdg.configFile."kitty/kitty.conf".source = ./config/kitty.conf;
-  xdg.configFile."zellij/config.yaml".source = ./config/zellij.yaml;
-  xdg.configFile."sway/config".source = ./config/sway;
-  xdg.configFile."kanshi/config".source = ./config/kanshi;
-  xdg.configFile."waybar".source = ./config/waybar;
-  xdg.configFile."zathura/zathurarc".source = ./config/zathura;
+  xdg = {
+    enable = true;
+
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+
+      desktop = "$HOME/desktop";
+      documents = "$HOME/docs";
+      download = "$HOME/dl";
+      music = "$HOME/media/music";
+      pictures = "$HOME/media/img";
+      publicShare = "$HOME/tmp/publicshare";
+      templates = "$HOME/tmp/templates";
+      videos = "$HOME/media/vid";
+    };
+
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "image/*" = "imv-folder.desktop";
+        "text/plain" = "nvim.desktop";
+        "application/pdf" = "org.pwmt.zathura.desktop";
+        #"inode/directory" = "nnn.desktop";
+        "video/*" = "ffplay.desktop";
+      };
+    };
+
+    configFile = {
+      "zsh".source = ./config/zsh;
+      "git/config".source = ./config/git;
+      "nvim".source = ./config/nvim;
+      "kitty/kitty.conf".source = ./config/kitty.conf;
+      "zellij/config.yaml".source = ./config/zellij.yaml;
+      "sway/config".source = ./config/sway;
+      "kanshi/config".source = ./config/kanshi;
+      "waybar".source = ./config/waybar;
+      "zathura/zathurarc".source = ./config/zathura;
+    };
+  };
 
 
   #home.file.".config/git/config".source = ./config/git;
-  
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
