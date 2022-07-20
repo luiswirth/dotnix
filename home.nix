@@ -6,15 +6,78 @@
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    enableSyntaxHighlighting = true;
+  home.sessionVariables = {
+    TERMINAL = "kitty";
+    SHELL = "fish";
+    EDITOR = "hx";
+    VISUAL = "hx";
+    BROWSER = "brave";
+    TASKMGR = "btop";
+    READER = "zathura";
+    FILE = "nnn";
+    WM = "sway";
+
+    # clean home
+    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
+    CARGO_HOME = "$XDG_DATA_HOME/cargo";
+    CARGO_TARGET_DIR = "$XDG_CACHE_HOME/target";
+    JAVA_HOME = "$XDG_DATA_HOME/java";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
+    GOPATH = "$XDG_DATA_HOME/go";
+    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+    WAKATIME_HOME = "$XDG_CONFIG_HOME/wakatime";
+    PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+    GNUPGHOME = "$XDG_DATA_HOME/gnupg";
   };
 
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  home.shellAliases = {
+    sudo = "sudo ";
+    ls = "exa";
+    la = "exa -a";
+    ll = "exa -la";
+    rm = "rmtrash";
+    rmdir = "rmdirtrash";
+    realrm = "rm -v";
+    cp = "cp -iv";
+    mv = "mv -iv";
+    mkdir = "mkdir -pv";
+    ed = "$EDITOR";
+    sk = "sk --preview='bat {} --color=always'";
+    vim = "nvim";
+    vi = "nvim";
+    yta = "yt -x -f bestaudio/best -i";
+    g = "git";
+    ssh = "kitty +kitten ssh";
+    zellij = "zellij --layout compact";
+  };
+
+  home.sessionPath = [
+    "$HOME/script"
+    "$CARGO_HOME/bin"
+  ];
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = "fish_vi_key_bindings";
+  };
+
+  programs.man.generateCaches = true;
+
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableFishIntegration = true;
+    enableSshSupport = true;
+  };
 
   home.packages = with pkgs; [
     kitty
@@ -26,7 +89,6 @@
     spotify
     ffmpeg_5
 
-    starship
     nnn
     btop
     trash-cli
@@ -63,7 +125,6 @@
     };
 
     configFile = {
-      "zsh".source = ./config/zsh;
       "git/config".source = ./config/git;
       "nvim".source = ./config/nvim;
       "kitty/kitty.conf".source = ./config/kitty.conf;
@@ -74,7 +135,6 @@
       "zathura/zathurarc".source = ./config/zathura;
     };
   };
-
 
   #home.file.".config/git/config".source = ./config/git;
 

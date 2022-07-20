@@ -62,7 +62,7 @@
 
 
   # completion for system packages (like systemd)
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = [ "/share/fish" ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -76,7 +76,7 @@
     packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
 
   # allow setting brightness with function keys
   programs.light.enable = true;
