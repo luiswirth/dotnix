@@ -77,6 +77,8 @@ in
     brightnessctl # monitor brightness
     wev # xev aequivalent, look at input events
 
+    pulsemixer
+
     dbus-sway-environment
     configure-gtk
     start-mate-polkit

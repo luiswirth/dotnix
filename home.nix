@@ -1,43 +1,46 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
-  home.sessionVariables = {
-    TERMINAL = "kitty";
-    SHELL = "fish";
-    EDITOR = "hx";
-    VISUAL = "hx";
-    BROWSER = "brave";
-    TASKMGR = "btop";
-    READER = "zathura";
-    FILE = "nnn";
-    WM = "sway";
+  home.sessionVariables =
+    let
+      cacheDir = "${config.home.homeDirectory}/.cache";
+      configDir = "${config.home.homeDirectory}/.config";
+      dataDir = "${config.home.homeDirectory}/.local/share";
+    in
+    {
+      TERMINAL = "kitty";
+      SHELL = "fish";
+      EDITOR = "hx";
+      VISUAL = "hx";
+      BROWSER = "brave";
+      TASKMGR = "btop";
+      READER = "zathura";
+      FILE = "nnn";
+      WM = "sway";
 
-    # clean home
-    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
-    CARGO_HOME = "$XDG_DATA_HOME/cargo";
-    CARGO_TARGET_DIR = "$XDG_CACHE_HOME/target";
-    JAVA_HOME = "$XDG_DATA_HOME/java";
-    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
-    GOPATH = "$XDG_DATA_HOME/go";
-    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
-    WAKATIME_HOME = "$XDG_CONFIG_HOME/wakatime";
-    PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
-    GNUPGHOME = "$XDG_DATA_HOME/gnupg";
-  };
+      # clean home
+      RUSTUP_HOME = "${dataDir}/rustup";
+      CARGO_HOME = "${dataDir}/cargo";
+      CARGO_TARGET_DIR = "${cacheDir}/target";
+      JAVA_HOME = "${dataDir}/java";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configDir}/java";
+      GOPATH = "${dataDir}/go";
+      CUDA_CACHE_PATH = "${cacheDir}/nv";
+      PASSWORD_STORE_DIR = "${dataDir}/password-store";
+      GNUPGHOME = "${dataDir}/gnupg";
+    };
 
   home.shellAliases = {
     sudo = "sudo ";
     ls = "exa";
     la = "exa -a";
     ll = "exa -la";
-    rm = "rmtrash";
-    rmdir = "rmdirtrash";
-    realrm = "rm -v";
+    rm = "rm -v";
+    ash = "rmtrash";
+    ashdir = "rmdirtrash";
     cp = "cp -iv";
     mv = "mv -iv";
     mkdir = "mkdir -pv";
@@ -79,7 +82,36 @@
     enableSshSupport = true;
   };
 
+  programs.nix-index.enable = true;
+
+  programs.helix = {
+    enable = true;
+    # move config here
+  };
+
   home.packages = with pkgs; [
+    neovim
+    zellij
+    wget
+    curl
+    git
+    github-cli
+    exa
+    fd
+    sd
+    procs
+    ripgrep
+    ripgrep-all
+
+    nnn
+    btop
+    trash-cli
+    rmtrash
+    tealdeer
+    diskonaut
+
+    comma
+
     kitty
     chromium
     brave
@@ -87,13 +119,14 @@
     zathura
     imv
     spotify
-    ffmpeg_5
+    ffmpeg_5-full
+    obs-studio
+    signal-desktop
 
-    nnn
-    btop
-    trash-cli
-    rmtrash
-    tealdeer
+    tectonic
+
+    xdg-user-dirs
+    xdg-utils
   ];
 
   xdg = {
@@ -113,10 +146,12 @@
       videos = "$HOME/media/vid";
     };
 
+    mime.enable = true;
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "image/*" = "imv-folder.desktop";
+        "image/png" = "imv-folder.desktop";
+        "image/jpeg" = "imv-folder.desktop";
         "text/plain" = "nvim.desktop";
         "application/pdf" = "org.pwmt.zathura.desktop";
         #"inode/directory" = "nnn.desktop";

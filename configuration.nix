@@ -106,21 +106,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    helix
-    neovim
-    zellij
-    wget
-    curl
-    git
-    github-cli
-
-    exa
-    fd
-    sd
-    procs
-    ripgrep
-    ripgrep-all
-
     openssl
     cacert
     pinentry-gtk2

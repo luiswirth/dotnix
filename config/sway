@@ -21,7 +21,7 @@ bindsym $mod+Shift+Return exec "$TERMINAL -e zellij-main"
 bindsym $mod+space exec bemenu-run
 bindsym $mod+Shift+c exec passmenu2
 
-bindsym $mod+c exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/ss/$(date +'%Y-%m-%dT%H%M%S.png')
+bindsym $mod+c exec grim -g "$(slurp)" $XDG_PICTURES_DIR/ss/$(date +'%Y-%m-%dT%H%M%S.png')
 
 # Brightness
 bindsym XF86MonBrightnessDown exec 'brightnessctl set 5%-'
@@ -152,9 +152,9 @@ bar {
 
 ### Idle configuration
 exec swayidle -w \
- timeout 300 'swaylock -f -c 000000' \
- timeout 360 'swaymsg "output * dpms off"' \
+ timeout 300 'swaymsg "output * dpms off"' \
      resume 'swaymsg "output * dpms on"' \
+ timeout 900 'swaylock -f -c 000000' \
  before-sleep 'swaylock -f -c 000000'
 
 exec dbus-sway-environment
