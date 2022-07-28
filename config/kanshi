@@ -14,8 +14,8 @@ profile {
 
 profile {
   output "Unknown 0x1403 0x00000000" disable
-  output "Samsung Electric Company U28H75x HTPJ700579" mode 2560x1440
-  output "Samsung Electric Company U28D590 0x00000000" mode 2560x1440
+  output "Samsung Electric Company U28H75x HTPJ700579" mode 2560x1440 position 0,0
+  output "Samsung Electric Company U28D590 0x00000000" mode 2560x1440 position -2560,0
 }
 
 profile {
