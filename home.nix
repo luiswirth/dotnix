@@ -84,13 +84,14 @@
 
   programs.nix-index.enable = true;
 
-  programs.helix = {
-    enable = true;
+  #programs.helix = {
+    #enable = true;
     # move config here
-  };
+  #};
 
   home.packages = with pkgs; [
     neovim
+    helix
     zellij
     wget
     curl
@@ -122,6 +123,7 @@
     ffmpeg_5-full
     obs-studio
     signal-desktop
+    discord
 
     tectonic
 
@@ -162,6 +164,7 @@
     configFile = {
       "git/config".source = ./config/git;
       "nvim".source = ./config/nvim;
+      "helix".source = ./config/helix;
       "kitty/kitty.conf".source = ./config/kitty.conf;
       "zellij/config.yaml".source = ./config/zellij.yaml;
       "sway/config".source = ./config/sway;

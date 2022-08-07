@@ -1,0 +1,3 @@
+[[language]]
+name = "wgsl"
+language-server = { command = "wgsl_analyzer", args = [] }
