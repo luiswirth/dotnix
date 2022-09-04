@@ -146,9 +146,8 @@ input "type:keyboard" {
 
 input type:touchpad {
     tap enabled
-    # disable while writing
-    dwt enable 
     natural_scroll enabled
+    dwt disabled
 }
 
 ### Status bar

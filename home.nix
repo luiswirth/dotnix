@@ -90,6 +90,9 @@
   #};
 
   home.packages = with pkgs; [
+    clang
+    mold
+    
     neovim
     helix
     zellij
