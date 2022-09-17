@@ -523,8 +523,7 @@ plugins:
 
 # Appearance
 pane_frames: false
-# waiting for this option to become available
-#layout: compact
+layout: compact
 
 themes:
   tokyonight:

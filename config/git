@@ -1,6 +1,9 @@
 [credential "https://github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !/nix/store/ld8k50f12sc7ag7k8virgs55lc6p7xhm-gh-2.15.0/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/nix/store/ld8k50f12sc7ag7k8virgs55lc6p7xhm-gh-2.15.0/bin/gh auth git-credential
 [user]
 	email = lwirth2000@gmail.com
 	name = Luis Wirth

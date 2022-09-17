@@ -31,7 +31,7 @@
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
   };
-
+  
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -61,9 +61,6 @@
   };
 
 
-  # completion for system packages (like systemd)
-  environment.pathsToLink = [ "/share/fish" ];
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -76,7 +73,10 @@
     packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
+  programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
+  environment.pathsToLink = [ "/share/fish" ];
+  environment.shells = with pkgs; [ fish ];
 
   # allow setting brightness with function keys
   programs.light.enable = true;
@@ -106,9 +106,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    openssl
-    cacert
-    pinentry-gtk2
   ];
 
   fonts.fonts = with pkgs; [
@@ -120,15 +117,9 @@
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
   ];
 
+  services.openssh.enable = true;
   programs.mtr.enable = true;
   services.pcscd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "gtk2";
-    enableSSHSupport = true;
-  };
-  services.openssh.enable = true;
-
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

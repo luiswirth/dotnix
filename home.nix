@@ -50,8 +50,7 @@
     vi = "nvim";
     yta = "yt -x -f bestaudio/best -i";
     g = "git";
-    ssh = "kitty +kitten ssh";
-    zellij = "zellij --layout compact";
+    sshkitty = "kitty +kitten ssh";
   };
 
   home.sessionPath = [
@@ -76,11 +75,13 @@
     nix-direnv.enable = true;
   };
 
+  programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
     enableFishIntegration = true;
     enableSshSupport = true;
   };
+  programs.ssh.enable = true;
 
   programs.nix-index.enable = true;
 
@@ -90,6 +91,10 @@
   #};
 
   home.packages = with pkgs; [
+    openssl
+    cacert
+    pinentry-gtk2
+    
     clang
     mold
     
@@ -133,7 +138,8 @@
     xdg-user-dirs
     xdg-utils
   ];
-
+  
+  
   xdg = {
     enable = true;
 
