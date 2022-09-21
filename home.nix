@@ -30,7 +30,7 @@
       GOPATH = "${dataDir}/go";
       CUDA_CACHE_PATH = "${cacheDir}/nv";
       PASSWORD_STORE_DIR = "${dataDir}/password-store";
-      GNUPGHOME = "${dataDir}/gnupg";
+      #GNUPGHOME = "${dataDir}/gnupg";
     };
 
   home.shellAliases = {
@@ -86,18 +86,18 @@
   programs.nix-index.enable = true;
 
   #programs.helix = {
-    #enable = true;
-    # move config here
+  #enable = true;
+  # move config here
   #};
 
   home.packages = with pkgs; [
     openssl
     cacert
     pinentry-gtk2
-    
+
     clang
     mold
-    
+
     neovim
     helix
     zellij
@@ -138,8 +138,8 @@
     xdg-user-dirs
     xdg-utils
   ];
-  
-  
+
+
   xdg = {
     enable = true;
 

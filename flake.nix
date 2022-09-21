@@ -21,7 +21,7 @@
       lib = nixpkgs.lib;
     in
     {
-      formatter = pkgs.nixpkgs-fmt;
+      formatter.${system} = pkgs.nixpkgs-fmt;
 
       nixosConfigurations.${hostname} = lib.nixosSystem {
         inherit system;
