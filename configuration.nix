@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, ... }:
 
 {
@@ -10,7 +6,6 @@
     ./sway.nix
   ];
 
-  # periodically collect garbage automatically
   nix = {
     settings.auto-optimise-store = true;
     gc = {
@@ -20,19 +15,8 @@
     };
   };
 
-  # protect nix shell against garbage collection
-  #nix.extraOptions = ''
-  #  keep-outputs = true
-  #  keep-derivations = true
-  #'';
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # use flakes
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
-  };
-
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -41,17 +25,9 @@
 
   networking.hostName = "lwirth-tp";
   networking.wireless.iwd.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
   time.timeZone = "Europe/Zurich";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     earlySetup = true;
@@ -61,10 +37,8 @@
   };
 
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # enable bluetooth
   hardware.bluetooth.enable = true;
 
   users.users.luis = {
@@ -73,10 +47,9 @@
     packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-  environment.pathsToLink = [ "/share/fish" ];
-  environment.shells = with pkgs; [ fish ];
+  users.defaultUserShell = pkgs.nushell;
+  environment.pathsToLink = [ "/share/nushell" ];
+  environment.shells = with pkgs; [ nushell ];
 
   # allow setting brightness with function keys
   programs.light.enable = true;
@@ -103,10 +76,7 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="660", GROUP="plugdev", TAG+="uaccess"
   '';
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = [ ];
 
   fonts.fonts = with pkgs; [
     noto-fonts
@@ -122,7 +92,6 @@
   services.pcscd.enable = true;
 
   security.polkit.enable = true;
-
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
@@ -138,12 +107,6 @@
       };
     };
   };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

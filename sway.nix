@@ -69,7 +69,7 @@ in
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     glib # gsettings
     dracula-theme # gtk theme
-    gnome3.adwaita-icon-theme # default gnome cursors
+    gnome.adwaita-icon-theme # default gnome cursors
     mate.mate-polkit
     pamixer # pulseaudio mixer
     pavucontrol # pulseaudio mixer gui

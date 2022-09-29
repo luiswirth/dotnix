@@ -1,73 +1,16 @@
 { config, pkgs, ... }:
-
 {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
-  home.sessionVariables =
-    let
-      cacheDir = "${config.home.homeDirectory}/.cache";
-      configDir = "${config.home.homeDirectory}/.config";
-      dataDir = "${config.home.homeDirectory}/.local/share";
-    in
-    {
-      TERMINAL = "kitty";
-      SHELL = "fish";
-      EDITOR = "hx";
-      VISUAL = "hx";
-      BROWSER = "brave";
-      TASKMGR = "btop";
-      READER = "zathura";
-      FILE = "nnn";
-      WM = "sway";
-
-      # clean home
-      RUSTUP_HOME = "${dataDir}/rustup";
-      CARGO_HOME = "${dataDir}/cargo";
-      CARGO_TARGET_DIR = "${cacheDir}/target";
-      JAVA_HOME = "${dataDir}/java";
-      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configDir}/java";
-      GOPATH = "${dataDir}/go";
-      CUDA_CACHE_PATH = "${cacheDir}/nv";
-      PASSWORD_STORE_DIR = "${dataDir}/password-store";
-      #GNUPGHOME = "${dataDir}/gnupg";
-    };
-
-  home.shellAliases = {
-    sudo = "sudo ";
-    ls = "exa";
-    la = "exa -a";
-    ll = "exa -la";
-    rm = "rm -v";
-    ash = "rmtrash";
-    ashdir = "rmdirtrash";
-    cp = "cp -iv";
-    mv = "mv -iv";
-    mkdir = "mkdir -pv";
-    ed = "$EDITOR";
-    sk = "sk --preview='bat {} --color=always'";
-    vim = "nvim";
-    vi = "nvim";
-    yta = "yt -x -f bestaudio/best -i";
-    g = "git";
-    sshkitty = "kitty +kitten ssh";
-  };
-
-  home.sessionPath = [
-    "$HOME/script"
-    "$CARGO_HOME/bin"
-  ];
-
-  programs.fish = {
+  programs.nushell = {
     enable = true;
-    interactiveShellInit = "fish_vi_key_bindings";
+    configFile.source = ./config/nushell/config.nu;
+    envFile.source = ./config/nushell/env.nu;
   };
-
-  programs.man.generateCaches = true;
 
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.direnv = {
@@ -78,25 +21,22 @@
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    enableFishIntegration = true;
     enableSshSupport = true;
   };
+
   programs.ssh.enable = true;
 
   programs.nix-index.enable = true;
-
-  #programs.helix = {
-  #enable = true;
-  # move config here
-  #};
 
   home.packages = with pkgs; [
     openssl
     cacert
     pinentry-gtk2
 
-    clang
+    gcc
     mold
+    gnumake
+    cmake
 
     neovim
     helix
@@ -165,7 +105,6 @@
         "image/jpeg" = "imv-folder.desktop";
         "text/plain" = "nvim.desktop";
         "application/pdf" = "org.pwmt.zathura.desktop";
-        #"inode/directory" = "nnn.desktop";
         "video/*" = "ffplay.desktop";
       };
     };
@@ -182,8 +121,6 @@
       "zathura/zathurarc".source = ./config/zathura;
     };
   };
-
-  #home.file.".config/git/config".source = ./config/git;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
