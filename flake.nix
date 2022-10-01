@@ -18,20 +18,26 @@
         inherit system;
         config.allowUnfree = true;
       };
-      lib = nixpkgs.lib;
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
 
-      nixosConfigurations.${hostname} = lib.nixosSystem {
+      devShell.${system} = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          rnix-lsp
+        ];
+        buildInputs = [ ];
+      };
+
+      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = attrs;
         modules = [
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useUserPackages = true;
             home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
             home-manager.users.${user} = {
               imports = [ ./home.nix ];
             };
