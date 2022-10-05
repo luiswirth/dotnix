@@ -9,6 +9,7 @@
 	name = Luis Wirth
 [core]
 	editor = nvim
+	pager = delta
 [init]
 	defaultBranch = main
 [push]
@@ -16,4 +17,13 @@
 [pull]
 	ff = only
 [merge]
-	tool = nvimdiff
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
+[interactive]
+	diffFilter = delta --color-only
+[add.interactive]
+	useBuiltin = false
+[delta]
+	navigate = true
+	light = false

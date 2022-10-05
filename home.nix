@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
@@ -37,6 +37,7 @@
     mold
     gnumake
     cmake
+    gnuplot
 
     neovim
     helix
@@ -45,6 +46,7 @@
     curl
     git
     github-cli
+    delta
     exa
     fd
     sd
@@ -58,6 +60,7 @@
     rmtrash
     tealdeer
     diskonaut
+    kondo
 
     comma
 
