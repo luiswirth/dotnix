@@ -27,6 +27,8 @@
   programs.ssh.enable = true;
 
   programs.nix-index.enable = true;
+  
+  fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
     openssl
@@ -37,49 +39,57 @@
     mold
     gnumake
     cmake
-    gnuplot
 
     neovim
-    helix
     zellij
-    wget
-    curl
+    helix
     git
     github-cli
-    delta
+    nnn
+    btop
+    
     exa
     fd
     sd
+    wget
+    curl
+    delta
     procs
     ripgrep
     ripgrep-all
-
-    nnn
-    btop
-    trash-cli
-    rmtrash
     tealdeer
     diskonaut
     kondo
-
     comma
+    gnuplot
 
     kitty
     chromium
     brave
-    xournalpp
-    zathura
     imv
+    zathura
     spotify
-    ffmpeg_5-full
+    xournalpp
     obs-studio
     signal-desktop
     discord
 
     tectonic
+    ffmpeg_5-full
 
     xdg-user-dirs
     xdg-utils
+       
+
+    # fonts
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    font-awesome
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
 
@@ -122,6 +132,7 @@
       "kanshi/config".source = ./config/kanshi;
       "waybar".source = ./config/waybar;
       "zathura/zathurarc".source = ./config/zathura;
+      "starship.toml".source = ./config/starship.toml;
     };
   };
 

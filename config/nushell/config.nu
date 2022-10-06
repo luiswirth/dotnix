@@ -515,4 +515,6 @@ let-env config = {
   ]
 }
 
+source ~/.cache/starship/init.nu
+
 alias ed = ^$env.EDITOR

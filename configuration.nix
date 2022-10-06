@@ -78,15 +78,6 @@
 
   environment.systemPackages = [ ];
 
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    font-awesome
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-  ];
-
   services.openssh.enable = true;
   programs.mtr.enable = true;
   services.pcscd.enable = true;

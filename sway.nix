@@ -76,6 +76,7 @@ in
     playerctl # play/pause function keys
     brightnessctl # monitor brightness
     wev # xev aequivalent, look at input events
+    wl-mirror
 
     pulsemixer
 
