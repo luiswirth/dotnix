@@ -8,26 +8,19 @@
     configFile.source = ./config/nushell/config.nu;
     envFile.source = ./config/nushell/env.nu;
   };
-
   programs.starship = {
     enable = true;
   };
-
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
-
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
   };
-
   programs.ssh.enable = true;
-
-  programs.nix-index.enable = true;
-  
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
@@ -42,25 +35,26 @@
 
     neovim
     zellij
+    pueue
     helix
     git
     github-cli
     nnn
     btop
-    
+
     exa
     fd
     sd
+    du-dust
+    ripgrep
+    ripgrep-all
+    procs
+    diskonaut
+    tealdeer
     wget
     curl
     delta
-    procs
-    ripgrep
-    ripgrep-all
-    tealdeer
-    diskonaut
     kondo
-    comma
     gnuplot
 
     kitty
@@ -79,7 +73,7 @@
 
     xdg-user-dirs
     xdg-utils
-       
+
 
     # fonts
     noto-fonts
@@ -92,6 +86,16 @@
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
+  systemd.user.services = {
+    pueued = {
+      Unit.Description = "pueued - pueue daemon";
+      Install.WantedBy = [ "default.target" ];
+      Service = {
+        ExecStart = "${pkgs.pueue}/bin/pueued -v";
+        Restart = "on-failure";
+      };
+    };
+  };
 
   xdg = {
     enable = true;

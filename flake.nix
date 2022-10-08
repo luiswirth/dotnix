@@ -12,7 +12,6 @@
   outputs = { self, nixpkgs, home-manager }:
     let
       system = "x86_64-linux";
-      hostname = "lwirth-tp";
       user = "luis";
       pkgs = import nixpkgs {
         inherit system;
@@ -29,10 +28,12 @@
         buildInputs = [ ];
       };
 
-      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.lwirth-tp = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
+          ./hardware-lwirth-tp.nix
           ./configuration.nix
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
