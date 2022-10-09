@@ -140,6 +140,9 @@
     };
   };
 
+  home.file."script".source = ./script;
+  #home.file."file.foo".source = config.lib.file.mkOutOfStoreSymlink ./path/to/file/to/link;
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if bluetoothctl info 00:22:D9:00:1A:9E | grep -q "Connected: no"; then
+  bluetoothctl connect 00:22:D9:00:1A:9E
+else
+  bluetoothctl disconnect 00:22:D9:00:1A:9E
+fi

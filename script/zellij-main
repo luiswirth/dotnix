@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if zellij ls | grep 'main'
+then
+	zellij a main
+else
+	zellij -s main
+fi

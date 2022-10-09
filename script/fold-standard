@@ -1,0 +1,10 @@
+#!/bin/sh
+
+TMP=~/tmp/folding-standard
+for file in "$@" 
+do
+  echo "folded $file"
+  cp $file $TMP
+  fold -w80 -s $TMP > $file
+  rm $TMP
+done

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for fullfile in "$@" 
+do
+  filename=$(basename -- "$fullfile")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
+  convert $fullfile -channel RGB -negate $filename-inverted.$extension
+  echo "inverted colors on $fullfile"
+done

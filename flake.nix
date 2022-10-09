@@ -17,6 +17,7 @@
         inherit system;
         config.allowUnfree = true;
       };
+      lib = nixpkgs.lib;
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
@@ -28,19 +29,37 @@
         buildInputs = [ ];
       };
 
-      nixosConfigurations.lwirth-tp = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./hardware-lwirth-tp.nix
-          ./configuration.nix
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${user} = import ./home.nix;
-          }
-        ];
+      nixosConfigurations = {
+        lwirth-tp = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hardware-lwirth-tp.nix
+            ./configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${user} = import ./home.nix;
+            }
+          ];
+        };
+        lwirth-media = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hardware-lwirth-media.nix
+            ./configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${user} = import ./home.nix;
+            }
+          ];
+        };
       };
+
     };
 }

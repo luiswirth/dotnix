@@ -16,8 +16,11 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot/efi";
+  };
 
   # blacklist igc (intel ethernet driver) to avoid problems with thinkpad dock
   boot.blacklistedKernelModules = [ "igc" ];
