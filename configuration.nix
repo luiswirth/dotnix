@@ -52,7 +52,7 @@
   users.defaultUserShell = pkgs.nushell;
   environment.pathsToLink = [ "/share/nushell" ];
   environment.shells = with pkgs; [ nushell ];
-
+  
   # allow setting brightness with function keys
   programs.light.enable = true;
 
@@ -78,7 +78,12 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="660", GROUP="plugdev", TAG+="uaccess"
   '';
 
-  environment.systemPackages = [ ];
+  environment.systemPackages = with pkgs; [
+    man-pages
+    man-pages-posix
+  ];
+
+  documentation.dev.enable = true;
 
   services.openssh.enable = true;
   programs.mtr.enable = true;
