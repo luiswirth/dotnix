@@ -28,7 +28,7 @@ profile {
 # lwirth-media
 
 profile {
-  output "Unknown 0x042C 0x00000000" disable
+  output "Unknown 0x042C 0x00000000" enable
 }
 
 profile {
