@@ -1,7 +1,7 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px;
+    color: #ffffff;
 }
 
 window#waybar {
@@ -15,15 +15,6 @@ window#waybar {
 window#waybar.hidden {
     opacity: 0.2;
 }
-
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
 
 window#waybar.termite {
     background-color: #3F3F3F;
@@ -100,7 +91,7 @@ window#waybar.chromium {
 
 #clock {
     background-color: #ff0000;
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 #battery {
@@ -128,8 +119,8 @@ label:focus {
 }
 
 #cpu {
+    color: #ffffff;
     background-color: #5500ff;
-    color: #FFFFFF;
 }
 
 #memory {
@@ -155,7 +146,7 @@ label:focus {
 
 #custom-media {
     background-color: #66cc99;
-    color: #2a5c45;
+    color: #ffffff;
     min-width: 100px;
 }
 
@@ -216,7 +207,7 @@ label:focus {
 
 #language {
     background: #00a6ff;
-    color: #000000;
+    color: #ffffff;
     padding: 0 5px;
     margin: 0 5px;
     min-width: 16px;
@@ -224,7 +215,7 @@ label:focus {
 
 #keyboard-state {
     background: #97e1ad;
-    color: #000000;
+    color: #ffffff;
     padding: 0 0px;
     margin: 0 5px;
     min-width: 16px;

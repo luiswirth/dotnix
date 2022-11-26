@@ -8,7 +8,7 @@
 	email = lwirth2000@gmail.com
 	name = Luis Wirth
 [core]
-	editor = nvim
+	editor = hx
 	pager = delta
 [init]
 	defaultBranch = main

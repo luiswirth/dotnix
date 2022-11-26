@@ -42,17 +42,20 @@
   services.printing.enable = true;
 
   hardware.bluetooth.enable = true;
+  hardware.logitech.wireless.enable = true;
+  
+  hardware.opengl.enable = true;
 
   users.users.luis = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "dialout" ];
+    extraGroups = [ "adm" "ftp" "games" "http" "log" "rfkill" "sys" "uucp" "scanner" "kvm" "storage" "wheel" "input" "video" "audio" "dialout" ];
     packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
   users.defaultUserShell = pkgs.nushell;
   environment.pathsToLink = [ "/share/nushell" ];
   environment.shells = with pkgs; [ nushell ];
-  
+
   # allow setting brightness with function keys
   programs.light.enable = true;
 
@@ -105,6 +108,9 @@
       };
     };
   };
+
+
+  services.gvfs.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -101,7 +101,7 @@ module completions {
     --dry-run(-n)                                   # dry run
     --exec: string                                  # receive pack program
     --follow-tags                                   # push missing but relevant tags
-    --force-with-lease: string                      # require old value of ref to be at this value
+    --force-with-lease                              # require old value of ref to be at this value
     --force(-f)                                     # force updates
     --ipv4(-4)                                      # use IPv4 addresses only
     --ipv6(-6)                                      # use IPv6 addresses only
@@ -240,7 +240,7 @@ let light_theme = {
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
   external_completer: $nothing # check 'carapace_completer' above to as example
-  filesize_metric: false
+  filesize_metric: false # true => (KB, MB, GB), false => (KiB, MiB, GiB)
   table_mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
   use_ls_colors: true
   rm_always_trash: true
@@ -254,12 +254,12 @@ let-env config = {
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
   use_ansi_coloring: true
   filesize_format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
-  edit_mode: vi
+  edit_mode: vi # emacs, vi
   max_history_size: 10000 # Session has to be reloaded for this to take effect
   sync_history_on_enter: true # Enable to share the history between multiple sessions, else you have to close the session to persist history to file
   history_file_format: "plaintext" # "sqlite" or "plaintext"
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  disable_table_indexes: false # set to true to remove the index column from tables
+  table_index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
   cd_with_abbreviations: false # set to true to allow you to do things like cd s/o/f and nushell expand it to cd some/other/folder
   case_sensitive_completions: false # set to true to enable case-sensitive completions
   enable_external_completion: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
@@ -280,8 +280,8 @@ let-env config = {
       code: "
         let direnv = (direnv export json | from json)
         let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
-        $direnv | load-env      
-      "
+        $direnv | load-env
+      "   
     }]
     pre_execution: [{
       $nothing  # replace with source code to run before the repl input is run
@@ -416,7 +416,7 @@ let-env config = {
       name: completion_menu
       modifier: none
       keycode: tab
-      mode: vi_normal # Options: emacs vi_normal vi_insert
+      mode: vi_insert # Options: emacs vi_normal vi_insert
       event: {
         until: [
           { send: menu name: completion_menu }
@@ -435,21 +435,21 @@ let-env config = {
       name: history_menu
       modifier: control
       keycode: char_r
-      mode: vi_normal
+      mode: emacs
       event: { send: menu name: history_menu }
     }
     {
       name: next_page
       modifier: control
       keycode: char_x
-      mode: vi_normal
+      mode: emacs
       event: { send: menupagenext }
     }
     {
       name: undo_or_previous_page
       modifier: control
       keycode: char_z
-      mode: vi_normal
+      mode: emacs
       event: {
         until: [
           { send: menupageprevious }
@@ -461,7 +461,7 @@ let-env config = {
       name: yank
       modifier: control
       keycode: char_y
-      mode: vi_normal
+      mode: emacs
       event: {
         until: [
           {edit: pastecutbufferafter}
@@ -515,6 +515,4 @@ let-env config = {
   ]
 }
 
-source ~/.cache/starship/init.nu
-
-alias ed = ^$env.EDITOR
+#source ~/.cache/starship/init.nu

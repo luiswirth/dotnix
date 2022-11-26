@@ -57,32 +57,32 @@ in
     wayland
     sway
 
-    waybar
     swaylock
     swayidle
-    ydotool # automation
-    bemenu # wayland clone of dmenu
-    mako # notification system developed by swaywm maintainer
-    kanshi # wayland autorandr
-    grim # screenshot functionality
-    slurp # screenshot functionality
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    glib # gsettings
-    dracula-theme # gtk theme
-    gnome.adwaita-icon-theme # default gnome cursors
-    mate.mate-polkit
-    pamixer # pulseaudio mixer
-    pavucontrol # pulseaudio mixer gui
-    playerctl # play/pause function keys
-    brightnessctl # monitor brightness
-    wev # xev aequivalent, look at input events
+    waybar
+    kanshi
+    bemenu
+    wl-clipboard
+    grim # screenshot
+    slurp # screenshot
+    mako # notifications
+    playerctl
+    pamixer
+    pulsemixer
+    brightnessctl
     wl-mirror
 
-    pulsemixer
+    ydotool # automation
+    glib # gsettings
+    libappindicator
+    wev # input events
+    dracula-theme
+    gnome.adwaita-icon-theme
+    mate.mate-polkit
 
-    dbus-sway-environment
     configure-gtk
     start-mate-polkit
+    dbus-sway-environment
   ];
 
 

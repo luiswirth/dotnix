@@ -1,11 +1,19 @@
 # Nushell Environment Config File
 
 # prompt
+let-env PROMPT_INDICATOR = { "❯ " }
 let-env PROMPT_INDICATOR_VI_INSERT = { ": " }
 let-env PROMPT_INDICATOR_VI_NORMAL = { "❯ " }
 let-env PROMPT_MULTILINE_INDICATOR = { "::: " }
-mkdir ~/.cache/starship
-starship init nu | save ~/.cache/starship/init.nu
+#mkdir ~/.cache/starship
+#starship init nu | save ~/.cache/starship/init.nu
+let-env STARSHIP_SHELL = "nu"
+
+def create_left_prompt [] {
+  starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
+}
+let-env PROMPT_COMMAND = { create_left_prompt }
+let-env PROMPT_COMMAND_RIGHT = ""
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
@@ -47,7 +55,7 @@ load-env {
 load-env {
     "EDITOR": "hx",
     "VISUAL": "bat",
-    "TERMINAL": "kitty",
+    "TERMINAL": "alacritty",
     "BROWSER": "brave",
     "TASKMGR": "btop",
     "FILEMGR": "nnn",

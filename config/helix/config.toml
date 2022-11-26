@@ -1,9 +1,19 @@
 theme = "gruvbox"
 
 [editor]
-line-number = "relative"
-mouse = false
+mouse = true
 auto-pairs = false
+
+line-number = "relative"
+cursorline = false
+color-modes = true
+whitespace.render = "all"
+#indent-guides.render = true
+
+#[editor.whitespace.render]
+#newline = "all"
+#space = "none"
+#tab = "none"
 
 [editor.cursor-shape]
 insert = "bar"

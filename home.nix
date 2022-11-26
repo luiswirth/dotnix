@@ -58,8 +58,10 @@
     gnuplot
 
     kitty
-    chromium
+    alacritty
+    firefox
     brave
+    chromium
     imv
     zathura
     spotify
@@ -74,6 +76,9 @@
     xdg-user-dirs
     xdg-utils
 
+    pass
+
+    minecraft
 
     # fonts
     noto-fonts
@@ -131,7 +136,7 @@
       "nvim".source = ./config/nvim;
       "helix".source = ./config/helix;
       "kitty/kitty.conf".source = ./config/kitty.conf;
-      "zellij/config.yaml".source = ./config/zellij.yaml;
+      "zellij/config.kdl".source = ./config/zellij.kdl;
       "sway/config".source = ./config/sway;
       "kanshi/config".source = ./config/kanshi;
       "waybar".source = ./config/waybar;
