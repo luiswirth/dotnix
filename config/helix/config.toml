@@ -7,13 +7,7 @@ auto-pairs = false
 line-number = "relative"
 cursorline = false
 color-modes = true
-whitespace.render = "all"
-#indent-guides.render = true
-
-#[editor.whitespace.render]
-#newline = "all"
-#space = "none"
-#tab = "none"
+whitespace.render.newline = "all"
 
 [editor.cursor-shape]
 insert = "bar"

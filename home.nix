@@ -8,9 +8,6 @@
     configFile.source = ./config/nushell/config.nu;
     envFile.source = ./config/nushell/env.nu;
   };
-  programs.starship = {
-    enable = true;
-  };
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -28,21 +25,18 @@
     cacert
     pinentry-gtk2
 
-    gcc
-    mold
-    gnumake
-    cmake
-
+    helix
     neovim
     zellij
     pueue
-    helix
     git
     github-cli
     nnn
     btop
+    sshfs
 
     exa
+    bat
     fd
     sd
     du-dust
@@ -51,6 +45,7 @@
     procs
     diskonaut
     tealdeer
+    starship
     wget
     curl
     delta

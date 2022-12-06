@@ -48,7 +48,7 @@
 
   users.users.luis = {
     isNormalUser = true;
-    extraGroups = [ "adm" "ftp" "games" "http" "log" "rfkill" "sys" "uucp" "scanner" "kvm" "storage" "wheel" "input" "video" "audio" "dialout" ];
+    extraGroups = [ "adm" "ftp" "games" "http" "log" "rfkill" "sys" "uucp" "scanner" "kvm" "storage" "wheel" "input" "video" "audio" "dialout" "libvirtd" ];
     packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
@@ -67,6 +67,10 @@
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "ignore";
   };
+  
+  # virtualization
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -82,15 +86,24 @@
   '';
 
   environment.systemPackages = with pkgs; [
+    virt-manager
+  
     man-pages
     man-pages-posix
   ];
 
   documentation.dev.enable = true;
 
-  services.openssh.enable = true;
   programs.mtr.enable = true;
   services.pcscd.enable = true;
+  services.gvfs.enable = true;
+  services.avahi.enable = true;
+  
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+    kbdInteractiveAuthentication = false;
+  };
 
   security.polkit.enable = true;
   systemd = {
@@ -109,8 +122,6 @@
     };
   };
 
-
-  services.gvfs.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
