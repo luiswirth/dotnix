@@ -22,6 +22,8 @@
     efi.efiSysMountPoint = "/boot/efi";
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # blacklist igc (intel ethernet driver) to avoid problems with thinkpad dock
   boot.blacklistedKernelModules = [ "igc" ];
 

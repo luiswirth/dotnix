@@ -43,6 +43,8 @@
     ripgrep
     ripgrep-all
     procs
+    gitui
+    ouch
     diskonaut
     tealdeer
     starship
@@ -52,7 +54,7 @@
     kondo
     gnuplot
 
-    kitty
+    #kitty
     alacritty
     firefox
     brave
@@ -62,8 +64,11 @@
     spotify
     xournalpp
     obs-studio
+    obsidian
+
     signal-desktop
     discord
+    zoom-us
 
     tectonic
     ffmpeg_5-full
@@ -73,7 +78,7 @@
 
     pass
 
-    minecraft
+    prismlauncher
 
     # fonts
     noto-fonts

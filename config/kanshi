@@ -1,37 +1,43 @@
 # lwirth-tp
+
 profile {
-  output "Unknown 0x1403 0x00000000" enable
+  output eDP-1 enable
 }
 
 profile {
-  output "Unknown 0x1403 0x00000000" disable
-  output "Samsung Electric Company U28H75x HTPJ700579" scale 1.5
+  output eDP-1 disable
+  output "Samsung Electric Company U28H75x HTPJ700579" enable scale 1.5
 }
 
 profile {
-  output "Unknown 0x1403 0x00000000" disable
-  output "Samsung Electric Company U28D590 0x00000000" scale 1.5
+  output eDP-1 disable
+  output "Samsung Electric Company U28D590 0x00000000" enable scale 1.5
 }
 
 profile {
-  output "Unknown 0x1403 0x00000000" disable
-  output "Samsung Electric Company U28H75x HTPJ700579" mode 2560x1440 position 0,0
-  output "Samsung Electric Company U28D590 0x00000000" mode 2560x1440 position -2560,0
+  output eDP-1 disable
+  output "Samsung Electric Company U28H75x HTPJ700579" enable mode 2560x1440 position 0,0
+  output "Samsung Electric Company U28D590 0x00000000" enable mode 2560x1440 position -2560,0
 }
 
 profile {
-  output "Unknown 0x1403 0x00000000" disable
-  output "Unknown HP 27f 3CM0421X41   " enable
+  output eDP-1 disable
+  output "HP Inc. HP 27f 3CM0421X41   " enable
+}
+
+profile {
+  output eDP-1 disable
+  output "LG Electronics LG TV SSCR2 0x00000101" enable scale 2
 }
 
 
 # lwirth-media
 
 profile {
-  output "Unknown 0x042C 0x00000000" enable
+  output eDP-1 enable
 }
 
 profile {
-  output "Unknown 0x042C 0x00000000" disable
-  output "Goldstar Company Ltd LG PROJECTOR 0x00000101" scale 2.0
+  output eDP-1 disable
+  output "Goldstar Company Ltd LG PROJECTOR 0x00000101" enable scale 2.0
 }

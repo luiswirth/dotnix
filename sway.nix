@@ -56,6 +56,7 @@ in
   environment.systemPackages = with pkgs; [
     wayland
     sway
+    xwayland
 
     swaylock
     swayidle
@@ -68,9 +69,11 @@ in
     mako # notifications
     playerctl
     pamixer
+    pavucontrol
     pulsemixer
     brightnessctl
     wl-mirror
+    waypipe
 
     ydotool # automation
     glib # gsettings
@@ -114,5 +117,3 @@ in
     wrapperFeatures.gtk = true;
   };
 }
-    
-    
