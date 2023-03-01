@@ -27,8 +27,10 @@
   # blacklist igc (intel ethernet driver) to avoid problems with thinkpad dock
   boot.blacklistedKernelModules = [ "igc" ];
 
-  networking.hostName = "lwirth-tp";
-  networking.wireless.iwd.enable = true;
+  networking = {
+    hostName = "lwirth-tp";
+    wireless.iwd.enable = true;
+  };
 
   time.timeZone = "Europe/Zurich";
 
@@ -40,6 +42,10 @@
     keyMap = "us";
   };
 
+  services.upower = {
+    enable = true;
+    criticalPowerAction = "Hibernate";
+  };
 
   services.printing.enable = true;
 
@@ -77,9 +83,6 @@
   nixpkgs.config.allowUnfree = true;
 
   services.udev.extraRules = ''
-    # Suspend the system when battery level drops to 5% or lower
-    SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+=systemctl hibernate"
-
     # rp2040
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
 
@@ -103,8 +106,10 @@
   
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
   };
 
   security.polkit.enable = true;

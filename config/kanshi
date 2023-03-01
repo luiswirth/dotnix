@@ -11,13 +11,18 @@ profile {
 
 profile {
   output eDP-1 disable
-  output "Samsung Electric Company U28D590 0x00000000" enable scale 1.5
+  output "Samsung Electric Company U28D590 Unknown" enable scale 1.5
 }
+
+#profile {
+#  output eDP-1 disable
+#  output "Samsung Electric Company U28H75x HTPJ700579" enable scale 1.5 position 0,0
+#  output "Samsung Electric Company U28D590 Unknown" enable scale 1.5 position -3840,0
+#}
 
 profile {
   output eDP-1 disable
-  output "Samsung Electric Company U28H75x HTPJ700579" enable mode 2560x1440 position 0,0
-  output "Samsung Electric Company U28D590 0x00000000" enable mode 2560x1440 position -2560,0
+  output "LG Electronics LG PROJECTOR 0x00000101" enable scale 2
 }
 
 profile {
@@ -30,14 +35,3 @@ profile {
   output "LG Electronics LG TV SSCR2 0x00000101" enable scale 2
 }
 
-
-# lwirth-media
-
-profile {
-  output eDP-1 enable
-}
-
-profile {
-  output eDP-1 disable
-  output "Goldstar Company Ltd LG PROJECTOR 0x00000101" enable scale 2.0
-}

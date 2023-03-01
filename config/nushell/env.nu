@@ -6,10 +6,6 @@ let-env PROMPT_INDICATOR_VI_INSERT = { ": " }
 let-env PROMPT_INDICATOR_VI_NORMAL = { "❯ " }
 let-env PROMPT_MULTILINE_INDICATOR = { "::: " }
 
-# TODO: reenable when https://github.com/starship/starship/issues/4507 is fixed
-#mkdir ~/.cache/starship
-#starship init nu | save ~/.cache/starship/init.nu
-
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
 # - converted from a value back to a string when running external commands (to_string)

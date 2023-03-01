@@ -35,6 +35,9 @@
     btop
     sshfs
 
+    lshw
+    pciutils
+
     exa
     bat
     fd
@@ -53,6 +56,7 @@
     delta
     kondo
     gnuplot
+    tmpmail
 
     #kitty
     alacritty
