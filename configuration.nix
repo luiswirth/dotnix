@@ -60,9 +60,9 @@
     packages = with pkgs; [ ];
   };
   security.sudo.wheelNeedsPassword = false;
-  users.defaultUserShell = pkgs.nushell;
-  environment.pathsToLink = [ "/share/nushell" ];
-  environment.shells = with pkgs; [ nushell ];
+  users.defaultUserShell = pkgs.fish;
+  environment.pathsToLink = [ "/share/fish" ];
+  environment.shells = with pkgs; [ fish ];
 
   # allow setting brightness with function keys
   programs.light.enable = true;

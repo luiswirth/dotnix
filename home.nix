@@ -1,20 +1,70 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
-  programs.nushell = {
-    enable = true;
-    configFile.source = ./config/nushell/config.nu;
-    envFile.source = ./config/nushell/env.nu;
+  home.sessionVariables =
+    let
+      cacheDir = "${config.home.homeDirectory}/.cache";
+      configDir = "${config.home.homeDirectory}/.config";
+      dataDir = "${config.home.homeDirectory}/.local/share";
+    in
+    {
+      TERMINAL = "alacritty";
+      EDITOR = "hx";
+      VISUAL = "hx";
+      BROWSER = "brave";
+      TASKMGR = "btop";
+      READER = "zathura";
+      FILEMGR = "nnn";
+
+      # clean home
+      RUSTUP_HOME = "${dataDir}/rustup";
+      CARGO_HOME = "${dataDir}/cargo";
+      CARGO_TARGET_DIR = "${cacheDir}/target";
   };
+
+
+  home.shellAliases = {
+    ls = "exa";
+    la = "exa -a";
+    ll = "exa -la";
+    rm = "rm -v";
+    ash = "rmtrash";
+    ashdir = "rmdirtrash";
+    cp = "cp -iv";
+    mv = "mv -iv";
+    mkdir = "mkdir -pv";
+    ed = "$EDITOR";
+  };
+
+
+  home.sessionPath = [
+    "$HOME/script"
+    "$CARGO_HOME/bin"
+  ];
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit =
+      "fish_vi_key_bindings
+      set --erase fish_greeting";
+
+  };
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  programs.man.generateCaches = true;
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
+
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
+    enableFishIntegration = true;
     enableSshSupport = true;
   };
   programs.ssh.enable = true;
@@ -72,7 +122,6 @@
 
     signal-desktop
     discord
-    zoom-us
 
     tectonic
     ffmpeg_5-full
@@ -145,12 +194,10 @@
       "kanshi/config".source = ./config/kanshi;
       "waybar".source = ./config/waybar;
       "zathura/zathurarc".source = ./config/zathura;
-      "starship.toml".source = ./config/starship.toml;
     };
   };
 
   home.file."script".source = ./script;
-  #home.file."file.foo".source = config.lib.file.mkOutOfStoreSymlink ./path/to/file/to/link;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
