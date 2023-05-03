@@ -22,7 +22,7 @@
       RUSTUP_HOME = "${dataDir}/rustup";
       CARGO_HOME = "${dataDir}/cargo";
       CARGO_TARGET_DIR = "${cacheDir}/target";
-  };
+    };
 
 
   home.shellAliases = {
@@ -118,20 +118,22 @@
     spotify
     xournalpp
     obs-studio
+    ffmpeg_5-full
+
     obsidian
 
-    signal-desktop
     discord
+    element-desktop
+    signal-desktop
 
     tectonic
-    ffmpeg_5-full
+    typst
+    typst-lsp
 
     xdg-user-dirs
     xdg-utils
 
     pass
-
-    prismlauncher
 
     # fonts
     noto-fonts

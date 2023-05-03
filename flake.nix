@@ -29,26 +29,11 @@
         buildInputs = [ ];
       };
 
-
       nixosConfigurations = {
-        lwirth-tp = lib.nixosSystem {
+        lwirth-compute = lib.nixosSystem {
           inherit system;
           modules = [
-            ./hardware-lwirth-tp.nix
-            ./configuration.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home.nix;
-            }
-          ];
-        };
-        lwirth-media = lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./hardware-lwirth-media.nix
+            ./hardware-lwirth-compute.nix
             ./configuration.nix
 
             home-manager.nixosModules.home-manager
@@ -60,6 +45,5 @@
           ];
         };
       };
-
     };
 }

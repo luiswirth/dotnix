@@ -5,8 +5,12 @@
     ./sway.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
   nix = {
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
     gc = {
       automatic = true;
       dates = "monthly";
@@ -14,73 +18,60 @@
     };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
-  };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # blacklist igc (intel ethernet driver) to avoid problems with thinkpad dock
-  boot.blacklistedKernelModules = [ "igc" ];
-
-  networking = {
-    hostName = "lwirth-tp";
-    wireless.iwd.enable = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot/efi";
+    };
+    initrd.secrets = {
+      "/crypto_keyfile.bin" = null;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   time.timeZone = "Europe/Zurich";
-
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    earlySetup = true;
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
-    packages = with pkgs; [ terminus_font ];
-    keyMap = "us";
-  };
 
-  services.upower = {
-    enable = true;
-    criticalPowerAction = "Hibernate";
-  };
-
-  services.printing.enable = true;
-
-  hardware.bluetooth.enable = true;
-  hardware.logitech.wireless.enable = true;
-  
-  hardware.opengl.enable = true;
-
+  security.sudo.wheelNeedsPassword = false;
   users.users.luis = {
     isNormalUser = true;
-    extraGroups = [ "adm" "ftp" "games" "http" "log" "rfkill" "sys" "uucp" "scanner" "kvm" "storage" "wheel" "input" "video" "audio" "dialout" "libvirtd" ];
+    description = "Luis Wirth";
+    extraGroups = [ "wheel" "input" "video" "audio" "networkmanager" "libvirtd" ];
     packages = with pkgs; [ ];
   };
-  security.sudo.wheelNeedsPassword = false;
+
+  programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
   environment.pathsToLink = [ "/share/fish" ];
   environment.shells = with pkgs; [ fish ];
 
-  # allow setting brightness with function keys
-  programs.light.enable = true;
+  networking = {
+    hostName = "lwirth-tp";
+    networkmanager.enable = true;
+  };
+  hardware.bluetooth.enable = true;
+  hardware.logitech.wireless.enable = true;
+  services.printing.enable = true;
 
   # power saving
   services.tlp.enable = true;
+  services.upower = {
+    enable = true;
+    criticalPowerAction = "Hibernate";
+  };
 
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "ignore";
   };
-  
+
+  programs.light.enable = true;
+
   # virtualization
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   services.udev.extraRules = ''
     # rp2040
@@ -92,7 +83,7 @@
 
   environment.systemPackages = with pkgs; [
     virt-manager
-  
+
     man-pages
     man-pages-posix
   ];
@@ -103,7 +94,7 @@
   services.pcscd.enable = true;
   services.gvfs.enable = true;
   services.avahi.enable = true;
-  
+
   services.openssh = {
     enable = true;
     settings = {
@@ -129,13 +120,12 @@
     };
   };
 
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 }
 
