@@ -1,4 +1,6 @@
-# lwirth-tp
+profile {
+  output LVDS-1 enable scale 0.75
+}
 
 profile {
   output eDP-1 enable
@@ -13,12 +15,6 @@ profile {
   output eDP-1 disable
   output "Samsung Electric Company U28D590 Unknown" enable scale 1.5
 }
-
-#profile {
-#  output eDP-1 disable
-#  output "Samsung Electric Company U28H75x HTPJ700579" enable scale 1.5 position 0,0
-#  output "Samsung Electric Company U28D590 Unknown" enable scale 1.5 position -3840,0
-#}
 
 profile {
   output eDP-1 disable

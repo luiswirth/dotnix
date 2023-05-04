@@ -13,7 +13,7 @@
       TERMINAL = "alacritty";
       EDITOR = "hx";
       VISUAL = "hx";
-      BROWSER = "brave";
+      BROWSER = "firefox";
       TASKMGR = "btop";
       READER = "zathura";
       FILEMGR = "nnn";
@@ -112,7 +112,6 @@
     alacritty
     firefox
     brave
-    chromium
     imv
     zathura
     spotify
@@ -178,9 +177,11 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
         "image/png" = "imv-folder.desktop";
         "image/jpeg" = "imv-folder.desktop";
-        "text/plain" = "nvim.desktop";
+        "text/plain" = "helix.desktop";
         "application/pdf" = "org.pwmt.zathura.desktop";
         "video/*" = "ffplay.desktop";
       };

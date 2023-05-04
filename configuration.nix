@@ -54,6 +54,8 @@
   hardware.logitech.wireless.enable = true;
   services.printing.enable = true;
 
+  services.fwupd.enable = true;
+
   # power saving
   services.tlp.enable = true;
   services.upower = {
