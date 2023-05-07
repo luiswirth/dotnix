@@ -128,6 +128,9 @@
     tectonic
     typst
     typst-lsp
+    typst-fmt
+
+    prismlauncher
 
     xdg-user-dirs
     xdg-utils
@@ -190,7 +193,8 @@
     configFile = {
       "git/config".source = ./config/git;
       "nvim".source = ./config/nvim;
-      "helix".source = ./config/helix;
+      "helix/config.toml".source = ./config/helix/config.toml;
+      "helix/languages.toml".source = ./config/helix/languages.toml;
       "kitty/kitty.conf".source = ./config/kitty.conf;
       "zellij/config.kdl".source = ./config/zellij.kdl;
       "sway/config".source = ./config/sway;
@@ -210,7 +214,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.05";
+  home.stateVersion = "22.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

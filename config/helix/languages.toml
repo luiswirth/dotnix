@@ -1,3 +1,19 @@
 [[language]]
 name = "wgsl"
 language-server = { command = "wgsl_analyzer", args = [] }
+
+
+[[language]]
+name = "typst"
+scope = "source.typst"
+injection-regex = "^typst$"
+file-types = ["typ"]
+comment-token = "//"
+indent = { tab-width = 2, unit = "  " }
+roots = []
+language-server = { command = "typst-lsp" }
+#formatter = { command = "typst-fmt" , args = [] }
+
+[[grammar]]
+name = "typst"
+source = { path = "/home/luis/data/tree-sitter-typst" }
