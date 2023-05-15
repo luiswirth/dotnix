@@ -30,10 +30,10 @@
       };
 
       nixosConfigurations = {
-        lwirth-compute = lib.nixosSystem {
+        lwirth-tp = lib.nixosSystem {
           inherit system;
           modules = [
-            ./hardware-lwirth-compute.nix
+            ./hardware-lwirth-tp.nix
             ./configuration.nix
 
             home-manager.nixosModules.home-manager

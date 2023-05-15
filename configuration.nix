@@ -57,11 +57,12 @@
   services.fwupd.enable = true;
 
   # power saving
-  services.tlp.enable = true;
-  services.upower = {
-    enable = true;
-    criticalPowerAction = "Hibernate";
-  };
+  # one of these two options makes my Thinkpad Z16 freeze after resuming from suspend
+  #services.tlp.enable = true;
+  #services.upower = {
+    #enable = true;
+    #criticalPowerAction = "Hibernate";
+  #};
 
   services.logind = {
     lidSwitch = "suspend";
@@ -75,12 +76,19 @@
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
+  hardware.opengl = {
+    driSupport = true;
+    extraPackages = with pkgs; [
+      amdvlk
+    ];
+  };
+
   services.udev.extraRules = ''
     # rp2040
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
 
     # picoprobe
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="660", GROUP="plugdev", TAG+="uaccess"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="0666"
   '';
 
   environment.systemPackages = with pkgs; [

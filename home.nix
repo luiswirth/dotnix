@@ -108,10 +108,8 @@
     gnuplot
     tmpmail
 
-    #kitty
     alacritty
     firefox
-    brave
     imv
     zathura
     spotify
@@ -128,7 +126,6 @@
     tectonic
     typst
     typst-lsp
-    typst-fmt
 
     prismlauncher
 
@@ -136,6 +133,7 @@
     xdg-utils
 
     pass
+    restic
 
     # fonts
     noto-fonts

@@ -1,31 +1,33 @@
 profile {
-  output LVDS-1 enable scale 0.75
-}
-
-profile {
   output eDP-1 enable
 }
 
+# dual monitor
+profile {
+  output eDP-1 disable
+  output "Samsung Electric Company U28H75x HTPJ700579" enable position 0,0 scale 1.5
+  output "Samsung Electric Company U28D590 Unknown" enable position 3840,0 scale 1.5
+}
+
+# newer samsung monitor
 profile {
   output eDP-1 disable
   output "Samsung Electric Company U28H75x HTPJ700579" enable scale 1.5
 }
 
+# older samsung monitor
 profile {
   output eDP-1 disable
   output "Samsung Electric Company U28D590 Unknown" enable scale 1.5
 }
 
+# projector
 profile {
   output eDP-1 disable
   output "LG Electronics LG PROJECTOR 0x00000101" enable scale 2
 }
 
-profile {
-  output eDP-1 disable
-  output "HP Inc. HP 27f 3CM0421X41   " enable
-}
-
+# ami tv
 profile {
   output eDP-1 disable
   output "LG Electronics LG TV SSCR2 0x00000101" enable scale 2
