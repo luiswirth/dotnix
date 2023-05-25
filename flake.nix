@@ -3,13 +3,14 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager }:
     let
       system = "x86_64-linux";
       user = "luis";
@@ -33,7 +34,9 @@
         lwirth-tp = lib.nixosSystem {
           inherit system;
           modules = [
+            nixos-hardware.nixosModules.lenovo-thinkpad-z
             ./hardware-lwirth-tp.nix
+
             ./configuration.nix
 
             home-manager.nixosModules.home-manager

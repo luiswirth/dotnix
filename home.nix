@@ -70,6 +70,12 @@
   programs.ssh.enable = true;
   fonts.fontconfig.enable = true;
 
+  # for vscode ssh collaboration
+  imports = [
+    "${fetchTarball { url = "https://github.com/msteen/nixos-vscode-server/tarball/master"; sha256 = "08snszxxhn6ifjqphd2c4svk0h1gkk3ancsv7wz5h1ss4kaayhgy"; }}/modules/vscode-server/home.nix"
+  ];
+  services.vscode-server.enable = true;
+
   home.packages = with pkgs; [
     openssl
     cacert
