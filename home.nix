@@ -94,6 +94,7 @@
     lshw
     pciutils
 
+    alacritty
     exa
     bat
     fd
@@ -114,11 +115,11 @@
     gnuplot
     tmpmail
 
-    alacritty
     firefox
+    spotify
+    
     imv
     zathura
-    spotify
     xournalpp
     obs-studio
     ffmpeg_5-full

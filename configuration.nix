@@ -50,6 +50,7 @@
     hostName = "lwirth-tp";
     networkmanager.enable = true;
   };
+  
   hardware.bluetooth.enable = true;
   hardware.logitech.wireless.enable = true;
   services.printing.enable = true;
