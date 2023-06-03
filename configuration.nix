@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -38,7 +38,7 @@
     isNormalUser = true;
     description = "Luis Wirth";
     extraGroups = [ "wheel" "input" "video" "audio" "networkmanager" "libvirtd" ];
-    packages = with pkgs; [ ];
+    packages = [ ];
   };
 
   programs.fish.enable = true;
@@ -50,7 +50,7 @@
     hostName = "lwirth-tp";
     networkmanager.enable = true;
   };
-  
+
   hardware.bluetooth.enable = true;
   hardware.logitech.wireless.enable = true;
   services.printing.enable = true;
@@ -61,8 +61,8 @@
   # one of these two options makes my Thinkpad Z16 freeze after resuming from suspend
   #services.tlp.enable = true;
   #services.upower = {
-    #enable = true;
-    #criticalPowerAction = "Hibernate";
+  #enable = true;
+  #criticalPowerAction = "Hibernate";
   #};
 
   services.logind = {
