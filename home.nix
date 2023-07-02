@@ -107,7 +107,10 @@
     delta
     kondo
     gnuplot
+    moreutils
     tmpmail
+    zip
+    unzip
 
     firefox
     spotify
@@ -117,6 +120,7 @@
     xournalpp
     obs-studio
     ffmpeg_5-full
+    vlc
 
     obsidian
 

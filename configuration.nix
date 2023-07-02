@@ -58,17 +58,17 @@
   services.fwupd.enable = true;
 
   # power saving
-  # one of these two options makes my Thinkpad Z16 freeze after resuming from suspend
+  services.upower = {
+    enable = true;
+    criticalPowerAction = "Hibernate";
+  };
+  # this option used to make my Thinkpad Z16 freeze after resuming from suspend
   #services.tlp.enable = true;
-  #services.upower = {
-  #enable = true;
-  #criticalPowerAction = "Hibernate";
-  #};
 
   services.logind = {
     lidSwitch = "suspend";
+    lidSwitchExternalPower = "suspend";
     lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
   };
 
   programs.light.enable = true;
