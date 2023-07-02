@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, waybar-hyprland, ... }:
 {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
@@ -13,7 +13,7 @@
       TERMINAL = "alacritty";
       EDITOR = "hx";
       VISUAL = "hx";
-      BROWSER = "firefox";
+      BROWSER = "chromium";
       TASKMGR = "btop";
       READER = "zathura";
       FILEMGR = "nnn";
@@ -38,7 +38,6 @@
     ed = "$EDITOR";
   };
 
-
   home.sessionPath = [
     "$HOME/script"
     "$CARGO_HOME/bin"
@@ -49,7 +48,6 @@
     interactiveShellInit =
       "fish_vi_key_bindings
       set --erase fish_greeting";
-
   };
   programs.starship = {
     enable = true;
@@ -70,25 +68,91 @@
   programs.ssh.enable = true;
   fonts.fontconfig.enable = true;
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    xwayland = {
+      enable = true;
+      hidpi = false;
+    };
+    extraConfig = builtins.readFile ./config/hyprland.conf;
+  };
+  programs.waybar = {
+    enable = true;
+    package = waybar-hyprland;
+  };
+  programs.wofi.enable = true;
+
+  # theming
+
+  dconf.settings."org/gnome/desktop/interface" = {
+    monospace-font-name = "DejaVu Sans Mono";
+    color-scheme = "prefer-dark";
+  };
+
+  gtk = {
+    enable = true;
+    font.package = pkgs.ubuntu_font_family;
+    font.name = "Ubuntu";
+    theme.package = pkgs.materia-theme;
+    theme.name = "Materia-dark";
+    iconTheme.package = pkgs.papirus-icon-theme;
+    iconTheme.name = "Papirus-Dark";
+
+    gtk3.extraConfig.Settings = ''
+      gtk-application-prefer-dark-theme=1
+    '';
+    gtk4.extraConfig.Settings = ''
+      gtk-application-prefer-dark-theme=1
+    '';
+  };
+
+
+  home.pointerCursor = {
+    package = pkgs.quintom-cursor-theme;
+    name = "Quintom_Ink";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
+  #qt = {
+  #  enable = true;
+  #  platformTheme = "gtk";
+  #  style = {
+  #    name = "adwaita-dark";
+  #    package = pkgs.adwaita-qt;
+  #  };
+  #};
+
   home.packages = with pkgs; [
     openssl
     cacert
     pinentry-gtk2
+    xdg-user-dirs
+    xdg-utils
 
-    helix
-    neovim
-    zellij
-    pueue
-    git
-    github-cli
-    nnn
-    btop
-    sshfs
-
+    moreutils
+    zip
+    unzip
+    wget
+    curl
     lshw
     pciutils
 
-    alacritty
+    helix
+    neovim
+    git
+    github-cli
+    zellij
+    nnn
+
+    sshfs
+    gnuplot
+    tmpmail
+    pass
+    restic
+    ffmpeg_5-full
+
     exa
     bat
     fd
@@ -97,57 +161,64 @@
     ripgrep
     ripgrep-all
     procs
-    gitui
-    ouch
-    diskonaut
+    pueue
+    btop
     tealdeer
     starship
-    wget
-    curl
+    ouch
+    diskonaut
     delta
     kondo
-    gnuplot
-    moreutils
-    tmpmail
-    zip
-    unzip
 
-    firefox
+    swaylock
+    swayidle
+    swaybg
+    kanshi
+    wl-mirror
+    wl-clipboard
+    waypipe
+    wl-clipboard
+    mako
+    grim
+    slurp
+    playerctl
+    pamixer
+    pavucontrol
+    pulsemixer
+    brightnessctl
+
+    alacritty
+    chromium
+
     spotify
-
     imv
     zathura
     xournalpp
     obs-studio
-    ffmpeg_5-full
     vlc
-
     obsidian
-
     discord
+    zoom-us
     element-desktop
     signal-desktop
+    prismlauncher
 
     typst
     typst-lsp
 
-    prismlauncher
-
-    xdg-user-dirs
-    xdg-utils
-
-    pass
-    restic
 
     # fonts
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
     liberation_ttf
+    ubuntu_font_family
+    dejavu_fonts
     fira-code
     fira-code-symbols
     font-awesome
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
+
   ];
 
   systemd.user.services = {
@@ -199,9 +270,10 @@
       "helix/languages.toml".source = ./config/helix/languages.toml;
       "kitty/kitty.conf".source = ./config/kitty.conf;
       "zellij/config.kdl".source = ./config/zellij.kdl;
-      "sway/config".source = ./config/sway;
       "kanshi/config".source = ./config/kanshi;
       "waybar".source = ./config/waybar;
+      "wofi/config".source = ./config/wofi/config;
+      "wofi/style.css".source = ./config/wofi/style.css;
       "zathura/zathurarc".source = ./config/zathura;
     };
   };

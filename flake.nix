@@ -3,14 +3,16 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager }:
+  outputs = { self, nixpkgs, home-manager, hyprland, nixos-hardware }:
     let
       system = "x86_64-linux";
       user = "luis";
@@ -34,17 +36,25 @@
         lwirth-tp = lib.nixosSystem {
           inherit system;
           modules = [
-            nixos-hardware.nixosModules.lenovo-thinkpad-z
-            ./hardware-lwirth-tp.nix
-
             ./configuration.nix
 
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home.nix;
+              home-manager.extraSpecialArgs = {
+                waybar-hyprland = hyprland.packages.${system}.waybar-hyprland;
+              };
+              home-manager.users.${user}.imports = [
+                ./home.nix
+                hyprland.homeManagerModules.default
+              ];
             }
+
+            hyprland.nixosModules.default
+
+            ./hardware-lwirth-tp.nix
+            nixos-hardware.nixosModules.lenovo-thinkpad-z
           ];
         };
       };

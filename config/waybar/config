@@ -1,86 +1,72 @@
 {
-    "layer": "top",
-    "position": "bottom",
-    "height": 35,
-    "spacing": 4, // gaps between modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "tray"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["sway/language", "network", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock"],
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+  "layer": "top",
+  "position": "bottom",
+  "height": 35,
+  "spacing": 4, // gaps between modules
+  "modules-left": ["wlr/workspaces", "tray"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["network", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock"],
+
+  "wlr/workspaces": {
+    "sort-by-number": true,
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-click": "activate"
+  },
+  "hyprland/window": {
+    "max-length": 200,
+    "separate-outputs": true
+  },
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+  },
+  "clock": {
+    "format": " {:%Y-%m-%d %a %H:%M}", 
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+  },
+  "cpu": {
+    "format": "  {usage}%",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "  {}%"
+  },
+  "temperature": {
+    "format": " {temperatureC}°C",
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-plugged": "  {capacity}% ",
+    "format-icons": [" ", " ", " ", " ", " "]
+  },
+  "network": {
+    "format-wifi": "  {essid} {signalStrength}%",
+    "format-ethernet": " {ipaddr}/{cidr}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": "{ifname} (No IP)",
+    "format-disconnected": "NO NET",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon}  {volume}% {format_source}",
+    "format-bluetooth": " {icon} {volume}% {format_source}",
+    "format-bluetooth-muted": "  {format_source}",
+    "format-muted": "",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": "",
     },
-    "sway/language": {
-        "format": " {}"
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-    },
-    "clock": {
-        "format": " {:%Y-%m-%d %a %H:%M}", 
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    },
-    "cpu": {
-        "format": "  {usage}%",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "  {}%"
-    },
-    "temperature": {
-        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
-        "format": " {temperatureC}°C",
-    },
-    "battery": {
-        "format": "{icon} {capacity}%",
-        "format-charging": "  {capacity}%",
-        "format-plugged": "  {capacity}% ",
-        "format-icons": [" ", " ", " ", " ", " "]
-    },
-    "network": {
-        "format-wifi": "  {essid} {signalStrength}%",
-        "format-ethernet": " {ipaddr}/{cidr}",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "NO NET",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon}  {volume}% {format_source}",
-        "format-bluetooth": " {icon} {volume}% {format_source}",
-        "format-bluetooth-muted": "  {format_source}",
-        "format-muted": "",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": "",
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    }
+    "on-click": "pavucontrol"
+  },
 }

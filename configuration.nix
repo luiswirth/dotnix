@@ -1,15 +1,14 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./sway.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
-      auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
     gc = {
       automatic = true;
@@ -38,7 +37,6 @@
     isNormalUser = true;
     description = "Luis Wirth";
     extraGroups = [ "wheel" "input" "video" "audio" "networkmanager" "libvirtd" ];
-    packages = [ ];
   };
 
   programs.fish.enable = true;
@@ -67,7 +65,7 @@
 
   services.logind = {
     lidSwitch = "suspend";
-    lidSwitchExternalPower = "suspend";
+    lidSwitchExternalPower = "ignore";
     lidSwitchDocked = "ignore";
   };
 
@@ -78,10 +76,8 @@
   programs.dconf.enable = true;
 
   hardware.opengl = {
+    enable = true;
     driSupport = true;
-    extraPackages = with pkgs; [
-      amdvlk
-    ];
   };
 
   services.udev.extraRules = ''
@@ -114,6 +110,7 @@
     };
   };
 
+  security.rtkit.enable = true;
   security.polkit.enable = true;
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
@@ -128,6 +125,21 @@
         RestartSec = 1;
         TimeoutStopSec = 10;
       };
+    };
+  };
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  programs.hyprland = {
+    enable = true;
+    xwayland = {
+      enable = true;
+      hidpi = false;
     };
   };
 

@@ -1,0 +1,38 @@
+* {
+  border-radius: 20px;
+  border: none;
+}
+
+window {
+  font-size: 32px;
+  font-family: "Fira Code";
+  background-color: rgba(50, 50, 50, 0.9);
+  color: white;
+  border: 3px solid white;
+}
+
+#input {
+  background-color: rgba(50, 50, 50, 0.5);
+  color: white;
+  padding: 0.25em;
+  margin-bottom: 0.25em;
+  border: 3px solid white;
+}
+
+#entry {
+  padding: 0.2em;
+}
+
+#entry:selected {
+  background-color: #bbccdd;
+  background: linear-gradient(90deg, #bbccdd, #cca5dd);
+}
+
+#text:selected {
+  color: #333333;
+}
+
+image {
+  margin-left: .35em;
+  margin-right: .35em;
+}
