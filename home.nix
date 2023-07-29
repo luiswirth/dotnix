@@ -1,4 +1,4 @@
-{ config, pkgs, waybar-hyprland, ... }:
+{ inputs, config, pkgs, ... }:
 {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
@@ -78,12 +78,37 @@
   };
   programs.waybar = {
     enable = true;
-    package = waybar-hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.waybar-hyprland;
   };
   programs.wofi.enable = true;
+  programs.anyrun = {
+    enable = true;
+    package = inputs.anyrun.packages.${pkgs.system}.anyrun;
+    config = {
+      plugins = [
+        inputs.anyrun.packages.${pkgs.system}.applications
+        inputs.anyrun.packages.${pkgs.system}.randr
+        inputs.anyrun.packages.${pkgs.system}.symbols
+        inputs.anyrun.packages.${pkgs.system}.shell
+      ];
+    };
+  };
+  programs.swaylock.enable = true;
+
+  services.swayidle = {
+    enable = true;
+    events = [{
+      event = "before-sleep";
+      command = "swaylock -f -c 000000";
+    }];
+    timeouts = [{
+        timeout = 300;
+        command = "hyperctl dispatch dpms off";
+        resumeCommand = "hyperctl dispatch dpms on";
+      }];
+  };
 
   # theming
-
   dconf.settings."org/gnome/desktop/interface" = {
     monospace-font-name = "DejaVu Sans Mono";
     color-scheme = "prefer-dark";
@@ -170,8 +195,6 @@
     delta
     kondo
 
-    swaylock
-    swayidle
     swaybg
     kanshi
     wl-mirror
@@ -204,13 +227,13 @@
     prismlauncher
 
     typst
+    typstfmt
     typst-lsp
 
-
-    # fonts
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
+    libertine
     liberation_ttf
     ubuntu_font_family
     dejavu_fonts
@@ -218,8 +241,8 @@
     fira-code-symbols
     font-awesome
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
+  ] ++ pkgs.texlive.newcomputermodern.pkgs;
 
-  ];
 
   systemd.user.services = {
     pueued = {

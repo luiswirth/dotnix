@@ -7,12 +7,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     hyprland.url = "github:hyprwm/Hyprland";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, nixos-hardware }:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland, anyrun } @ inputs:
     let
       system = "x86_64-linux";
       user = "luis";
@@ -35,6 +39,7 @@
       nixosConfigurations = {
         lwirth-tp = lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             ./configuration.nix
 
@@ -42,12 +47,11 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                waybar-hyprland = hyprland.packages.${system}.waybar-hyprland;
-              };
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.${user}.imports = [
                 ./home.nix
                 hyprland.homeManagerModules.default
+                anyrun.homeManagerModules.default
               ];
             }
 
