@@ -8,11 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland } @ inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware } @ inputs:
     let
       system = "x86_64-linux";
       user = "luis";
@@ -46,11 +44,8 @@
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.${user}.imports = [
                 ./home.nix
-                hyprland.homeManagerModules.default
               ];
             }
-
-            hyprland.nixosModules.default
 
             ./hardware-lwirth-tp.nix
             nixos-hardware.nixosModules.lenovo-thinkpad-z
