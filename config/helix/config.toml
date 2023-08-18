@@ -9,6 +9,8 @@ cursorline = false
 color-modes = true
 whitespace.render.newline = "all"
 
+gutters = [ "diagnostics", "spacer", "line-numbers", "spacer" ]
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
@@ -24,3 +26,4 @@ L = "goto_line_end_newline"
 [keys.select]
 H = "goto_line_start"
 L = "goto_line_end_newline"
+

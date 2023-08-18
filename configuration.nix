@@ -12,11 +12,9 @@
       builders-use-substitutes = true;
       substituters = [
         "https://hyprland.cachix.org"
-        "https://anyrun.cachix.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
     };
     gc = {
@@ -37,8 +35,9 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
 
-    # potential amdgpu error workaround
-    kernelParams = [ "amdgpu.noretry=0" "amdgpu.dcdebugmask=0x4" "amdgpu.vm_update_mode=3" ];
+    # amdgpu kernel error workaround
+    # see https://gitlab.freedesktop.org/drm/amd/-/issues/2220#note_1995813
+    kernelParams = [ "amdgpu.vm_update_mode=3" ];
   };
 
   systemd.services.ryzenadj = {
@@ -72,9 +71,10 @@
     networkmanager.enable = true;
   };
 
+  hardware.firmware = with pkgs; [ wireless-regdb ];
+
   hardware.bluetooth.enable = true;
   hardware.logitech.wireless.enable = true;
-  services.printing.enable = true;
 
   services.fwupd.enable = true;
 
@@ -127,10 +127,19 @@
 
   documentation.dev.enable = true;
 
+  services.printing = {
+    enable = true;
+    #drivers = with pkgs; [ brlaser gutenprint ];
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
+
   programs.mtr.enable = true;
   services.pcscd.enable = true;
   services.gvfs.enable = true;
-  services.avahi.enable = true;
 
   services.openssh = {
     enable = true;
@@ -171,11 +180,8 @@
 
   programs.hyprland = {
     enable = true;
+    xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    xwayland = {
-      enable = true;
-      hidpi = false;
-    };
   };
 
   # This value determines the NixOS release from which the default

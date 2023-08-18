@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
@@ -22,6 +22,9 @@
       RUSTUP_HOME = "${dataDir}/rustup";
       CARGO_HOME = "${dataDir}/cargo";
       CARGO_TARGET_DIR = "${cacheDir}/target";
+
+      # hint electron apps to use wayland
+      NIXOS_OZONE_WL = "1";
     };
 
 
@@ -70,29 +73,14 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland = {
-      enable = true;
-      hidpi = false;
-    };
+    xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
   };
   programs.waybar = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.waybar-hyprland;
+    package = pkgs.waybar-hyprland;
   };
   programs.wofi.enable = true;
-  programs.anyrun = {
-    enable = true;
-    package = inputs.anyrun.packages.${pkgs.system}.anyrun;
-    config = {
-      plugins = [
-        inputs.anyrun.packages.${pkgs.system}.applications
-        inputs.anyrun.packages.${pkgs.system}.randr
-        inputs.anyrun.packages.${pkgs.system}.symbols
-        inputs.anyrun.packages.${pkgs.system}.shell
-      ];
-    };
-  };
   programs.swaylock.enable = true;
 
   services.swayidle = {
@@ -164,7 +152,7 @@
     lshw
     pciutils
 
-    helix
+    #helix
     neovim
     git
     github-cli
@@ -214,6 +202,7 @@
     chromium
 
     spotify
+
     imv
     zathura
     xournalpp

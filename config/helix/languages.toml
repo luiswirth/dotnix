@@ -1,6 +1,13 @@
+[language-server.typst-lsp]
+command = "typst-lsp"
+
+[language-server.wgsl-lsp]
+command = "wgsl_analyzer"
+
 [[language]]
 name = "wgsl"
-language-server = { command = "wgsl_analyzer", args = [] }
+#language-server.command = "wgsl_analyzer"
+language-servers = [ "wgsl-lsp" ]
 
 
 [[language]]
@@ -11,6 +18,8 @@ file-types = ["typ"]
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
 roots = []
+#language-server.command = "typst-lsp"
+language-servers = [ "typst-lsp" ]
 #formatter = { command = "typst-fmt" , args = [] }
 
 [language.auto-pairs]
@@ -25,5 +34,3 @@ roots = []
 name = "typst"
 source = { path = "/home/luis/data/tree-sitter-typst" }
 
-[[language-servers.typst-lsp]]
-command = "typst-lsp"

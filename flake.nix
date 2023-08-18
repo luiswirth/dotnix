@@ -10,13 +10,9 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     hyprland.url = "github:hyprwm/Hyprland";
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland, anyrun } @ inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland } @ inputs:
     let
       system = "x86_64-linux";
       user = "luis";
@@ -51,7 +47,6 @@
               home-manager.users.${user}.imports = [
                 ./home.nix
                 hyprland.homeManagerModules.default
-                anyrun.homeManagerModules.default
               ];
             }
 
