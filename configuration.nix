@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-  hardware.enableAllFirmware = true;
-
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
@@ -15,6 +12,7 @@
       options = "--delete-older-than 31d";
     };
   };
+  nixpkgs.config.allowUnfree = true;
 
   boot = {
     loader = {
@@ -32,19 +30,16 @@
     kernelParams = [ "amdgpu.vm_update_mode=3" ];
   };
 
-  systemd.services.ryzenadj = {
-    description = "Set Ryzen CPU to maximum performance";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --max-performance";
-      User = "root";
-      Group = "root";
-    };
-  };
+  hardware.enableAllFirmware = true;
+  hardware.firmware = with pkgs; [ wireless-regdb ];
 
   time.timeZone = "Europe/Zurich";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  networking = {
+    hostName = "lwirth-tp";
+    networkmanager.enable = true;
+  };
 
   security.sudo.wheelNeedsPassword = false;
   users.users.luis = {
@@ -58,29 +53,22 @@
   environment.pathsToLink = [ "/share/fish" ];
   environment.shells = with pkgs; [ fish ];
 
-  networking = {
-    hostName = "lwirth-tp";
-    networkmanager.enable = true;
-  };
 
-  hardware.firmware = with pkgs; [ wireless-regdb ];
-
-  hardware.bluetooth.enable = true;
-  hardware.logitech.wireless.enable = true;
+  # caps as escape in tty
+  services.xserver.xkbOptions = "caps:escape";
+  console.useXkbConfig = true;
 
   services.fwupd.enable = true;
 
-  # caps as escape in tty
-  services.xserver.xkbOptions = "caps:escape"; 
-  console.useXkbConfig = true; 
-  
-  # power saving
-  services.upower = {
+  hardware.bluetooth.enable = true;
+  hardware.logitech.wireless.enable = true;
+  services.printing.enable = true;
+
+  hardware.opengl = {
     enable = true;
-    criticalPowerAction = "Hibernate";
+    driSupport = true;
   };
-  # this option used to make my Thinkpad Z16 freeze after resuming from suspend
-  #services.tlp.enable = true;
+
 
   services.logind = {
     lidSwitch = "suspend";
@@ -88,6 +76,12 @@
     lidSwitchDocked = "ignore";
   };
 
+  # power saving
+  services.upower = {
+    enable = true;
+    criticalPowerAction = "Hibernate";
+  };
+  services.tlp.enable = true;
   programs.light.enable = true;
 
   # virtualization
@@ -96,33 +90,9 @@
 
   programs.dconf.enable = true;
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-  };
-
-  services.udev.extraRules = ''
-    # rp2040
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
-
-    # picoprobe
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="0666"
-  '';
-
-  environment.systemPackages = with pkgs; [
-    virt-manager
-    docker
-
-    man-pages
-    man-pages-posix
-  ];
 
   documentation.dev.enable = true;
 
-  services.printing = {
-    enable = true;
-    #drivers = with pkgs; [ brlaser gutenprint ];
-  };
   services.avahi = {
     enable = true;
     nssmdns = true;
@@ -141,9 +111,10 @@
     };
   };
 
+  services.dbus.packages = [ pkgs.gcr ];
 
-  # fix swaylock issue
-  security.pam.services.swaylock = {};
+
+  security.pam.services.swaylock = { };
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
@@ -174,6 +145,24 @@
     enable = true;
     xwayland.enable = true;
   };
+
+
+  services.udev.extraRules = ''
+    # rp2040
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
+
+    # picoprobe
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="0666"
+  '';
+
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    docker
+
+    man-pages
+    man-pages-posix
+  ];
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

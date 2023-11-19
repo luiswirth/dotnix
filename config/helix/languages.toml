@@ -1,6 +1,3 @@
-[language-server.typst-lsp]
-command = "typst-lsp"
-
 [language-server.wgsl-lsp]
 command = "wgsl_analyzer"
 
@@ -9,6 +6,9 @@ name = "wgsl"
 #language-server.command = "wgsl_analyzer"
 language-servers = [ "wgsl-lsp" ]
 
+
+[language-server.typst-lsp]
+command = "typst-lsp"
 
 [[language]]
 name = "typst"
@@ -34,3 +34,24 @@ language-servers = [ "typst-lsp" ]
 name = "typst"
 source = { path = "/home/luis/data/tree-sitter-typst" }
 
+
+#[language-server.julia-lsp]
+#command = "julia"
+#args = [
+#  "--startup-file=no",
+#  "--history-file=no",
+#  "--quiet",
+#  "--project",
+#  "-e",
+#  "using LanguageServer; runserver()",
+#]
+
+#[[language]]
+#name = "julia"
+#scope = "source.julia"
+#injection-regex = "julia"
+#file-types = ["jl"]
+#roots = ["Project.toml", "Manifest.toml"]
+#comment-token = "#"
+#language-servers = [ "julia-lsp" ]
+#indent = { tab-width = 2, unit = "  " }

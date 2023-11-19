@@ -13,7 +13,7 @@
       TERMINAL = "alacritty";
       EDITOR = "hx";
       VISUAL = "hx";
-      BROWSER = "chromium";
+      BROWSER = "firefox";
       TASKMGR = "btop";
       READER = "zathura";
       FILEMGR = "nnn";
@@ -24,17 +24,15 @@
       CARGO_TARGET_DIR = "${cacheDir}/target";
 
       # hint electron apps to use wayland
-      NIXOS_OZONE_WL = "1";
+      NIXOS_OZONE_WL = 1;
     };
 
 
   home.shellAliases = {
-    ls = "exa";
-    la = "exa -a";
-    ll = "exa -la";
+    ls = "eza";
+    la = "eza -a";
+    ll = "eza -la";
     rm = "rm -v";
-    ash = "rmtrash";
-    ashdir = "rmdirtrash";
     cp = "cp -iv";
     mv = "mv -iv";
     mkdir = "mkdir -pv";
@@ -67,8 +65,11 @@
     enable = true;
     enableFishIntegration = true;
     enableSshSupport = true;
+    pinentryFlavor = "gnome3";
   };
   programs.ssh.enable = true;
+  services.ssh-agent.enable = true;
+
   fonts.fontconfig.enable = true;
 
   wayland.windowManager.hyprland = {
@@ -76,10 +77,7 @@
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
   };
-  programs.waybar = {
-    enable = true;
-    package = pkgs.waybar-hyprland;
-  };
+  programs.waybar.enable = true;
   programs.wofi.enable = true;
   programs.swaylock.enable = true;
 
@@ -90,10 +88,10 @@
       command = "swaylock -f -c 000000";
     }];
     timeouts = [{
-        timeout = 300;
-        command = "hyperctl dispatch dpms off";
-        resumeCommand = "hyperctl dispatch dpms on";
-      }];
+      timeout = 300;
+      command = "hyperctl dispatch dpms off";
+      resumeCommand = "hyperctl dispatch dpms on";
+    }];
   };
 
   # theming
@@ -106,8 +104,8 @@
     enable = true;
     font.package = pkgs.ubuntu_font_family;
     font.name = "Ubuntu";
-    theme.package = pkgs.materia-theme;
-    theme.name = "Materia-dark";
+    #theme.package = pkgs.materia-theme;
+    #theme.name = "Materia-dark";
     iconTheme.package = pkgs.papirus-icon-theme;
     iconTheme.name = "Papirus-Dark";
 
@@ -137,6 +135,11 @@
   #  };
   #};
 
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
+
   home.packages = with pkgs; [
     openssl
     cacert
@@ -144,15 +147,19 @@
     xdg-user-dirs
     xdg-utils
 
+    trash-cli
     moreutils
+    tree
     zip
     unzip
     wget
     curl
     lshw
+    usbutils
     pciutils
+    psmisc
 
-    #helix
+    helix
     neovim
     git
     github-cli
@@ -166,7 +173,7 @@
     restic
     ffmpeg_5-full
 
-    exa
+    eza
     bat
     fd
     sd
@@ -182,6 +189,7 @@
     diskonaut
     delta
     kondo
+    tokei
 
     swaybg
     kanshi
@@ -200,6 +208,7 @@
 
     alacritty
     chromium
+    firefox
 
     spotify
 
@@ -211,9 +220,14 @@
     obsidian
     discord
     zoom-us
+    slack
     element-desktop
     signal-desktop
     prismlauncher
+
+    nil
+
+    elan
 
     typst
     typstfmt
@@ -230,7 +244,7 @@
     fira-code-symbols
     font-awesome
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
-  ] ++ pkgs.texlive.newcomputermodern.pkgs;
+  ];
 
 
   systemd.user.services = {

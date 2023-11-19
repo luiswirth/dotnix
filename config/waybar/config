@@ -3,7 +3,7 @@
   "position": "bottom",
   "height": 35,
   "spacing": 4, // gaps between modules
-  "modules-left": ["wlr/workspaces", "tray"],
+  "modules-left": ["hyprland/workspaces", "tray"],
   "modules-center": ["hyprland/window"],
   "modules-right": ["network", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock"],
 
