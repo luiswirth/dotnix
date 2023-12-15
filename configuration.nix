@@ -113,6 +113,11 @@
 
   services.dbus.packages = [ pkgs.gcr ];
 
+  networking.firewall = {
+    enable = true;
+    allowPing = true;
+    allowedTCPPorts = [ 42069 ];
+  };
 
   security.pam.services.swaylock = { };
 

@@ -25,6 +25,8 @@
 
       # hint electron apps to use wayland
       NIXOS_OZONE_WL = 1;
+
+      GTK_THEME = "Adwaita:dark";
     };
 
 
@@ -95,19 +97,22 @@
   };
 
   # theming
-  dconf.settings."org/gnome/desktop/interface" = {
-    monospace-font-name = "DejaVu Sans Mono";
-    color-scheme = "prefer-dark";
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface" = {
+      monospace-font-name = "DejaVu Sans Mono";
+      color-scheme = "prefer-dark";
+    };
   };
 
   gtk = {
     enable = true;
     font.package = pkgs.ubuntu_font_family;
     font.name = "Ubuntu";
-    #theme.package = pkgs.materia-theme;
-    #theme.name = "Materia-dark";
-    iconTheme.package = pkgs.papirus-icon-theme;
-    iconTheme.name = "Papirus-Dark";
+    #theme.package = ...
+    theme.name = "Adwaita-dark";
+    iconTheme.package = pkgs.gnome.adwaita-icon-theme;
+    iconTheme.name = "Adwaita";
 
     gtk3.extraConfig.Settings = ''
       gtk-application-prefer-dark-theme=1
@@ -126,14 +131,14 @@
     x11.enable = true;
   };
 
-  #qt = {
-  #  enable = true;
-  #  platformTheme = "gtk";
-  #  style = {
-  #    name = "adwaita-dark";
-  #    package = pkgs.adwaita-qt;
-  #  };
-  #};
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style = {
+      package = pkgs.adwaita-qt;
+      name = "adwaita-dark";
+    };
+  };
 
   programs.vscode = {
     enable = true;
@@ -158,6 +163,7 @@
     usbutils
     pciutils
     psmisc
+    nmap
 
     helix
     neovim
@@ -225,9 +231,13 @@
     signal-desktop
     prismlauncher
 
-    nil
+    clang
+    rustup
 
+    pipenv
     elan
+
+    nil
 
     typst
     typstfmt
