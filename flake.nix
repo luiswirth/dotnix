@@ -25,7 +25,7 @@
 
       devShell.${system} = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
-          rnix-lsp
+          nil
         ];
         buildInputs = [ ];
       };

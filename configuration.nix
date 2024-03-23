@@ -1,5 +1,14 @@
 { pkgs, ... }:
-
+let
+  myOverlay = self: super: {
+    fprintd = super.fprintd.overrideAttrs (_: { 
+        mesonCheckFlags = [ 
+          "--no-suite" "fprintd:TestPamFprintd"
+        ]; 
+      });
+    
+  };
+in
 {
   nix = {
     settings = {
@@ -13,6 +22,16 @@
     };
   };
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ myOverlay ];
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+  ];
+
+  # workaround for EOL
+  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
   boot = {
     loader = {
@@ -43,9 +62,11 @@
 
   security.sudo.wheelNeedsPassword = false;
   users.users.luis = {
-    isNormalUser = true;
     description = "Luis Wirth";
-    extraGroups = [ "wheel" "input" "video" "audio" "networkmanager" "libvirtd" ];
+    isNormalUser = true;
+    extraGroups = [ "wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker" ];
+    #openssh.authorizedKeys.keys = [
+    #];
   };
 
   programs.fish.enable = true;
@@ -55,12 +76,20 @@
 
 
   # caps as escape in tty
-  services.xserver.xkbOptions = "caps:escape";
+  services.xserver.xkb.options = "caps:escape";
   console.useXkbConfig = true;
 
   services.fwupd.enable = true;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        ControllerMode = "bredr";
+      };
+    };
+  };
   hardware.logitech.wireless.enable = true;
   services.printing.enable = true;
 
@@ -86,16 +115,15 @@
 
   # virtualization
   virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
   virtualisation.docker.enable = true;
-
-  programs.dconf.enable = true;
-
 
   documentation.dev.enable = true;
 
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
 
@@ -109,6 +137,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
+    ports = [ 22 ];
   };
 
   services.dbus.packages = [ pkgs.gcr ];
@@ -116,7 +145,7 @@
   networking.firewall = {
     enable = true;
     allowPing = true;
-    allowedTCPPorts = [ 42069 ];
+    allowedTCPPorts = [ 22 42069 ];
   };
 
   security.pam.services.swaylock = { };
@@ -161,12 +190,19 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    virt-manager
-    docker
+    virtiofsd
 
     man-pages
     man-pages-posix
   ];
+
+  
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    gamescopeSession.enable = true;
+  };
 
 
   # This value determines the NixOS release from which the default

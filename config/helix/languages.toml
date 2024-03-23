@@ -1,14 +1,6 @@
-[language-server.wgsl-lsp]
-command = "wgsl_analyzer"
-
-[[language]]
-name = "wgsl"
-#language-server.command = "wgsl_analyzer"
-language-servers = [ "wgsl-lsp" ]
-
-
 [language-server.typst-lsp]
 command = "typst-lsp"
+config = { exportPdf = "never" }
 
 [[language]]
 name = "typst"
@@ -18,9 +10,7 @@ file-types = ["typ"]
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
 roots = []
-#language-server.command = "typst-lsp"
 language-servers = [ "typst-lsp" ]
-#formatter = { command = "typst-fmt" , args = [] }
 
 [language.auto-pairs]
 '(' = ')'
@@ -35,23 +25,9 @@ name = "typst"
 source = { path = "/home/luis/data/tree-sitter-typst" }
 
 
-#[language-server.julia-lsp]
-#command = "julia"
-#args = [
-#  "--startup-file=no",
-#  "--history-file=no",
-#  "--quiet",
-#  "--project",
-#  "-e",
-#  "using LanguageServer; runserver()",
-#]
+[language-server.wgsl-lsp]
+command = "wgsl_analyzer"
 
-#[[language]]
-#name = "julia"
-#scope = "source.julia"
-#injection-regex = "julia"
-#file-types = ["jl"]
-#roots = ["Project.toml", "Manifest.toml"]
-#comment-token = "#"
-#language-servers = [ "julia-lsp" ]
-#indent = { tab-width = 2, unit = "  " }
+[[language]]
+name = "wgsl"
+language-servers = [ "wgsl-lsp" ]

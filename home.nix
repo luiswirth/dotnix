@@ -39,6 +39,7 @@
     mv = "mv -iv";
     mkdir = "mkdir -pv";
     ed = "$EDITOR";
+    open = "xdg-open";
   };
 
   home.sessionPath = [
@@ -67,7 +68,7 @@
     enable = true;
     enableFishIntegration = true;
     enableSshSupport = true;
-    pinentryFlavor = "gnome3";
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
   programs.ssh.enable = true;
   services.ssh-agent.enable = true;
@@ -148,7 +149,6 @@
   home.packages = with pkgs; [
     openssl
     cacert
-    pinentry-gtk2
     xdg-user-dirs
     xdg-utils
 
@@ -172,6 +172,7 @@
     zellij
     nnn
 
+    openconnect
     sshfs
     gnuplot
     tmpmail
@@ -230,6 +231,8 @@
     element-desktop
     signal-desktop
     prismlauncher
+    gimp
+    inkscape
 
     clang
     rustup
@@ -301,7 +304,7 @@
 
     configFile = {
       "git/config".source = ./config/git;
-      "nvim".source = ./config/nvim;
+      #"nvim".source = ./config/nvim;
       "helix/config.toml".source = ./config/helix/config.toml;
       "helix/languages.toml".source = ./config/helix/languages.toml;
       "kitty/kitty.conf".source = ./config/kitty.conf;
