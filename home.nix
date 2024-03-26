@@ -1,34 +1,34 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
-  home.sessionVariables =
-    let
-      cacheDir = "${config.home.homeDirectory}/.cache";
-      #configDir = "${config.home.homeDirectory}/.config";
-      dataDir = "${config.home.homeDirectory}/.local/share";
-    in
-    {
-      TERMINAL = "alacritty";
-      EDITOR = "hx";
-      VISUAL = "hx";
-      BROWSER = "firefox";
-      TASKMGR = "btop";
-      READER = "zathura";
-      FILEMGR = "nnn";
+  home.sessionVariables = let
+    cacheDir = "${config.home.homeDirectory}/.cache";
+    #configDir = "${config.home.homeDirectory}/.config";
+    dataDir = "${config.home.homeDirectory}/.local/share";
+  in {
+    TERMINAL = "alacritty";
+    EDITOR = "hx";
+    VISUAL = "hx";
+    BROWSER = "firefox";
+    TASKMGR = "btop";
+    READER = "zathura";
+    FILEMGR = "nnn";
 
-      # clean home
-      RUSTUP_HOME = "${dataDir}/rustup";
-      CARGO_HOME = "${dataDir}/cargo";
-      CARGO_TARGET_DIR = "${cacheDir}/target";
+    # clean home
+    RUSTUP_HOME = "${dataDir}/rustup";
+    CARGO_HOME = "${dataDir}/cargo";
+    CARGO_TARGET_DIR = "${cacheDir}/target";
 
-      # hint electron apps to use wayland
-      NIXOS_OZONE_WL = 1;
+    # hint electron apps to use wayland
+    NIXOS_OZONE_WL = 1;
 
-      GTK_THEME = "Adwaita:dark";
-    };
-
+    GTK_THEME = "Adwaita:dark";
+  };
 
   home.shellAliases = {
     ls = "eza";
@@ -49,14 +49,13 @@
 
   programs.fish = {
     enable = true;
-    interactiveShellInit =
-      "fish_vi_key_bindings
+    interactiveShellInit = "fish_vi_key_bindings
       set --erase fish_greeting";
   };
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+  programs.starship.enable = true;
+  programs.zoxide.enable = true;
+  programs.fzf.enable = true;
+
   programs.man.generateCaches = true;
   programs.direnv = {
     enable = true;
@@ -86,15 +85,19 @@
 
   services.swayidle = {
     enable = true;
-    events = [{
-      event = "before-sleep";
-      command = "swaylock -f -c 000000";
-    }];
-    timeouts = [{
-      timeout = 300;
-      command = "hyperctl dispatch dpms off";
-      resumeCommand = "hyperctl dispatch dpms on";
-    }];
+    events = [
+      {
+        event = "before-sleep";
+        command = "swaylock -f -c 000000";
+      }
+    ];
+    timeouts = [
+      {
+        timeout = 300;
+        command = "hyperctl dispatch dpms off";
+        resumeCommand = "hyperctl dispatch dpms on";
+      }
+    ];
   };
 
   # theming
@@ -123,7 +126,6 @@
     '';
   };
 
-
   home.pointerCursor = {
     package = pkgs.quintom-cursor-theme;
     name = "Quintom_Ink";
@@ -147,6 +149,8 @@
   };
 
   home.packages = with pkgs; [
+    alejandra
+
     openssl
     cacert
     xdg-user-dirs
@@ -256,14 +260,13 @@
     fira-code
     fira-code-symbols
     font-awesome
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (nerdfonts.override {fonts = ["FiraCode"];})
   ];
-
 
   systemd.user.services = {
     pueued = {
       Unit.Description = "pueued - pueue daemon";
-      Install.WantedBy = [ "default.target" ];
+      Install.WantedBy = ["default.target"];
       Service = {
         ExecStart = "${pkgs.pueue}/bin/pueued -v";
         Restart = "on-failure";

@@ -1,18 +1,16 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   myOverlay = self: super: {
-    fprintd = super.fprintd.overrideAttrs (_: { 
-        mesonCheckFlags = [ 
-          "--no-suite" "fprintd:TestPamFprintd"
-        ]; 
-      });
-    
+    fprintd = super.fprintd.overrideAttrs (_: {
+      mesonCheckFlags = [
+        "--no-suite"
+        "fprintd:TestPamFprintd"
+      ];
+    });
   };
-in
-{
+in {
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true;
     };
     gc = {
@@ -22,7 +20,7 @@ in
     };
   };
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ myOverlay ];
+  nixpkgs.overlays = [myOverlay];
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -31,7 +29,7 @@ in
   ];
 
   # workaround for EOL
-  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
+  nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   boot = {
     loader = {
@@ -46,11 +44,11 @@ in
 
     # amdgpu kernel error workaround
     # see https://gitlab.freedesktop.org/drm/amd/-/issues/2220#note_1995813
-    kernelParams = [ "amdgpu.vm_update_mode=3" ];
+    kernelParams = ["amdgpu.vm_update_mode=3"];
   };
 
   hardware.enableAllFirmware = true;
-  hardware.firmware = with pkgs; [ wireless-regdb ];
+  hardware.firmware = with pkgs; [wireless-regdb];
 
   time.timeZone = "Europe/Zurich";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -64,16 +62,13 @@ in
   users.users.luis = {
     description = "Luis Wirth";
     isNormalUser = true;
-    extraGroups = [ "wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker" ];
-    #openssh.authorizedKeys.keys = [
-    #];
+    extraGroups = ["wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker"];
   };
 
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
-  environment.pathsToLink = [ "/share/fish" ];
-  environment.shells = with pkgs; [ fish ];
-
+  environment.pathsToLink = ["/share/fish"];
+  environment.shells = with pkgs; [fish];
 
   # caps as escape in tty
   services.xserver.xkb.options = "caps:escape";
@@ -97,7 +92,6 @@ in
     enable = true;
     driSupport = true;
   };
-
 
   services.logind = {
     lidSwitch = "suspend";
@@ -137,27 +131,27 @@ in
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
-    ports = [ 22 ];
+    ports = [22];
   };
 
-  services.dbus.packages = [ pkgs.gcr ];
+  services.dbus.packages = [pkgs.gcr];
 
   networking.firewall = {
     enable = true;
     allowPing = true;
-    allowedTCPPorts = [ 22 42069 ];
+    allowedTCPPorts = [22 42069];
   };
 
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = {};
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wants = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wants = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -180,7 +174,6 @@ in
     xwayland.enable = true;
   };
 
-
   services.udev.extraRules = ''
     # rp2040
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
@@ -196,14 +189,12 @@ in
     man-pages-posix
   ];
 
-  
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     gamescopeSession.enable = true;
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -213,4 +204,3 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 }
-
