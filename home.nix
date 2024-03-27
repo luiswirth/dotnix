@@ -71,7 +71,7 @@
   };
   programs.ssh = {
     enable = true;
-    addKeysToAgent = true;
+    addKeysToAgent = "yes";
   };
   services.ssh-agent.enable = true;
 
