@@ -134,7 +134,10 @@ in {
     ports = [22];
   };
 
-  services.dbus.packages = [pkgs.gcr];
+  services.dbus.packages = with pkgs; [
+    gcr
+    swaynotificationcenter
+  ];
 
   networking.firewall = {
     enable = true;
@@ -147,6 +150,8 @@ in {
   security.rtkit.enable = true;
   security.polkit.enable = true;
   systemd = {
+    packages = with pkgs; [ swaynotificationcenter ];
+
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
       wants = ["graphical-session.target"];

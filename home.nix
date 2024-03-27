@@ -92,24 +92,6 @@
   };
   programs.waybar.enable = true;
   programs.wofi.enable = true;
-  programs.swaylock.enable = true;
-
-  services.swayidle = {
-    enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = "swaylock -f -c 000000";
-      }
-    ];
-    timeouts = [
-      {
-        timeout = 300;
-        command = "hyperctl dispatch dpms off";
-        resumeCommand = "hyperctl dispatch dpms on";
-      }
-    ];
-  };
 
   # theming
   dconf = {
@@ -162,6 +144,9 @@
   home.packages = with pkgs; [
     alejandra
 
+    bitwarden-desktop
+    bitwarden-cli
+
     openssl
     cacert
     xdg-user-dirs
@@ -209,24 +194,24 @@
     starship
     ouch
     diskonaut
-    delta
     kondo
     tokei
 
-    swaybg
+    hyprlock
+    hypridle
+    brightnessctl
+    wl-clipboard
+    libnotify
+    swaynotificationcenter
     kanshi
     wl-mirror
-    wl-clipboard
     waypipe
-    wl-clipboard
-    mako
     grim
     slurp
     playerctl
     pamixer
     pavucontrol
     pulsemixer
-    brightnessctl
 
     alacritty
     chromium
@@ -318,15 +303,17 @@
 
     configFile = {
       "git/config".source = ./config/git;
-      #"nvim".source = ./config/nvim;
       "helix/config.toml".source = ./config/helix/config.toml;
       "helix/languages.toml".source = ./config/helix/languages.toml;
-      "kitty/kitty.conf".source = ./config/kitty.conf;
       "zellij/config.kdl".source = ./config/zellij.kdl;
-      "kanshi/config".source = ./config/kanshi;
+
+      "hypr/hyprlock.conf".source = ./config/hyprlock.conf;
+      "hypr/hypridle.conf".source = ./config/hypridle.conf;
       "waybar".source = ./config/waybar;
+      "kanshi/config".source = ./config/kanshi;
       "wofi/config".source = ./config/wofi/config;
       "wofi/style.css".source = ./config/wofi/style.css;
+
       "zathura/zathurarc".source = ./config/zathura;
     };
   };
