@@ -72,6 +72,14 @@
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
+    forwardAgent = true;
+    matchBlocks = {
+      "euler.ethz.ch" = {
+        hostname = "euler";
+        user = "luwirth";
+        forwardAgent = true;
+      };
+    };
   };
   services.ssh-agent.enable = true;
 
