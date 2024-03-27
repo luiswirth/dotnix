@@ -69,7 +69,10 @@
     enableSshSupport = true;
     pinentryPackage = pkgs.pinentry-gnome3;
   };
-  programs.ssh.enable = true;
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = true;
+  };
   services.ssh-agent.enable = true;
 
   fonts.fontconfig.enable = true;
