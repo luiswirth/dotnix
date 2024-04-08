@@ -2,17 +2,17 @@
   "layer": "top",
   "position": "bottom",
   "height": 35,
-  "spacing": 4, // gaps between modules
+  "spacing": 4,
   "modules-left": ["hyprland/workspaces", "tray"],
   "modules-center": ["hyprland/window"],
   "modules-right": ["network", "pulseaudio", "cpu", "memory", "temperature", "battery", "clock"],
 
-  "wlr/workspaces": {
-    "sort-by-number": true,
+  "hyprland/workspaces": {
     "format": "{icon}",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
     "on-scroll-down": "hyprctl dispatch workspace e-1",
-    "on-click": "activate"
+    "sort-by-number": true,
+    "on-click": "activate",
   },
   "hyprland/window": {
     "max-length": 200,

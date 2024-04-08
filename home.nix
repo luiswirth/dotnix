@@ -39,7 +39,6 @@
     mv = "mv -iv";
     mkdir = "mkdir -pv";
     ed = "$EDITOR";
-    open = "xdg-open";
   };
 
   home.sessionPath = [
@@ -89,6 +88,7 @@
     enable = true;
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
+    plugins = with pkgs; [ hyprlandPlugins.hy3 ];
   };
   programs.waybar.enable = true;
   programs.wofi.enable = true;
@@ -287,17 +287,18 @@
       videos = "$HOME/media/vid";
     };
 
-    mime.enable = true;
     mimeApps = {
       enable = true;
       defaultApplications = {
+        "application/pdf" = "org.pwmt.zathura.desktop";
+        "image/*" = "imv.desktop";
+        "video/*" = "vlc.desktop";
         "x-scheme-handler/http" = "firefox.desktop";
         "x-scheme-handler/https" = "firefox.desktop";
-        "image/png" = "imv-folder.desktop";
-        "image/jpeg" = "imv-folder.desktop";
         "text/plain" = "helix.desktop";
+      };
+      associations.added = {
         "application/pdf" = "org.pwmt.zathura.desktop";
-        "video/*" = "ffplay.desktop";
       };
     };
 
