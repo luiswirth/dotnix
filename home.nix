@@ -88,7 +88,7 @@
     enable = true;
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
-    plugins = with pkgs; [ hyprlandPlugins.hy3 ];
+    plugins = with pkgs; [hyprlandPlugins.hy3];
   };
   programs.waybar.enable = true;
   programs.wofi.enable = true;

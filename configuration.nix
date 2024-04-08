@@ -1,13 +1,10 @@
-{pkgs, ...}: let
-  myOverlay = self: super: {
-    fprintd = super.fprintd.overrideAttrs (_: {
-      mesonCheckFlags = [
-        "--no-suite"
-        "fprintd:TestPamFprintd"
-      ];
-    });
-  };
-in {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  nixpkgs.config.allowUnfree = true;
+
   nix = {
     settings = {
       experimental-features = ["nix-command" "flakes"];
@@ -15,12 +12,22 @@ in {
     };
     gc = {
       automatic = true;
-      dates = "monthly";
-      options = "--delete-older-than 31d";
+      dates = "weekly";
+      options = "--delete-older-than 14d";
     };
   };
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [myOverlay];
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L"
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
+  };
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -32,19 +39,19 @@ in {
   nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 50;
+      };
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
     initrd.secrets = {
       "/crypto_keyfile.bin" = null;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-
-    # amdgpu kernel error workaround
-    # see https://gitlab.freedesktop.org/drm/amd/-/issues/2220#note_1995813
-    kernelParams = ["amdgpu.vm_update_mode=3"];
   };
 
   hardware.enableAllFirmware = true;
@@ -150,7 +157,7 @@ in {
   security.rtkit.enable = true;
   security.polkit.enable = true;
   systemd = {
-    packages = with pkgs; [ swaynotificationcenter ];
+    packages = with pkgs; [swaynotificationcenter];
 
     user.services.polkit-kde-authentication-agent-1 = {
       description = "polkit-kde-authentication-agent-1";
