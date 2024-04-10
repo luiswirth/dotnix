@@ -165,6 +165,20 @@
   systemd = {
     packages = with pkgs; [swaynotificationcenter];
 
+    services = {
+      lock-on-sleep = {
+        description = "lock on sleep";
+        before = ["sleep.target"];
+        wantedBy = ["sleep.target"];
+        serviceConfig = {
+          User = "luis";
+          Type = "forking";
+          Environment = "XDG_SESSION_ID=1";
+          ExecStart = "${pkgs.systemd}/bin/loginctl lock-session $XDG_SESSION_ID";
+        };
+      };
+    };
+
     user.services = {
       polkit-kde-authentication-agent-1 = {
         description = "polkit-kde-authentication-agent-1";
@@ -179,17 +193,6 @@
           TimeoutStopSec = 10;
         };
       };
-
-      lock-on-sleep = {
-        description = "lock on sleep";
-        before = ["sleep.target"];
-        wantedBy = ["sleep.target"];
-        serviceConfig = {
-          Type = "forking";
-          Environment = "Display=:0";
-          ExecStart = "${pkgs.systemd}/bin/loginctl lock-session";
-        };
-      };      
     };
   };
 
