@@ -25,7 +25,7 @@
     CARGO_TARGET_DIR = "${cacheDir}/target";
 
     # hint electron apps to use wayland
-    NIXOS_OZONE_WL = 1;
+    NIXOS_OZONE_WL = "1";
 
     GTK_THEME = "Adwaita:dark";
   };
@@ -144,7 +144,7 @@
   home.packages = with pkgs; [
     alejandra
 
-    bitwarden-desktop
+    #bitwarden-desktop
     bitwarden-cli
 
     openssl
@@ -224,7 +224,7 @@
     xournalpp
     obs-studio
     vlc
-    obsidian
+    #obsidian
     discord
     zoom-us
     slack

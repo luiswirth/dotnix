@@ -25,7 +25,13 @@
       "nixpkgs"
       "-L"
     ];
-    dates = "02:00";
+    persistent = true;
+    allowReboot = true;
+    dates = "03:00";
+    rebootWindow = {
+      lower = "03:00";
+      upper = "05:00";
+    };
     randomizedDelaySec = "45min";
   };
 
@@ -102,7 +108,7 @@
 
   services.logind = {
     lidSwitch = "suspend";
-    lidSwitchExternalPower = "ignore";
+    lidSwitchExternalPower = "suspend";
     lidSwitchDocked = "ignore";
   };
 
@@ -159,26 +165,41 @@
   systemd = {
     packages = with pkgs; [swaynotificationcenter];
 
-    user.services.polkit-kde-authentication-agent-1 = {
-      description = "polkit-kde-authentication-agent-1";
-      wants = ["graphical-session.target"];
-      wantedBy = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+    user.services = {
+      polkit-kde-authentication-agent-1 = {
+        description = "polkit-kde-authentication-agent-1";
+        wants = ["graphical-session.target"];
+        wantedBy = ["graphical-session.target"];
+        after = ["graphical-session.target"];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
       };
+
+      lock-on-sleep = {
+        description = "lock on sleep";
+        before = ["sleep.target"];
+        wantedBy = ["sleep.target"];
+        serviceConfig = {
+          Type = "forking";
+          Environment = "Display=:0";
+          ExecStart = "${pkgs.systemd}/bin/loginctl lock-session";
+        };
+      };      
     };
   };
 
+  sound.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
 
   programs.hyprland = {
