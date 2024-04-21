@@ -1,12 +1,16 @@
 theme = "gruvbox"
 
 [editor]
+true-color = true
+undercurl = true
+auto-completion = true
+auto-info = true
+color-modes = true
 mouse = true
 auto-pairs = false
 
 line-number = "relative"
 cursorline = false
-color-modes = true
 whitespace.render.newline = "all"
 
 gutters = [ "diagnostics", "spacer", "line-numbers", "spacer" ]
@@ -16,8 +20,36 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
+[editor.indent-guides]
+render = true
+character = "┊"
+skip-levels = 0
+
 [editor.file-picker]
 hidden = false
+
+[editor.statusline]
+left = [
+  "mode",
+  "spinner",
+  "version-control",
+  "read-only-indicator",
+  #"file-type-icon",
+  "file-name",
+  "file-modification-indicator",
+]
+center = ["diagnostics", "workspace-diagnostics"]
+right = [
+  "register",
+  "selections",
+  "primary-selection-length",
+  "file-encoding",
+  "file-line-ending",
+  "position",
+  "position-percentage",
+  "file-type",
+]
+separator = "│"
 
 [keys.normal]
 H = "goto_line_start"
@@ -26,4 +58,3 @@ L = "goto_line_end_newline"
 [keys.select]
 H = "goto_line_start"
 L = "goto_line_end_newline"
-
