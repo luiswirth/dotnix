@@ -8,6 +8,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.39.1";
+    hy3 = {
+      url = "github:outfoxxed/hy3?ref=hl0.39.1";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit?ref=v0.39.1";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = {
@@ -15,6 +25,9 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
+    hyprland,
+    hy3,
+    hyprsplit,
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";

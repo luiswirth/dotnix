@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -86,9 +87,14 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
-    plugins = with pkgs; [hyprlandPlugins.hy3];
+    plugins = [
+      #pkgs.hyprlandPlugins.hy3
+      inputs.hy3.packages.${pkgs.system}.hy3
+      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+    ];
   };
   programs.waybar.enable = true;
   programs.wofi.enable = true;
@@ -144,7 +150,7 @@
   home.packages = with pkgs; [
     alejandra
 
-    #bitwarden-desktop
+    bitwarden-desktop
     bitwarden-cli
 
     openssl
@@ -224,7 +230,7 @@
     xournalpp
     obs-studio
     vlc
-    #obsidian
+    obsidian
     discord
     zoom-us
     slack
@@ -242,6 +248,7 @@
 
     nil
 
+    pandoc
     typst
     typstfmt
     typst-lsp
