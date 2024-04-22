@@ -9,7 +9,10 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.39.1";
+    hyprland = {
+      url = "github:hyprwm/Hyprland?ref=v0.39.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hy3 = {
       url = "github:outfoxxed/hy3?ref=hl0.39.1";
       inputs.hyprland.follows = "hyprland";
