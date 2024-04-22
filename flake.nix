@@ -52,6 +52,10 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./configuration.nix
+          ./hardware-lwirth-tp.nix
+          nixos-hardware.nixosModules.lenovo-thinkpad-z
+
+          hyprland.nixosModules.default
 
           home-manager.nixosModules.home-manager
           {
@@ -60,11 +64,10 @@
             home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.users.${user}.imports = [
               ./home.nix
+
+              hyprland.homeManagerModules.default
             ];
           }
-
-          ./hardware-lwirth-tp.nix
-          nixos-hardware.nixosModules.lenovo-thinkpad-z
         ];
       };
     };
