@@ -28,14 +28,15 @@
       "nixpkgs"
       "-L"
     ];
-    persistent = true;
-    allowReboot = true;
     dates = "03:00";
-    rebootWindow = {
-      lower = "03:00";
-      upper = "05:00";
-    };
+    persistent = true;
     randomizedDelaySec = "45min";
+
+    #allowReboot = true;
+    #rebootWindow = {
+    #  lower = "03:00";
+    #  upper = "05:00";
+    #};
   };
 
   programs.nix-ld.enable = true;
@@ -43,9 +44,6 @@
     stdenv.cc.cc.lib
     zlib
   ];
-
-  # workaround for EOL
-  nixpkgs.config.permittedInsecurePackages = ["electron-25.9.0"];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
