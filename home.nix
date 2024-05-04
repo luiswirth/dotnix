@@ -62,6 +62,10 @@
     nix-direnv.enable = true;
   };
 
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
+  };
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
@@ -173,7 +177,6 @@
 
     helix
     neovim
-    git
     github-cli
     zellij
     nnn
