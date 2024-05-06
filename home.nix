@@ -15,7 +15,7 @@
     TERMINAL = "alacritty";
     EDITOR = "hx";
     VISUAL = "hx";
-    BROWSER = "firefox";
+    BROWSER = "google-chrome-stable";
     TASKMGR = "btop";
     READER = "zathura";
     FILEMGR = "nnn";
@@ -151,10 +151,15 @@
     package = pkgs.vscode.fhs;
   };
 
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs; [ obs-studio-plugins.droidcam-obs ];
+  };
+
   home.packages = with pkgs; [
     alejandra
 
-    bitwarden-desktop
+    #bitwarden-desktop
     bitwarden-cli
 
     openssl
@@ -223,16 +228,14 @@
     pulsemixer
 
     alacritty
-    chromium
-    firefox
-
+    google-chrome
     spotify
 
     imv
     zathura
     xournalpp
-    obs-studio
     vlc
+    audacity
     obsidian
     discord
     zoom-us
@@ -303,8 +306,8 @@
         "application/pdf" = "org.pwmt.zathura.desktop";
         "image/*" = "imv.desktop";
         "video/*" = "vlc.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/http" = "google-chrome.desktop";
+        "x-scheme-handler/https" = "google-chrome.desktop";
         "text/plain" = "helix.desktop";
       };
       associations.added = {

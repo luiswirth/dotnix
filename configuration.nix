@@ -20,24 +20,24 @@
     };
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = inputs.self.outPath;
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "-L"
-    ];
-    dates = "03:00";
-    persistent = true;
-    randomizedDelaySec = "45min";
+  #system.autoUpgrade = {
+  #  enable = true;
+  #  flake = inputs.self.outPath;
+  #  flags = [
+  #    "--update-input"
+  #    "nixpkgs"
+  #    "-L"
+  #  ];
+  #  dates = "03:00";
+  #  persistent = true;
+  #  randomizedDelaySec = "45min";
 
-    #allowReboot = true;
-    #rebootWindow = {
-    #  lower = "03:00";
-    #  upper = "05:00";
-    #};
-  };
+  #  #allowReboot = true;
+  #  #rebootWindow = {
+  #  #  lower = "03:00";
+  #  #  upper = "05:00";
+  #  #};
+  #};
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -102,6 +102,15 @@
   hardware.logitech.wireless.enable = true;
   services.printing.enable = true;
 
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd-tod;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-vfs0090;
+    };
+  };
+
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -164,6 +173,9 @@
 
   security.pam.services.swaylock = {};
 
+  programs.droidcam.enable = true;
+  services.usbmuxd.enable = true;
+
   security.rtkit.enable = true;
   security.polkit.enable = true;
   systemd = {
@@ -208,6 +220,8 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   programs.hyprland = {
     enable = true;
