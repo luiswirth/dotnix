@@ -184,6 +184,7 @@
     neovim
     github-cli
     zellij
+    tmux
     nnn
 
     openconnect
