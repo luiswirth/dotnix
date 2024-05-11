@@ -221,7 +221,7 @@
     jack.enable = true;
   };
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = ["amdgpu"];
 
   programs.hyprland = {
     enable = true;

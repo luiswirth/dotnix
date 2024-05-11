@@ -95,9 +95,8 @@
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
     plugins = [
-      #pkgs.hyprlandPlugins.hy3
       inputs.hy3.packages.${pkgs.system}.hy3
-      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+      inputs.hyprland-virtual-desktops.packages.${pkgs.system}.virtual-desktops
     ];
   };
   programs.waybar.enable = true;
@@ -153,7 +152,7 @@
 
   programs.obs-studio = {
     enable = true;
-    plugins = with pkgs; [ obs-studio-plugins.droidcam-obs ];
+    plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
   home.packages = with pkgs; [

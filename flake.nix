@@ -9,16 +9,13 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.39.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.40.0";
     hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.39.1";
+      url = "github:outfoxxed/hy3/hl0.40.0";
       inputs.hyprland.follows = "hyprland";
     };
-    hyprsplit = {
-      url = "github:shezdy/hyprsplit?ref=v0.39.1";
+    hyprland-virtual-desktops = {
+      url = "github:levnikmyskin/hyprland-virtual-desktops";
       inputs.hyprland.follows = "hyprland";
     };
   };
@@ -30,7 +27,7 @@
     nixos-hardware,
     hyprland,
     hy3,
-    hyprsplit,
+    hyprland-virtual-desktops,
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";
