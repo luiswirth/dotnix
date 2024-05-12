@@ -12,10 +12,10 @@
     #configDir = "${config.home.homeDirectory}/.config";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "alacritty";
+    TERMINAL = "wezterm";
     EDITOR = "hx";
     VISUAL = "hx";
-    BROWSER = "google-chrome-stable";
+    DEFAULT_BROWSER = "google-chrome-stable";
     TASKMGR = "btop";
     READER = "zathura";
     FILEMGR = "nnn";
@@ -227,7 +227,7 @@
     pavucontrol
     pulsemixer
 
-    alacritty
+    wezterm
     google-chrome
     spotify
 
@@ -306,8 +306,11 @@
         "application/pdf" = "org.pwmt.zathura.desktop";
         "image/*" = "imv.desktop";
         "video/*" = "vlc.desktop";
+        "text/html" = "google-chrome.desktop";
         "x-scheme-handler/http" = "google-chrome.desktop";
         "x-scheme-handler/https" = "google-chrome.desktop";
+        "x-scheme-handler/about" = "google-chrome.desktop";
+        "x-scheme-handler/unknown" = "google-chrome.desktop";
         "text/plain" = "helix.desktop";
       };
       associations.added = {
@@ -317,6 +320,7 @@
 
     configFile = {
       "git/config".source = ./config/git;
+      "wezterm/wezterm.lua".source = ./config/wezterm.lua;
       "helix/config.toml".source = ./config/helix/config.toml;
       "helix/languages.toml".source = ./config/helix/languages.toml;
       "zellij/config.kdl".source = ./config/zellij.kdl;

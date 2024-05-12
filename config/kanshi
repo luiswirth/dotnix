@@ -6,7 +6,7 @@ profile {
 profile {
   output eDP-1 disable
   output "Samsung Electric Company U28H75x HTPJ700579" enable position 0,0 scale 1.25
-  output "Samsung Electric Company U28D590 Unknown" enable position -3072,0 scale 1.25
+  output "Samsung Electric Company U28D590" enable position -3072,0 scale 1.25
 }
 
 # newer samsung monitor
@@ -17,10 +17,8 @@ profile {
 
 # older samsung monitor
 profile {
-  #output eDP-1 disable
-  #output "Samsung Electric Company U28D590 Unknown" enable scale 1.25
-  output eDP-1 enable position 3072,0 scale 1.5
-  output "Samsung Electric Company U28D590 Unknown" enable position 0,0 scale 1.25
+  output eDP-1 disable
+  output "Samsung Electric Company U28D590" enable scale 1.25
 }
 
 # projector
