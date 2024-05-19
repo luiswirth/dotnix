@@ -83,6 +83,11 @@
         user = "luwirth";
         forwardAgent = true;
       };
+      "slab1.ethz.ch" = {
+        hostname = "slab1";
+        user = "luwirth";
+        forwardAgent = true;
+      };
     };
   };
   services.ssh-agent.enable = true;
@@ -96,7 +101,6 @@
     extraConfig = builtins.readFile ./config/hyprland.conf;
     plugins = [
       inputs.hy3.packages.${pkgs.system}.hy3
-      inputs.hyprland-virtual-desktops.packages.${pkgs.system}.virtual-desktops
     ];
   };
   programs.waybar.enable = true;
@@ -155,6 +159,8 @@
     plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
+  programs.yazi.enable = true;
+
   home.packages = with pkgs; [
     alejandra
 
@@ -171,6 +177,8 @@
     tree
     zip
     unzip
+    unar
+    jq
     wget
     curl
     lshw
@@ -184,7 +192,6 @@
     github-cli
     zellij
     tmux
-    nnn
 
     openconnect
     sshfs
@@ -193,6 +200,7 @@
     pass
     restic
     ffmpeg_5-full
+    ffmpegthumbnailer
 
     eza
     bat
@@ -230,9 +238,11 @@
     wezterm
     google-chrome
     spotify
+    oculante
 
     imv
     zathura
+    poppler
     xournalpp
     vlc
     audacity
@@ -268,6 +278,7 @@
     dejavu_fonts
     fira-code
     fira-code-symbols
+    #fira-math
     font-awesome
     (nerdfonts.override {fonts = ["FiraCode"];})
   ];
@@ -304,7 +315,7 @@
       enable = true;
       defaultApplications = {
         "application/pdf" = "org.pwmt.zathura.desktop";
-        "image/*" = "imv.desktop";
+        "image/*" = "oculante.desktop";
         "video/*" = "vlc.desktop";
         "text/html" = "google-chrome.desktop";
         "x-scheme-handler/http" = "google-chrome.desktop";

@@ -14,10 +14,6 @@
       url = "github:outfoxxed/hy3/hl0.40.0";
       inputs.hyprland.follows = "hyprland";
     };
-    hyprland-virtual-desktops = {
-      url = "github:levnikmyskin/hyprland-virtual-desktops";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 
   outputs = {
@@ -27,7 +23,6 @@
     nixos-hardware,
     hyprland,
     hy3,
-    hyprland-virtual-desktops,
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";
