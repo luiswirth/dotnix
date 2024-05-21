@@ -39,6 +39,13 @@
   #  #};
   #};
 
+  programs.nh = {
+    enable = true;
+    #clean.enable = true;
+    #clean.extraArgs = "--keep-since 7d --keep 3";
+    flake = "/home/luis/.dotnix";
+  };
+
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
