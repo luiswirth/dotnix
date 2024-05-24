@@ -43,14 +43,13 @@
   };
 
   home.sessionPath = [
-    "$HOME/script"
     "$CARGO_HOME/bin"
   ];
 
   programs.fish = {
     enable = true;
     interactiveShellInit = "fish_vi_key_bindings
-      set --erase fish_greeting";
+      set fish_greeting";
   };
   programs.starship.enable = true;
   programs.zoxide.enable = true;
@@ -161,139 +160,138 @@
 
   programs.yazi.enable = true;
 
-  home.packages = with pkgs; [
-    alejandra
+  home.packages = with pkgs;
+    [
+      alejandra
 
-    cacert
-    xdg-user-dirs
-    xdg-utils
+      cacert
+      xdg-user-dirs
+      xdg-utils
 
-    trash-cli
-    moreutils
-    tree
-    zip
-    unzip
-    unar
-    jq
-    wget
-    curl
-    lshw
-    usbutils
-    pciutils
-    psmisc
-    nmap
+      trash-cli
+      moreutils
+      tree
+      zip
+      unzip
+      unar
+      jq
+      wget
+      curl
+      lshw
+      usbutils
+      pciutils
+      psmisc
+      nmap
 
-    helix
-    neovim
-    github-cli
-    zellij
-    tmux
+      helix
+      neovim
+      github-cli
+      zellij
+      tmux
 
-    sshpass
-    sshfs
-    openconnect
+      sshpass
+      sshfs
+      openconnect
 
-    openssl
-    #bitwarden-desktop
-    bitwarden-cli
-    restic
+      openssl
+      #bitwarden-desktop
+      bitwarden-cli
+      restic
 
-    gnuplot
-    tmpmail
-    ffmpeg_5-full
-    ffmpegthumbnailer
+      gnuplot
+      tmpmail
+      ffmpeg_5-full
+      ffmpegthumbnailer
 
-    eza
-    bat
-    fd
-    sd
-    du-dust
-    ripgrep
-    ripgrep-all
-    procs
-    pueue
-    btop
-    tealdeer
-    starship
-    ouch
-    diskonaut
-    kondo
-    tokei
+      eza
+      bat
+      fd
+      sd
+      du-dust
+      ripgrep
+      ripgrep-all
+      procs
+      #pueue
+      btop
+      tealdeer
+      starship
+      ouch
+      diskonaut
+      kondo
+      tokei
 
-    hyprlock
-    hypridle
-    brightnessctl
-    wl-clipboard
-    libnotify
-    swaynotificationcenter
-    kanshi
-    wl-mirror
-    waypipe
-    grim
-    slurp
-    playerctl
-    pamixer
-    pavucontrol
-    pulsemixer
+      hyprlock
+      hypridle
+      brightnessctl
+      wl-clipboard
+      libnotify
+      swaynotificationcenter
+      kanshi
+      wl-mirror
+      waypipe
+      grim
+      slurp
+      playerctl
+      pamixer
+      pavucontrol
+      pulsemixer
 
-    wezterm
-    google-chrome
-    spotify
-    oculante
+      wezterm
+      google-chrome
+      spotify
+      oculante
 
-    imv
-    zathura
-    poppler
-    xournalpp
-    vlc
-    audacity
-    obsidian
-    discord
-    zoom-us
-    slack
-    element-desktop
-    signal-desktop
-    prismlauncher
-    gimp
-    inkscape
+      imv
+      zathura
+      poppler
+      xournalpp
+      vlc
+      audacity
+      obsidian
+      discord
+      zoom-us
+      slack
+      element-desktop
+      signal-desktop
+      prismlauncher
+      gimp
+      inkscape
 
-    clang
-    rustup
+      clang
+      rustup
 
-    pipenv
-    elan
+      pipenv
+      elan
 
-    nil
+      nil
 
-    pandoc
-    typst
-    typstfmt
-    typst-lsp
+      pandoc
+      typst
+      typstfmt
+      typst-lsp
 
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    libertine
-    liberation_ttf
-    ubuntu_font_family
-    dejavu_fonts
-    fira-code
-    fira-code-symbols
-    #fira-math
-    font-awesome
-    (nerdfonts.override {fonts = ["FiraCode"];})
-  ];
-
-  systemd.user.services = {
-    pueued = {
-      Unit.Description = "pueued - pueue daemon";
-      Install.WantedBy = ["default.target"];
-      Service = {
-        ExecStart = "${pkgs.pueue}/bin/pueued -v";
-        Restart = "on-failure";
-      };
-    };
-  };
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      libertine
+      liberation_ttf
+      ubuntu_font_family
+      dejavu_fonts
+      fira-code
+      fira-code-symbols
+      #fira-math
+      font-awesome
+      (nerdfonts.override {fonts = ["FiraCode"];})
+    ]
+    ++ (
+      map
+      (scriptName:
+        pkgs.writeShellScriptBin
+        scriptName
+        (builtins.readFile (./script + "/${scriptName}")))
+      (builtins.attrNames
+        (builtins.readDir ./script))
+    );
 
   xdg = {
     enable = true;
@@ -347,8 +345,6 @@
       "zathura/zathurarc".source = ./config/zathura;
     };
   };
-
-  home.file."script".source = ./script;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

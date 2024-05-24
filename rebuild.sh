@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-trap 'echo "ERROR while rebuilding!"' ERR
+trap 'echo "ERROR while rebuilding!"; exit -1' ERR
 
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 {switch|boot}"
