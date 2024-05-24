@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+export BW_SESSION=$(bw unlock --raw)
+
+PASSWORD=$(bw get password "ETHZ Radius")
+OTP=$(bw get totp "ETHZ Radius")
+echo -e "$PASSWORD\n$OTP" | \
+  sudo openconnect \
+    -u luwirth@student-net.ethz.ch \
+    --useragent=AnyConnect \
+    -g student-net sslvpn.ethz.ch

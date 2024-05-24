@@ -1,35 +1,24 @@
-profile {
+profile laptop {
   output eDP-1 enable scale 1.5
 }
 
 # dual monitor
-profile {
+profile docked-dual {
   output eDP-1 disable
-  output "Samsung Electric Company U28H75x HTPJ700579" enable position 0,0 scale 1.25
-  output "Samsung Electric Company U28D590" enable position -3072,0 scale 1.25
+  #output "Samsung Electric Company U28H75x HTPJ700579" enable position 0,0 scale 1.25
+  #output "Samsung Electric Company U28D590" enable position -3072,0 scale 1.25
+  output DP-8 enable position 0,0 scale 1.25
+  output DP-9 enable position -3072,0 scale 1.25
 }
 
 # newer samsung monitor
-profile {
+profile docked-single-new {
   output eDP-1 disable
   output "Samsung Electric Company U28H75x HTPJ700579" enable scale 1.25
 }
 
 # older samsung monitor
-profile {
+profile docked-single-old {
   output eDP-1 disable
   output "Samsung Electric Company U28D590" enable scale 1.25
 }
-
-# projector
-profile {
-  output eDP-1 disable
-  output "LG Electronics LG PROJECTOR 0x00000101" enable scale 2
-}
-
-# ami tv
-profile {
-  output eDP-1 disable
-  output "LG Electronics LG TV SSCR2 0x00000101" enable scale 2
-}
-

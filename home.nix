@@ -164,10 +164,6 @@
   home.packages = with pkgs; [
     alejandra
 
-    #bitwarden-desktop
-    bitwarden-cli
-
-    openssl
     cacert
     xdg-user-dirs
     xdg-utils
@@ -193,12 +189,17 @@
     zellij
     tmux
 
-    openconnect
+    sshpass
     sshfs
+    openconnect
+
+    openssl
+    #bitwarden-desktop
+    bitwarden-cli
+    restic
+
     gnuplot
     tmpmail
-    pass
-    restic
     ffmpeg_5-full
     ffmpegthumbnailer
 
