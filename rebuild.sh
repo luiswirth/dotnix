@@ -1,7 +1,21 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-trap "ERROR while rebuilding!" ERR
+trap 'echo "ERROR while rebuilding!"' ERR
 
-alejandra .
-sudo nixos-rebuild --flake .#lwirth-tp switch > nixos-switch.log
-./commit-gen.sh
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 {switch|boot}"
+  exit 1
+fi
+
+MODE=$1
+case $MODE in
+  switch|boot)
+    alejandra .
+    sudo nixos-rebuild --flake .#lwirth-tp $MODE
+    ./commit-gen.sh
+    ;;
+  *)
+    echo "Invalid argument: $MODE. Use 'switch' or 'boot'."
+    exit 1
+    ;;
+esac
