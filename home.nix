@@ -50,6 +50,9 @@
     enable = true;
     interactiveShellInit = "fish_vi_key_bindings
       set fish_greeting";
+    functions = {
+      bwu = "set -xU BW_SESSION (bw unlock --raw)";
+    };
   };
   programs.starship.enable = true;
   programs.zoxide.enable = true;
