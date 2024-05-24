@@ -20,25 +20,6 @@
     };
   };
 
-  #system.autoUpgrade = {
-  #  enable = true;
-  #  flake = inputs.self.outPath;
-  #  flags = [
-  #    "--update-input"
-  #    "nixpkgs"
-  #    "-L"
-  #  ];
-  #  dates = "03:00";
-  #  persistent = true;
-  #  randomizedDelaySec = "45min";
-
-  #  #allowReboot = true;
-  #  #rebootWindow = {
-  #  #  lower = "03:00";
-  #  #  upper = "05:00";
-  #  #};
-  #};
-
   programs.nh = {
     enable = true;
     #clean.enable = true;
@@ -80,10 +61,19 @@
   };
 
   security.sudo.wheelNeedsPassword = false;
+  users.groups.stdgroup = {
+    name = "Standard";
+    members = ["luis" "guest"];
+  };
   users.users.luis = {
     description = "Luis Wirth";
     isNormalUser = true;
     extraGroups = ["wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker"];
+  };
+  users.users.guest = {
+    description = "Guest";
+    isNormalUser = true;
+    extraGroups = [];
   };
 
   programs.fish.enable = true;
@@ -160,11 +150,19 @@
 
   services.openssh = {
     enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
     ports = [22];
+    settings = {
+      PermitRootLogin = "no";
+      KbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
+    };
+    #extraConfig = "AuthenticationMethods \"publickey,password\"";
+  };
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5;
+    bantime = "1h";
+    bantime-increment.enable = true;
   };
 
   services.dbus.packages = with pkgs; [
