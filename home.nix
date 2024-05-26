@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 }: {
   home.username = "luis";
@@ -219,13 +220,17 @@
     plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
-  programs.wezterm.enable = true;
+  programs.wezterm = {
+    enable = true;
+    extraConfig = builtins.readFile ./config/wezterm.lua;
+  };
 
   programs.helix = {
     enable = true;
     defaultEditor = true;
     ignores = ["build/" ".direnv/"];
     settings = {
+      theme = lib.mkForce "gruvbox";
       editor = {
         auto-pairs = false;
         line-number = "relative";
@@ -266,7 +271,7 @@
             "position-percentage"
             "file-type"
           ];
-          separator = "|";
+          separator = " | ";
         };
       };
 

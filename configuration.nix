@@ -239,11 +239,15 @@
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
-    cursor.size = 64;
+    cursor = {
+      size = 64;
+      package = pkgs.apple-cursor;
+      name = "macOS-Monterey";
+    };
 
     fonts = {
       sizes = {
-        applications = 12;
+        applications = 10;
         terminal = 14;
         desktop = 10;
         popups = 10;
