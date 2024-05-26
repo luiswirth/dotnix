@@ -239,7 +239,16 @@
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
+    cursor.size = 64;
+
     fonts = {
+      sizes = {
+        applications = 12;
+        terminal = 14;
+        desktop = 10;
+        popups = 10;
+      };
+
       monospace = {
         package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
         name = "FiraCode Nerd Font Mono";
@@ -253,6 +262,8 @@
         name = "DejaVu Serif";
       };
     };
+
+    targets.gnome.enable = true;
   };
 
   services.udev.extraRules = ''

@@ -99,6 +99,8 @@
   };
   services.ssh-agent.enable = true;
 
+  programs.btop.enable = true;
+
   fonts.fontconfig.enable = true;
 
   wayland.windowManager.hyprland = {
@@ -161,7 +163,7 @@
         profile.outputs = [
           {
             criteria = "eDP-1";
-            scale = 1.5;
+            scale = 2.0;
             status = "enable";
           }
         ];
@@ -217,10 +219,7 @@
     plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
-  programs.wezterm = {
-    enable = true;
-    extraConfig = builtins.readFile ./config/wezterm.lua;
-  };
+  programs.wezterm.enable = true;
 
   programs.helix = {
     enable = true;
@@ -339,7 +338,6 @@
       ripgrep-all
       procs
       #pueue
-      btop
       tealdeer
       starship
       ouch
