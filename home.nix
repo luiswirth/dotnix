@@ -9,15 +9,10 @@
 
   home.sessionVariables = let
     cacheDir = "${config.home.homeDirectory}/.cache";
-    #configDir = "${config.home.homeDirectory}/.config";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
     TERMINAL = "wezterm";
     EDITOR = "hx";
-    VISUAL = "hx";
-    DEFAULT_BROWSER = "google-chrome-stable";
-    TASKMGR = "btop";
-    READER = "zathura";
     FILEMGR = "nnn";
 
     # clean home
@@ -27,8 +22,6 @@
 
     # hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
-
-    GTK_THEME = "Adwaita:dark";
   };
 
   home.shellAliases = {
@@ -68,7 +61,18 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
+    userName = "Luis Wirth";
+    userEmail = "lwirth2000@gmail.com";
+    signing.key = "/home/luis/.ssh/id_ed25519.pub";
+    extraConfig = {
+      init.defaultBranch = "main";
+      push.default = "current";
+      pull.ff = "only";
+      commit.gpgsign = true;
+      gpg.format = "ssh";
+    };
   };
+  programs.gh.enable = true;
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
@@ -106,49 +110,67 @@
       inputs.hy3.packages.${pkgs.system}.hy3
     ];
   };
-  programs.waybar.enable = true;
-  programs.wofi.enable = true;
-
-  # theming
-  dconf = {
+  programs.hyprlock = {
     enable = true;
-    settings."org/gnome/desktop/interface" = {
-      monospace-font-name = "DejaVu Sans Mono";
-      color-scheme = "prefer-dark";
+    extraConfig = builtins.readFile ./config/hyprlock.conf;
+  };
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        ignore_dbus_inhibit = false;
+        before_sleep_cmd = "";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        lock_cmd = "pidof hyprlock || hyprlock";
+      };
+
+      listener = [
+        {
+          timeout = 1700;
+          on-timeout = "brightnessctl -s set 10";
+          on-resume = "brightnessctl -r";
+        }
+        {
+          timeout = 1700;
+          on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+          on-resume = "brightnessctl -rd rgb:kbd_backlight";
+        }
+        {
+          timeout = 1800;
+          on-timeout = "loginctl lock-session";
+        }
+        {
+          timeout = 1850;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 3600;
+          on-timeout = "systemctl suspend";
+        }
+      ];
     };
   };
-
-  gtk = {
+  services.kanshi = {
     enable = true;
-    font.package = pkgs.ubuntu_font_family;
-    font.name = "Ubuntu";
-    #theme.package = ...
-    theme.name = "Adwaita-dark";
-    iconTheme.package = pkgs.gnome.adwaita-icon-theme;
-    iconTheme.name = "Adwaita";
-
-    gtk3.extraConfig.Settings = ''
-      gtk-application-prefer-dark-theme=1
-    '';
-    gtk4.extraConfig.Settings = ''
-      gtk-application-prefer-dark-theme=1
-    '';
+    systemdTarget = "hyprland-session.target";
+    extraConfig = builtins.readFile ./config/kanshi;
   };
 
-  home.pointerCursor = {
-    package = pkgs.quintom-cursor-theme;
-    name = "Quintom_Ink";
-    size = 24;
-    gtk.enable = true;
-    x11.enable = true;
+  programs.waybar.enable = true;
+  programs.wofi = {
+    enable = true;
+    settings = {
+      mode = "drun";
+      allow_images = true;
+    };
+    style = builtins.readFile ./config/wofi/style.css;
   };
 
-  qt = {
+  programs.zathura = {
     enable = true;
-    platformTheme.name = "gtk";
-    style = {
-      package = pkgs.adwaita-qt;
-      name = "adwaita-dark";
+    options = {
+      selection-clipboard = "clipboard";
     };
   };
 
@@ -162,6 +184,80 @@
     plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
+  programs.wezterm = {
+    enable = true;
+    extraConfig = builtins.readFile ./config/wezterm.lua;
+  };
+
+  programs.helix = {
+    enable = true;
+    defaultEditor = true;
+    ignores = ["build/" ".direnv/"];
+    settings = {
+      editor = {
+        auto-pairs = false;
+        line-number = "relative";
+
+        whitespace.render.newline = "all";
+        indent-guides = {
+          render = true;
+          character = "┊";
+          skip-levels = 0;
+        };
+        color-modes = true;
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
+
+        file-picker.hidden = false;
+
+        gutters = ["diagnostics" "spacer" "line-numbers" "spacer"];
+
+        statusline = {
+          left = [
+            "mode"
+            "spinner"
+            "version-control"
+            "read-only-indicator"
+            "file-name"
+            "file-modification-indicator"
+          ];
+          center = ["diagnostics" "workspace-diagnostics"];
+          right = [
+            "selections"
+            "primary-selection-length"
+            "file-encoding"
+            "file-line-ending"
+            "position"
+            "position-percentage"
+            "file-type"
+          ];
+          separator = "|";
+        };
+
+        keys.normal = {
+          H = "goto_line_start";
+          L = "goto_line_end_newline";
+        };
+        keys.select = {
+          H = "goto_line_start";
+          L = "goto_line_end_newline";
+        };
+      };
+    };
+  };
+  programs.zellij = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      default_mode = "locked";
+      default_layout = "compact";
+      pane_frames = false;
+      session_serialization = false;
+    };
+  };
   programs.yazi.enable = true;
   programs.jujutsu.enable = true;
 
@@ -187,12 +283,6 @@
       pciutils
       psmisc
       nmap
-
-      helix
-      neovim
-      github-cli
-      zellij
-      tmux
 
       sshpass
       sshfs
@@ -225,13 +315,10 @@
       kondo
       tokei
 
-      hyprlock
-      hypridle
       brightnessctl
       wl-clipboard
       libnotify
       swaynotificationcenter
-      kanshi
       wl-mirror
       waypipe
       grim
@@ -241,14 +328,11 @@
       pavucontrol
       pulsemixer
 
-      wezterm
       google-chrome
       spotify
       oculante
 
       imv
-      zathura
-      poppler
       xournalpp
       vlc
       audacity
@@ -326,7 +410,6 @@
         "x-scheme-handler/https" = "google-chrome.desktop";
         "x-scheme-handler/about" = "google-chrome.desktop";
         "x-scheme-handler/unknown" = "google-chrome.desktop";
-        "text/plain" = "helix.desktop";
       };
       associations.added = {
         "application/pdf" = "org.pwmt.zathura.desktop";
@@ -334,20 +417,7 @@
     };
 
     configFile = {
-      "git/config".source = ./config/git;
-      "wezterm/wezterm.lua".source = ./config/wezterm.lua;
-      "helix/config.toml".source = ./config/helix/config.toml;
-      "helix/languages.toml".source = ./config/helix/languages.toml;
-      "zellij/config.kdl".source = ./config/zellij.kdl;
-
-      "hypr/hyprlock.conf".source = ./config/hyprlock.conf;
-      "hypr/hypridle.conf".source = ./config/hypridle.conf;
       "waybar".source = ./config/waybar;
-      "kanshi/config".source = ./config/kanshi;
-      "wofi/config".source = ./config/wofi/config;
-      "wofi/style.css".source = ./config/wofi/style.css;
-
-      "zathura/zathurarc".source = ./config/zathura;
     };
   };
 

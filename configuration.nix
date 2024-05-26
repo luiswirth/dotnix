@@ -234,6 +234,27 @@
     xwayland.enable = true;
   };
 
+  stylix = {
+    image = "${pkgs.hyprland}/share/hyprland/wall0.png";
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-mirage.yaml";
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
+        name = "FiraCode Nerd Font Mono";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+    };
+  };
+
   services.udev.extraRules = ''
     # rp2040
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"

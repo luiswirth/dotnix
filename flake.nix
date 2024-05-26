@@ -14,6 +14,8 @@
       url = "github:outfoxxed/hy3";
       inputs.hyprland.follows = "hyprland";
     };
+
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -23,6 +25,7 @@
     nixos-hardware,
     hyprland,
     hy3,
+    stylix,
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";
@@ -51,6 +54,8 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-z
 
           hyprland.nixosModules.default
+
+          stylix.nixosModules.stylix
 
           home-manager.nixosModules.home-manager
           {
