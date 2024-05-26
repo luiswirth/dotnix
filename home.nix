@@ -236,15 +236,15 @@
           ];
           separator = "|";
         };
+      };
 
-        keys.normal = {
-          H = "goto_line_start";
-          L = "goto_line_end_newline";
-        };
-        keys.select = {
-          H = "goto_line_start";
-          L = "goto_line_end_newline";
-        };
+      keys.normal = {
+        H = "goto_line_start";
+        L = "goto_line_end_newline";
+      };
+      keys.select = {
+        H = "goto_line_start";
+        L = "goto_line_end_newline";
       };
     };
   };
