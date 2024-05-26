@@ -49,7 +49,8 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = "fish_vi_key_bindings
-      set fish_greeting";
+      set fish_greeting
+      jj util completion fish | source";
     functions = {
       bwu = "set -xU BW_SESSION (bw unlock --raw)";
     };
@@ -162,6 +163,7 @@
   };
 
   programs.yazi.enable = true;
+  programs.jujutsu.enable = true;
 
   home.packages = with pkgs;
     [

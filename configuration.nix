@@ -62,7 +62,7 @@
 
   security.sudo.wheelNeedsPassword = false;
   users.groups.stdgroup = {
-    name = "Standard";
+    name = "standard";
     members = ["luis" "guest"];
   };
   users.users.luis = {
