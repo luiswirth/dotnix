@@ -109,9 +109,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
-    plugins = [
-      #inputs.hy3.packages.${pkgs.system}.hy3
-    ];
+    plugins = [];
   };
   programs.hyprlock = {
     enable = true;
@@ -173,13 +171,13 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "Samsung Electric Company U28H75x HTPJ700579";
+            criteria = "desc:Samsung Electric Company U28H75x HTPJ700579";
             position = "0,0";
             scale = 1.25;
             mode = "3840x2160@60Hz";
           }
           {
-            criteria = "Samsung Electric Company U28D590";
+            criteria = "desc:Samsung Electric Company U28D590";
             position = "0,0";
             scale = 1.25;
             mode = "3840x2160@60Hz";
@@ -191,6 +189,11 @@
         ];
       }
     ];
+  };
+
+  stylix.targets = {
+    helix.enable = false;
+    zellij.enable = false;
   };
 
   programs.waybar.enable = true;
@@ -230,7 +233,7 @@
     defaultEditor = true;
     ignores = ["build/" ".direnv/"];
     settings = {
-      theme = lib.mkForce "gruvbox";
+      theme = "gruvbox";
       editor = {
         auto-pairs = false;
         line-number = "relative";
@@ -271,7 +274,6 @@
             "position-percentage"
             "file-type"
           ];
-          separator = " | ";
         };
       };
 
@@ -292,6 +294,20 @@
       default_layout = "compact";
       pane_frames = false;
       session_serialization = false;
+      theme = "gruvbox-dark";
+      themes.gruvbox-dark = {
+        fg = "#D5C4A1";
+        bg = "#282828";
+        black = "#3C3836";
+        red = "#CC241D";
+        green = "#98971A";
+        yellow = "#D79921";
+        blue = "#3C8588";
+        magenta = "#B16286";
+        cyan = "#689D6A";
+        white = "#FBF1C7";
+        orange = "#D65D0E";
+      };
     };
   };
   programs.yazi.enable = true;

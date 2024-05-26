@@ -10,11 +10,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hy3 = {
-      url = "github:outfoxxed/hy3";
-      inputs.hyprland.follows = "hyprland";
-    };
-
     stylix.url = "github:danth/stylix";
   };
 
@@ -24,7 +19,6 @@
     home-manager,
     nixos-hardware,
     hyprland,
-    hy3,
     stylix,
   } @ inputs: let
     system = "x86_64-linux";
