@@ -238,7 +238,7 @@
   stylix = {
     image = "${pkgs.hyprland}/share/hyprland/wall0.png";
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-ocean.yaml";
 
     cursor = {
       size = 24;
