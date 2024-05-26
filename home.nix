@@ -190,10 +190,11 @@
     ];
   };
 
-  #stylix.targets = {
-  #  helix.enable = false;
-  #  zellij.enable = false;
-  #};
+  stylix.targets = {
+    helix.enable = false;
+    zellij.enable = false;
+    hyprland.enable = false;
+  };
 
   programs.waybar.enable = true;
   programs.wofi = {
@@ -233,7 +234,7 @@
     defaultEditor = true;
     ignores = ["build/" ".direnv/"];
     settings = {
-      #theme = "gruvbox";
+      theme = "ayu_mirage";
       editor = {
         auto-pairs = false;
         line-number = "relative";
@@ -294,20 +295,20 @@
       default_layout = "compact";
       pane_frames = false;
       session_serialization = false;
-      #theme = "gruvbox-dark";
-      #themes.gruvbox-dark = {
-      #  fg = "#D5C4A1";
-      #  bg = "#282828";
-      #  black = "#3C3836";
-      #  red = "#CC241D";
-      #  green = "#98971A";
-      #  yellow = "#D79921";
-      #  blue = "#3C8588";
-      #  magenta = "#B16286";
-      #  cyan = "#689D6A";
-      #  white = "#FBF1C7";
-      #  orange = "#D65D0E";
-      #};
+      theme = "dracula";
+      themes.dracula = {
+        fg = [ 248 248 242 ];
+        bg = [ 40 42 54 ];
+        red = [ 255 85 85 ];
+        green = [ 80 250 123 ];
+        yellow = [ 241 250 140 ];
+        blue = [ 98 114 164 ];
+        magenta = [ 255 121 198 ];
+        orange = [ 255 184 108 ];
+        cyan = [ 139 233 253 ];
+        black = [ 0 0 0 ];
+        white = [ 255 255 255 ];
+      };
     };
   };
   programs.yazi.enable = true;
