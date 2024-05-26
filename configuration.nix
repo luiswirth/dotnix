@@ -237,7 +237,7 @@
   stylix = {
     image = "${pkgs.hyprland}/share/hyprland/wall0.png";
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-mirage.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
     fonts = {
       monospace = {
