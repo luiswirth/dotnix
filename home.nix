@@ -154,7 +154,35 @@
   services.kanshi = {
     enable = true;
     systemdTarget = "hyprland-session.target";
-    extraConfig = builtins.readFile ./config/kanshi;
+
+    profiles = {
+      laptop.outputs = [
+        {
+          criteria = "eDP-1";
+          scale = 1.5;
+          status = "enable";
+        }
+      ];
+
+      docked.outputs = [
+        {
+          criteria = "Samsung Electric Company U28H75x HTPJ700579";
+          position = "0,0";
+          scale = 1.25;
+          mode = "3840x2160@60Hz";
+        }
+        {
+          criteria = "Samsung Electric Company U28D590";
+          position = "0,0";
+          scale = 1.25;
+          mode = "3840x2160@60Hz";
+        }
+        {
+          criteria = "eDP-1";
+          status = "disable";
+        }
+      ];
+    };
   };
 
   programs.waybar.enable = true;
