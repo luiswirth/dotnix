@@ -2,7 +2,6 @@
   inputs,
   config,
   pkgs,
-  lib,
   ...
 }: {
   home.username = "luis";
@@ -12,7 +11,7 @@
     cacheDir = "${config.home.homeDirectory}/.cache";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "wezterm";
+    TERMINAL = "alacritty";
     EDITOR = "hx";
     FILEMGR = "nnn";
 
@@ -171,15 +170,15 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "desc:Samsung Electric Company U28H75x HTPJ700579";
+            criteria = "DP-8";
             position = "0,0";
-            scale = 1.25;
+            scale = 1.5;
             mode = "3840x2160@60Hz";
           }
           {
-            criteria = "desc:Samsung Electric Company U28D590";
-            position = "0,0";
-            scale = 1.25;
+            criteria = "DP-9";
+            position = "-2560,0";
+            scale = 1.5;
             mode = "3840x2160@60Hz";
           }
           {
@@ -227,6 +226,7 @@
     enable = true;
     extraConfig = builtins.readFile ./config/wezterm.lua;
   };
+  programs.alacritty.enable = true;
 
   programs.helix = {
     enable = true;
