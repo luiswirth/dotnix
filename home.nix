@@ -107,7 +107,7 @@
     xwayland.enable = true;
     extraConfig = builtins.readFile ./config/hyprland.conf;
     plugins = [
-      inputs.hy3.packages.${pkgs.system}.hy3
+      #inputs.hy3.packages.${pkgs.system}.hy3
     ];
   };
   programs.hyprlock = {
