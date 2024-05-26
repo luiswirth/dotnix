@@ -35,6 +35,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = ["video=3840x2160-32@60"];
 
     loader = {
       systemd-boot = {
