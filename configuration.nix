@@ -109,11 +109,21 @@
     };
   };
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+  };
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [amdvlk];
+    extraPackages = with pkgs; [
+      amdvlk
+
+      intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
     extraPackages32 = with pkgs; [driversi686Linux.amdvlk];
   };
 
