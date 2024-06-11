@@ -404,7 +404,7 @@
       xournalpp
       vlc
       audacity
-      obsidian
+      #obsidian
       discord
       zoom-us
       slack
