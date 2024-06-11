@@ -35,7 +35,13 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    #kernelParams = ["video=3840x2160"];
+    kernelParams = ["quiet"];
+    initrd = {
+      systemd.enable = true;
+      secrets = {
+        "/crypto_keyfile.bin" = null;
+      };
+    };
 
     loader = {
       systemd-boot = {
@@ -45,9 +51,26 @@
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
-    initrd.secrets = {
-      "/crypto_keyfile.bin" = null;
+    plymouth.enable = true;
+  };
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --asterisks --remember --remember-session --sessions ${inputs.hyprland.packages.${pkgs.system}.hyprland}/share/wayland-sessions";
+        user = "greeter";
+      };
     };
+  };
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal";
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
   };
 
   hardware.enableAllFirmware = true;
@@ -187,44 +210,39 @@
     allowedTCPPorts = [22 42069];
   };
 
-  security.pam.services.swaylock = {};
+  security.pam.services.hyprlock = {};
 
   programs.droidcam.enable = true;
   services.usbmuxd.enable = true;
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
-  systemd = {
-    packages = with pkgs; [swaynotificationcenter];
 
-    services = {
-      lock-on-sleep = {
-        description = "lock on sleep";
-        before = ["sleep.target"];
-        wantedBy = ["sleep.target"];
-        serviceConfig = {
-          User = "luis";
-          Type = "forking";
-          Environment = "XDG_SESSION_ID=1";
-          ExecStart = "${pkgs.systemd}/bin/loginctl lock-session $XDG_SESSION_ID";
-        };
-      };
+  systemd.packages = with pkgs; [swaynotificationcenter];
+
+  systemd.services.lock-on-sleep = {
+    description = "lock on sleep";
+    before = ["sleep.target"];
+    wantedBy = ["sleep.target"];
+    serviceConfig = {
+      User = "luis";
+      Type = "forking";
+      Environment = "XDG_SESSION_ID=1";
+      ExecStart = "${pkgs.systemd}/bin/loginctl lock-session $XDG_SESSION_ID";
     };
+  };
 
-    user.services = {
-      polkit-kde-authentication-agent-1 = {
-        description = "polkit-kde-authentication-agent-1";
-        wants = ["graphical-session.target"];
-        wantedBy = ["graphical-session.target"];
-        after = ["graphical-session.target"];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
+  systemd.user.services.polkit-kde-authentication-agent-1 = {
+    description = "polkit-kde-authentication-agent-1";
+    wants = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
     };
   };
 

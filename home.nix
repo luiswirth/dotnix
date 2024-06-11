@@ -11,7 +11,7 @@
     cacheDir = "${config.home.homeDirectory}/.cache";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "alacritty";
+    TERMINAL = "wezterm";
     EDITOR = "hx";
     FILEMGR = "nnn";
 
@@ -28,6 +28,7 @@
     ls = "eza";
     la = "eza -a";
     ll = "eza -la";
+    tr = "trash-put -v";
     rm = "rm -v";
     cp = "cp -iv";
     mv = "mv -iv";
@@ -210,6 +211,7 @@
     enable = true;
     options = {
       selection-clipboard = "clipboard";
+      recolor-keephue = "true";
     };
   };
 
@@ -295,24 +297,68 @@
       default_layout = "compact";
       pane_frames = false;
       session_serialization = false;
-      theme = "dracula";
-      themes.dracula = {
-        fg = [248 248 242];
-        bg = [40 42 54];
-        red = [255 85 85];
-        green = [80 250 123];
-        yellow = [241 250 140];
-        blue = [98 114 164];
-        magenta = [255 121 198];
-        orange = [255 184 108];
-        cyan = [139 233 253];
-        black = [0 0 0];
-        white = [255 255 255];
+      theme = "catppuccin-macchiato";
+      keybinds = {
+        locked = {
+          "bind \"Ctrl g\"" = {
+            SwitchToMode = ["Normal"];
+          };
+          "bind \"Alt h\"" = {
+            MoveFocusOrTab = ["Left"];
+          };
+          "bind \"Alt l\"" = {
+            MoveFocusOrTab = ["Right"];
+          };
+          "bind \"Alt j\"" = {
+            MoveFocusOrTab = ["Down"];
+          };
+          "bind \"Alt k\"" = {
+            MoveFocusOrTab = ["Up"];
+          };
+        };
       };
     };
   };
   programs.yazi.enable = true;
   programs.jujutsu.enable = true;
+
+  # USB automount
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    notify = true;
+    tray = "auto";
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
+    };
+
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    # cursorTheme = {
+    #	  name = "Numix-Cursor";
+    #  	package = pkgs.numix-cursor-theme;
+    # };
+  };
 
   home.packages = with pkgs;
     [
