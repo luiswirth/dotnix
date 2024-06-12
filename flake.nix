@@ -8,8 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     stylix.url = "github:danth/stylix";
   };
 
@@ -18,7 +16,6 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
-    hyprland,
     stylix,
   } @ inputs: let
     system = "x86_64-linux";
@@ -47,8 +44,6 @@
           ./hardware-lwirth-tp.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-z
 
-          hyprland.nixosModules.default
-
           stylix.nixosModules.stylix
 
           home-manager.nixosModules.home-manager
@@ -60,8 +55,6 @@
             home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.users.${user}.imports = [
               ./home.nix
-
-              hyprland.homeManagerModules.default
             ];
           }
         ];
