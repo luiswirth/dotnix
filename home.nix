@@ -19,8 +19,12 @@
     CARGO_HOME = "${dataDir}/cargo";
     CARGO_TARGET_DIR = "${cacheDir}/target";
 
-    # hint electron apps to use wayland
+    # apps should use wayland
     NIXOS_OZONE_WL = "1";
+    GDK_BACKEND = "wayland";
+    T_QPA_PLATFORM = "wayland";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    MOZ_ENABLE_WAYLAND = "1";
   };
 
   home.shellAliases = {

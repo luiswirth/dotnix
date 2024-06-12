@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   nix = {
@@ -214,6 +211,16 @@
   security.rtkit.enable = true;
   security.polkit.enable = true;
 
+  # kmsgrab without sudo
+  security.wrappers = {
+    ffmpeg = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_sys_admin=ep";
+      source = "${pkgs.ffmpeg}/bin/ffmpeg";
+    };
+  };
+
   systemd.packages = with pkgs; [swaynotificationcenter];
 
   systemd.services.lock-on-sleep = {
@@ -248,7 +255,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    #jack.enable = true;
   };
 
   services.xserver.videoDrivers = ["amdgpu"];
@@ -257,6 +264,8 @@
     enable = true;
     xwayland.enable = true;
   };
+  # can be removed after https://github.com/NixOS/nixpkgs/pull/318759 is merged
+  xdg.portal.enable = true;
 
   stylix = {
     enable = true;
