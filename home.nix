@@ -436,7 +436,8 @@
       dejavu_fonts
       fira-code
       fira-code-symbols
-      #fira-math
+      newcomputermodern
+      fira-math
       font-awesome
       (nerdfonts.override {fonts = ["FiraCode"];})
     ]
