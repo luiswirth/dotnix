@@ -415,6 +415,7 @@
       prismlauncher
       gimp
       inkscape
+      zed-editor
 
       clang
       rustup
