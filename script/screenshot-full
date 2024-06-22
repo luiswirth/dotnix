@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+grim /home/luis/media/img/ss/$(date +'%Y-%m-%dT%H%M%S.png')

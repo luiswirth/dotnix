@@ -156,11 +156,14 @@
   };
 
   # power saving
+  powerManagement.enable = true;
+  services.thermald.enable = true;
+  services.tlp.enable = true;
   services.upower = {
     enable = true;
     criticalPowerAction = "Hibernate";
   };
-  services.tlp.enable = true;
+
   programs.light.enable = true;
 
   # virtualization
@@ -230,14 +233,12 @@
   systemd.packages = with pkgs; [swaynotificationcenter];
 
   systemd.services.lock-on-sleep = {
-    description = "lock on sleep";
+    description = "Lock on sleep";
     before = ["sleep.target"];
     wantedBy = ["sleep.target"];
     serviceConfig = {
-      User = "luis";
-      Type = "forking";
-      Environment = "XDG_SESSION_ID=1";
-      ExecStart = "${pkgs.systemd}/bin/loginctl lock-session $XDG_SESSION_ID";
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/loginctl lock-sessions";
     };
   };
 
