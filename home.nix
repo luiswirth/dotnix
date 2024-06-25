@@ -312,10 +312,10 @@
             MoveFocusOrTab = ["Right"];
           };
           "bind \"Alt j\"" = {
-            MoveFocusOrTab = ["Down"];
+            MoveFocus = ["Down"];
           };
           "bind \"Alt k\"" = {
-            MoveFocusOrTab = ["Up"];
+            MoveFocus = ["Up"];
           };
         };
       };
