@@ -173,13 +173,13 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "DP-8";
+            criteria = "Samsung Electric Company U28H75x HTPJ700579";
             position = "0,0";
             scale = 1.5;
             mode = "3840x2160@60Hz";
           }
           {
-            criteria = "DP-9";
+            criteria = "Samsung Electric Company U28D590";
             position = "-2560,0";
             scale = 1.5;
             mode = "3840x2160@60Hz";
@@ -385,6 +385,7 @@
       kondo
       tokei
 
+      kanshi
       brightnessctl
       wl-clipboard
       libnotify
