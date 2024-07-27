@@ -173,13 +173,13 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "Samsung Electric Company U28H75x HTPJ700579";
+            criteria = "DP-8";
             position = "0,0";
             scale = 1.5;
             mode = "3840x2160@60Hz";
           }
           {
-            criteria = "Samsung Electric Company U28D590";
+            criteria = "DP-9";
             position = "-2560,0";
             scale = 1.5;
             mode = "3840x2160@60Hz";
@@ -384,6 +384,7 @@
       diskonaut
       kondo
       tokei
+      onefetch
 
       kanshi
       brightnessctl
