@@ -291,6 +291,12 @@
         L = "goto_line_end_newline";
       };
     };
+
+    languages = {
+      language-server.rust-analyzer.config = {
+        check.command = "clippy";
+      };
+    };
   };
   programs.zellij = {
     enable = true;
@@ -366,7 +372,7 @@
 
       gnuplot
       tmpmail
-      ffmpeg_5-full
+      ffmpeg-full
       ffmpegthumbnailer
 
       eza
