@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -197,6 +198,7 @@
     helix.enable = false;
     zellij.enable = false;
     hyprland.enable = false;
+    wofi.enable = false;
   };
 
   programs.waybar.enable = true;
@@ -229,6 +231,7 @@
 
   programs.wezterm = {
     enable = true;
+    package = inputs.wezterm.packages.${pkgs.system}.default;
     extraConfig = builtins.readFile ./config/wezterm.lua;
   };
   programs.alacritty.enable = true;
@@ -406,6 +409,7 @@
       pavucontrol
       pulsemixer
 
+      firefox
       google-chrome
       spotify
       oculante
@@ -485,11 +489,11 @@
         "application/pdf" = "org.pwmt.zathura.desktop";
         "image/*" = "oculante.desktop";
         "video/*" = "vlc.desktop";
-        "text/html" = "google-chrome.desktop";
-        "x-scheme-handler/http" = "google-chrome.desktop";
-        "x-scheme-handler/https" = "google-chrome.desktop";
-        "x-scheme-handler/about" = "google-chrome.desktop";
-        "x-scheme-handler/unknown" = "google-chrome.desktop";
+        "text/html" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/unknown" = "firefox.desktop";
       };
       associations.added = {
         "application/pdf" = "org.pwmt.zathura.desktop";
