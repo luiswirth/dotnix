@@ -231,7 +231,6 @@
 
   programs.wezterm = {
     enable = true;
-    package = inputs.wezterm.packages.${pkgs.system}.default;
     extraConfig = builtins.readFile ./config/wezterm.lua;
   };
   programs.alacritty.enable = true;
@@ -414,7 +413,7 @@
       spotify
       oculante
 
-      imv
+      feh
       xournalpp
       vlc
       audacity
@@ -422,25 +421,28 @@
       discord
       zoom-us
       slack
-      element-desktop
+      #element-desktop
       signal-desktop
       prismlauncher
       gimp
       inkscape
       zed-editor
+      okular
 
       clang
       rustup
 
       pipenv
-      elan
+      #elan
 
       nil
 
       pandoc
       typst
       typstfmt
-      typst-lsp
+      #typst-lsp
+
+      anki-bin
 
       noto-fonts
       noto-fonts-cjk
@@ -486,7 +488,7 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = "org.pwmt.zathura.desktop";
+        "application/pdf" = "org.kde.okular.desktop";
         "image/*" = "oculante.desktop";
         "video/*" = "vlc.desktop";
         "text/html" = "firefox.desktop";
