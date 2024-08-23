@@ -191,6 +191,27 @@
           }
         ];
       }
+      {
+        profile.name = "docked2";
+        profile.outputs = [
+          {
+            criteria = "DP-11";
+            position = "0,0";
+            scale = 1.5;
+            mode = "3840x2160@60Hz";
+          }
+          {
+            criteria = "DP-12";
+            position = "-2560,0";
+            scale = 1.5;
+            mode = "3840x2160@60Hz";
+          }
+          {
+            criteria = "eDP-1";
+            status = "disable";
+          }
+        ];
+      }
     ];
   };
 
@@ -417,11 +438,11 @@
       xournalpp
       vlc
       audacity
-      #obsidian
+      obsidian
       discord
       zoom-us
       slack
-      #element-desktop
+      element-desktop
       signal-desktop
       prismlauncher
       gimp
@@ -433,14 +454,14 @@
       rustup
 
       pipenv
-      #elan
+      elan
 
       nil
 
       pandoc
       typst
       typstfmt
-      #typst-lsp
+      typst-lsp
 
       anki-bin
 
