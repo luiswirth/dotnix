@@ -91,7 +91,7 @@
   users.users.luis = {
     description = "Luis Wirth";
     isNormalUser = true;
-    extraGroups = ["wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker"];
+    extraGroups = ["wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker" "usbmux"];
   };
   users.users.guest = {
     description = "Guest";
@@ -272,7 +272,7 @@
 
   stylix = {
     enable = true;
-    image = "${pkgs.hyprland}/share/hyprland/wall0.png";
+    image = "${pkgs.hyprland}/share/hypr/wall0.png";
 
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-ocean.yaml";

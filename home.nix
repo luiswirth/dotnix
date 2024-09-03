@@ -461,7 +461,7 @@
       pandoc
       typst
       typstfmt
-      typst-lsp
+      #typst-lsp
 
       anki-bin
 
