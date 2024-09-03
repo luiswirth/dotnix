@@ -454,7 +454,7 @@
       rustup
 
       pipenv
-      elan
+      #elan
 
       nil
 
