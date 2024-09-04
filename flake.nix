@@ -2,13 +2,15 @@
   description = "Personal NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     stylix.url = "github:danth/stylix";
+
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   };
 
   outputs = {
@@ -17,6 +19,7 @@
     home-manager,
     nixos-hardware,
     stylix,
+    nixpkgs-small,
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";
@@ -26,19 +29,17 @@
     };
     lib = nixpkgs.lib;
   in {
-    formatter.${system} = pkgs.nixpkgs-fmt;
-
     devShell.${system} = pkgs.mkShell {
-      nativeBuildInputs = with pkgs; [
-        nil
-      ];
+      nativeBuildInputs = with pkgs; [nil];
       buildInputs = [];
     };
 
     nixosConfigurations = {
       lwirth-tp = lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           ./configuration.nix
           ./hardware-lwirth-tp.nix

@@ -3,7 +3,12 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  pkgs-small = import inputs.nixpkgs-small {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in {
   home.username = "luis";
   home.homeDirectory = "/home/luis";
 
@@ -113,6 +118,7 @@
     xwayland.enable = true;
     plugins = [];
     extraConfig = builtins.readFile ./config/hyprland.conf;
+    package = pkgs-small.hyprland;
   };
   programs.hyprlock = {
     enable = true;

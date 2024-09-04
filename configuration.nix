@@ -1,4 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  pkgs-small = import inputs.nixpkgs-small {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in {
   nixpkgs.config.allowUnfree = true;
 
   nix = {
@@ -266,9 +275,9 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    package = pkgs-small.hyprland;
+    portalPackage = pkgs-small.xdg-desktop-portal-hyprland;
   };
-  # can be removed after https://github.com/NixOS/nixpkgs/pull/318759 is merged
-  xdg.portal.enable = true;
 
   stylix = {
     enable = true;
