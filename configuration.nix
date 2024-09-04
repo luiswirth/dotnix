@@ -22,6 +22,11 @@ in {
     };
   };
 
+  environment.sessionVariables = {
+    FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
+    FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts";
+  };
+
   programs.nh = {
     enable = true;
     #clean.enable = true;
