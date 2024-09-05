@@ -9,6 +9,11 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     stylix.url = "github:danth/stylix";
+
+    wezterm = {
+      url = "github:wez/wezterm/main?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -17,6 +22,7 @@
     home-manager,
     nixos-hardware,
     stylix,
+    ...
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";
