@@ -9,8 +9,6 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     stylix.url = "github:danth/stylix";
-
-    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   };
 
   outputs = {
@@ -19,7 +17,6 @@
     home-manager,
     nixos-hardware,
     stylix,
-    nixpkgs-small,
   } @ inputs: let
     system = "x86_64-linux";
     user = "luis";

@@ -1,13 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: let
-  pkgs-small = import inputs.nixpkgs-small {
-    system = "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in {
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   nix = {
@@ -20,11 +11,6 @@ in {
       dates = "weekly";
       options = "--delete-older-than 14d";
     };
-  };
-
-  environment.sessionVariables = {
-    FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
-    FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts";
   };
 
   programs.nh = {
@@ -280,8 +266,6 @@ in {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = pkgs-small.hyprland;
-    portalPackage = pkgs-small.xdg-desktop-portal-hyprland;
   };
 
   stylix = {
