@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   nixpkgs.config.allowUnfree = true;
 
   nix = {
@@ -35,6 +39,14 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["quiet"];
+
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+    ];
+    extraModprobeConfig = ''
+      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+    '';
+
     initrd = {
       systemd.enable = true;
       secrets = {
@@ -212,7 +224,10 @@
   security.pam.services.hyprlock = {};
 
   programs.droidcam.enable = true;
-  services.usbmuxd.enable = true;
+  services.usbmuxd = {
+    enable = true;
+    package = pkgs.usbmuxd2;
+  };
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
@@ -316,6 +331,9 @@
 
   environment.systemPackages = with pkgs; [
     virtiofsd
+
+    libimobiledevice
+    ifuse
 
     man-pages
     man-pages-posix

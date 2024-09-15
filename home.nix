@@ -73,8 +73,8 @@
       init.defaultBranch = "main";
       push.default = "current";
       pull.ff = "only";
-      commit.gpgsign = true;
-      gpg.format = "ssh";
+      #commit.gpgsign = true;
+      #gpg.format = "ssh";
     };
   };
   programs.gh.enable = true;
