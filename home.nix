@@ -175,7 +175,7 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "Samsung Electric Company U28H75x HTPJ700579";
+            criteria = "desc:Samsung Electric Company U28H75x HTPJ700579";
             #criteria = "DP-8";
             position = "0,0";
             scale = 1.5;
