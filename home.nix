@@ -175,17 +175,18 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "DP-8";
+            criteria = "Samsung Electric Company U28H75x HTPJ700579";
+            #criteria = "DP-8";
             position = "0,0";
             scale = 1.5;
             mode = "3840x2160@60.00Hz";
           }
-          {
-            criteria = "DP-9";
-            position = "-2560,0";
-            scale = 1.5;
-            mode = "3840x2160@60.00Hz";
-          }
+          #{
+          #  criteria = "DP-9";
+          #  position = "-2560,0";
+          #  scale = 1.5;
+          #  mode = "3840x2160@60.00Hz";
+          #}
           {
             criteria = "eDP-1";
             status = "disable";
