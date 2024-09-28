@@ -1,0 +1,24 @@
+[[profile]]
+name = "laptop"
+exec = ["notify-send shikane \"profile $SHIKANE_PROFILE_NAME has been applied\" -u low"]
+  [[profile.output]]
+  search = "eDP-1"
+  mode = "best"
+  scale = 2.0
+  adaptive_sync = true
+  enable = true
+
+[[profile]]
+name = "docked"
+exec = ["notify-send shikane \"profile $SHIKANE_PROFILE_NAME has been applied\" -u low"]
+  [[profile.output]]
+  search = "/DP-[1-9]"
+  mode = "best"
+  scale = 1.5
+  position = "0,0"
+  adaptive_sync = true
+  enable = true
+
+  [[profile.output]]
+  search = "eDP-1"
+  enable = false

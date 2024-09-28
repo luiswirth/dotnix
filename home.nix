@@ -468,6 +468,7 @@
 
     configFile = {
       "waybar".source = ./config/waybar;
+      "shikane/config.toml".source = ./config/shikane.toml;
     };
   };
 
