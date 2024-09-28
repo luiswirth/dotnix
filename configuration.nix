@@ -43,6 +43,7 @@
   boot = {
     kernelParams = ["quiet"];
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = ["thinkpad_acpi"];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
@@ -171,6 +172,18 @@
   services.upower = {
     enable = true;
     criticalPowerAction = "Hibernate";
+  };
+  services.thinkfan = {
+    enable = true;
+    levels = [
+      [0 0 55]
+      [1 48 60]
+      [2 50 61]
+      [3 52 63]
+      [6 56 65]
+      [7 60 95]
+      ["level full-speed" 90 32767]
+    ];
   };
 
   programs.light.enable = true;
