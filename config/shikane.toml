@@ -10,3 +10,20 @@ scale = 2.0
 position = "0,0"
 transform = "normal"
 adaptive_sync = true
+
+
+[[profile]]
+name = "docked"
+
+[[profile.output]]
+enable = true
+search = ["m=U28H75x", "s=HTPJ700579", "v=Samsung Electric Company"]
+mode = "3840x2160@59.997Hz"
+scale = 1.5
+position = "0,0"
+transform = "normal"
+adaptive_sync = true
+
+[[profile.output]]
+enable = false
+search = "eDP-1"
