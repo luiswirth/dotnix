@@ -113,6 +113,7 @@
     xwayland.enable = true;
     plugins = [];
     extraConfig = builtins.readFile ./config/hyprland.conf;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
   programs.hyprlock = {
     enable = true;
