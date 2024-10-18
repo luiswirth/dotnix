@@ -397,7 +397,7 @@
       rustup
 
       pipenv
-      #elan
+      elan
 
       nil
       nix-output-monitor
