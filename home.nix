@@ -126,7 +126,7 @@
         ignore_dbus_inhibit = false;
         before_sleep_cmd = "";
         after_sleep_cmd = "hyprctl dispatch dpms on";
-        lock_cmd = "pidof waylock || waylock";
+        lock_cmd = "pidof hyprlock|| hyprlock";
       };
 
       listener = [
@@ -358,7 +358,6 @@
       tokei
       onefetch
 
-      waylock
       shikane
       brightnessctl
       wl-clipboard
