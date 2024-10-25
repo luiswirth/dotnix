@@ -404,7 +404,7 @@
       clang
       rustup
 
-      pipenv
+      uv
       elan
 
       nil
