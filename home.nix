@@ -405,6 +405,7 @@
       rustup
 
       uv
+      ruff
       elan
 
       nil
