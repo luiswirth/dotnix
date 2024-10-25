@@ -88,7 +88,6 @@
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
-    forwardAgent = true;
     matchBlocks = {
       "euler.ethz.ch" = {
         hostname = "euler";
@@ -99,6 +98,14 @@
         hostname = "slab1";
         user = "luwirth";
         forwardAgent = true;
+      };
+      "ssh.lightning.ai" = {
+        identityFile = "~/.ssh/lightning_rsa";
+        identitiesOnly = true;
+        serverAliveInterval = 15;
+        serverAliveCountMax = 4;
+        #strictHostKeyChecking = "no";
+        #userKnownHostsFile = "/dev/null";
       };
     };
   };
