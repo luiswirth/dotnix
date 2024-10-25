@@ -100,7 +100,6 @@
         forwardAgent = true;
       };
       "ssh.lightning.ai" = {
-        hostname = "light";
         user = "s_01jb2c5nqg9w5pgxbvhpy4d21j";
         identityFile = "~/.ssh/lightning_rsa";
         identitiesOnly = true;
