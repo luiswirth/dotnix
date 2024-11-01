@@ -11,7 +11,7 @@
     cacheDir = "${config.home.homeDirectory}/.cache";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "wezterm";
+    TERMINAL = "alacritty";
     EDITOR = "hx";
     FILEMGR = "nnn";
 
@@ -200,11 +200,10 @@
     #plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
-  programs.wezterm = {
-    enable = true;
-    package = inputs.wezterm.packages.${pkgs.system}.default;
-    extraConfig = builtins.readFile ./config/wezterm.lua;
-  };
+  #programs.wezterm = {
+  #  enable = true;
+  #  extraConfig = builtins.readFile ./config/wezterm.lua;
+  #};
   programs.alacritty.enable = true;
 
   programs.helix = {
@@ -344,6 +343,8 @@
       bitwarden-cli
       restic
 
+      blender
+
       gnuplot
       tmpmail
       ffmpeg-full
@@ -382,7 +383,7 @@
 
       firefox
       google-chrome
-      spotify
+      #spotify
       oculante
 
       feh
@@ -419,7 +420,7 @@
       anki-bin
 
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       libertine
       liberation_ttf
