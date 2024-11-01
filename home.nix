@@ -11,7 +11,7 @@
     cacheDir = "${config.home.homeDirectory}/.cache";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "alacritty";
+    TERMINAL = "foot";
     EDITOR = "hx";
     FILEMGR = "nnn";
 

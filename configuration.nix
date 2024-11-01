@@ -41,7 +41,7 @@
   ];
 
   boot = {
-    kernelParams = ["quiet"];
+    kernelParams = [];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = ["thinkpad_acpi"];
     extraModulePackages = with config.boot.kernelPackages; [
