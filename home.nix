@@ -121,7 +121,7 @@
     xwayland.enable = true;
     plugins = [];
     extraConfig = builtins.readFile ./config/hyprland.conf;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
   programs.hyprlock = {
     enable = true;
@@ -200,10 +200,10 @@
     #plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
-  #programs.wezterm = {
-  #  enable = true;
-  #  extraConfig = builtins.readFile ./config/wezterm.lua;
-  #};
+  programs.wezterm = {
+    enable = true;
+    extraConfig = builtins.readFile ./config/wezterm.lua;
+  };
   programs.alacritty.enable = true;
 
   programs.helix = {
