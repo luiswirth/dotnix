@@ -412,10 +412,9 @@
       nil
       nix-output-monitor
 
-      pandoc
       typst
+      tinymist
       typstfmt
-      #typst-lsp
 
       anki-bin
 
