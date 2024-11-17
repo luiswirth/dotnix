@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
   home.username = "luis";
@@ -383,7 +382,7 @@
 
       firefox
       google-chrome
-      #spotify
+      spotify
       oculante
 
       feh
