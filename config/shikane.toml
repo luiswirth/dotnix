@@ -19,7 +19,7 @@ exec = ["notify-send shikane \"profile $SHIKANE_PROFILE_NAME has been applied\" 
 [[profile.output]]
 enable = true
 search = ["m=U28H75x", "s=HTPJ700579", "v=Samsung Electric Company"]
-mode = "3840x2160@59.997Hz"
+mode = "3840x2160@60Hz"
 scale = 1.5
 position = "0,0"
 transform = "normal"
@@ -30,6 +30,6 @@ enable = true
 search = "eDP-1"
 mode = "3840x2400@60Hz"
 scale = 2.0
-position = "3840,0"
+position = "2560,240"
 transform = "normal"
 adaptive_sync = true
