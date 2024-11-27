@@ -299,7 +299,10 @@
       };
     };
   };
-  programs.yazi.enable = true;
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+  };
   programs.jujutsu.enable = true;
 
   # USB automount
@@ -476,6 +479,7 @@
     configFile = {
       "waybar".source = ./config/waybar;
       "shikane/config.toml".source = ./config/shikane.toml;
+      "yazi/keymap.toml".source = ./config/yazi/keymap.toml;
     };
   };
 
