@@ -366,12 +366,13 @@
       tokei
       onefetch
 
+      wdisplays
+      wl-mirror
       shikane
       brightnessctl
       wl-clipboard
       libnotify
       swaynotificationcenter
-      wl-mirror
       waypipe
       grim
       slurp
@@ -461,7 +462,7 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = "org.kde.okular.desktop";
+        "application/pdf" = "org.pwmt.zathura.desktop";
         "image/*" = "oculante.desktop";
         "video/*" = "vlc.desktop";
         "text/html" = "firefox.desktop";
@@ -469,9 +470,6 @@
         "x-scheme-handler/https" = "firefox.desktop";
         "x-scheme-handler/about" = "firefox.desktop";
         "x-scheme-handler/unknown" = "firefox.desktop";
-      };
-      associations.added = {
-        "application/pdf" = "org.pwmt.zathura.desktop";
       };
     };
 
