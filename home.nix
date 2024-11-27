@@ -10,7 +10,7 @@
     cacheDir = "${config.home.homeDirectory}/.cache";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "foot";
+    TERMINAL = "rio";
     EDITOR = "hx";
     FILEMGR = "nnn";
 
@@ -199,11 +199,11 @@
     #plugins = with pkgs; [obs-studio-plugins.droidcam-obs];
   };
 
+  programs.rio.enable = true;
   programs.wezterm = {
     enable = true;
     extraConfig = builtins.readFile ./config/wezterm.lua;
   };
-  programs.alacritty.enable = true;
 
   programs.helix = {
     enable = true;
