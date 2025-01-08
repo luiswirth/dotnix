@@ -429,10 +429,11 @@
       dejavu_fonts
       fira-code
       fira-code-symbols
+      nerd-fonts.fira-code
+      font-awesome
+
       newcomputermodern
       fira-math
-      font-awesome
-      (nerdfonts.override {fonts = ["FiraCode"];})
     ]
     ++ (
       map
