@@ -10,7 +10,7 @@
     cacheDir = "${config.home.homeDirectory}/.cache";
     dataDir = "${config.home.homeDirectory}/.local/share";
   in {
-    TERMINAL = "foot";
+    TERMINAL = "wezterm";
     EDITOR = "hx";
     FILEMGR = "nnn";
 
