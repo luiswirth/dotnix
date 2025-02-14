@@ -363,7 +363,6 @@
       tealdeer
       starship
       ouch
-      diskonaut
       kondo
       tokei
       onefetch
