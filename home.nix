@@ -271,6 +271,7 @@
   };
   programs.zellij = {
     enable = true;
+    enableFishIntegration = false;
     settings = {
       default_mode = "locked";
       default_layout = "compact";
