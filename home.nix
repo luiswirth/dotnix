@@ -410,7 +410,7 @@
       uv
       ruff
       elan
-      npm
+      nodejs
 
       nil
       nix-output-monitor
