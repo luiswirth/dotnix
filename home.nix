@@ -410,7 +410,9 @@
       uv
       ruff
       elan
-      nodejs
+      #nodejs
+
+      claude-code
 
       nil
       nix-output-monitor
