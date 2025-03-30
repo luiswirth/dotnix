@@ -402,7 +402,6 @@
       gimp
       inkscape
       zed-editor
-      okular
 
       clang
       rustup
