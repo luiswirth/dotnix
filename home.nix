@@ -82,7 +82,7 @@
     enable = true;
     enableFishIntegration = true;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
   programs.ssh = {
     enable = true;
