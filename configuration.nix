@@ -103,7 +103,7 @@
   users.users.luis = {
     description = "Luis Wirth";
     isNormalUser = true;
-    extraGroups = ["wheel" "input" "video" "audio" "networkmanager" "libvirtd" "docker" "usbmux"];
+    extraGroups = ["wheel" "input" "video" "audio" "dialout" "networkmanager" "libvirtd" "docker" "usbmux"];
   };
   users.users.guest = {
     description = "Guest";
@@ -334,14 +334,6 @@
 
     targets.gnome.enable = true;
   };
-
-  services.udev.extraRules = ''
-    # rp2040
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
-
-    # picoprobe
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0004", MODE="0666"
-  '';
 
   environment.systemPackages = with pkgs; [
     virtiofsd
