@@ -65,16 +65,16 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "Luis Wirth";
-    userEmail = "lwirth2000@gmail.com";
-    signing.key = "/home/luis/.ssh/id_ed25519.pub";
-    extraConfig = {
+    settings = {
+      user.name = "Luis Wirth";
+      user.email = "lwirth2000@gmail.com";
       init.defaultBranch = "main";
       push.default = "current";
       pull.ff = "only";
       #commit.gpgsign = true;
       #gpg.format = "ssh";
     };
+    signing.key = "/home/luis/.ssh/id_ed25519.pub";
   };
   programs.gh.enable = true;
   programs.gpg.enable = true;
@@ -356,7 +356,7 @@
       bat
       fd
       sd
-      du-dust
+      dust
       ripgrep
       ripgrep-all
       procs
@@ -404,7 +404,7 @@
       zed-editor
 
       clang
-      rustup
+      #rustup
 
       uv
       ruff
@@ -418,16 +418,15 @@
 
       typst
       tinymist
-      typstfmt
 
       anki-bin
 
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       libertine
       liberation_ttf
-      ubuntu_font_family
+      ubuntu-classic
       dejavu_fonts
       fira-code
       fira-code-symbols
