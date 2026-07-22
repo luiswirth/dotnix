@@ -106,7 +106,6 @@
   # SQLite shell history with fuzzy search, synced across Mac and the server.
   programs.atuin.enable = true;
 
-  programs.gpg.enable = true;
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
@@ -137,15 +136,11 @@
     };
   };
 
-  # gpg-agent provides SSH support (no separate ssh-agent; they conflict on
-  # SSH_AUTH_SOCK). systemd-backed, so Linux only; macOS uses its own launchd
-  # ssh-agent, with pinentry_mac configured in home/darwin.nix.
-  services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
-    enable = true;
-    enableFishIntegration = false;
-    enableSshSupport = true;
-    pinentry.package = pkgs.pinentry-gnome3;
-  };
+  # No gpg-agent: commit signing uses the ssh key, not GPG, so its only job was
+  # enableSshSupport -- and that imports ssh keys into gpg's own keystore and
+  # demands a passphrase for them, which a headless box running unattended
+  # cannot answer. ssh reads ~/.ssh/id_ed25519 directly instead, and a
+  # forwarded agent is no longer clobbered on SSH_AUTH_SOCK.
 
   programs.helix = {
     enable = true;
