@@ -45,6 +45,17 @@ One concern is one file until it outgrows the head; folders only then.
   system profile); darwin drives nh from Home Manager (nix-darwin has no module).
 - **AeroSpace runs via nixpkgs + launchd**, not a cask and not yabai: no SIP
   disable. `start-at-login = false` (the module's launchd agent handles autostart).
+- **The checkout path is defined once**, as `flakePath` in `flake.nix`'s
+  `specialArgs`/`extraSpecialArgs`. Every `programs.nh.flake` takes it from
+  there; hardcoding the literal per host is how the two platforms drifted apart
+  before.
+- **The server builds from two different sources, on purpose.** A manual
+  `nh os switch` builds the local checkout, working tree and all, so iteration
+  is immediate. `system.autoUpgrade` builds `github:luiswirth/dotnix` weekly, so
+  unattended rebuilds only ever apply reviewed, pushed commits. The consequence:
+  anything applied locally but never pushed is silently reverted within a week.
+  Note also that a git flake ignores untracked files, so a new `.nix` file that
+  has not been `git add`ed evaluates as absent.
 
 ## Verifying
 
