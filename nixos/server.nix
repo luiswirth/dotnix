@@ -12,6 +12,15 @@
     HandleLidSwitchDocked = "ignore";
   };
 
+  # Blank the console after 5 min idle so the panel powers off lid-closed.
+  boot.kernelParams = ["consoleblank=300"];
+
+  # caps-lock as escape at the console.
+  console.keyMap = pkgs.writeText "caps-to-esc.map" ''
+    include "${pkgs.kbd}/share/keymaps/i386/qwerty/us.map.gz"
+    keycode 58 = Escape
+  '';
+
   # A long-running agent session must outlive both the SSH connection and the
   # machine. zellij handles the first; these two handle the second. Lingering
   # starts the user manager at boot, so the session exists before anyone logs
