@@ -1,9 +1,18 @@
 # Dev server host: the repurposed ThinkPad, headless.
 # Reuses the machine's generated hardware config; adds boot + networking.
-{...}: {
+{lib, ...}: {
   imports = [./laptop/hardware.nix];
 
   networking.hostName = "lwirth-server";
+
+  # Encrypt swap with a fresh random key each boot (root is LUKS; swap was not).
+  # Reformats on activation, so no hibernation/resume, which a server never uses.
+  swapDevices = lib.mkForce [
+    {
+      device = "/dev/disk/by-partuuid/4bc0c4eb-2543-9844-9334-6dd0374be93b";
+      randomEncryption.enable = true;
+    }
+  ];
   # WiFi-only machine (mt7921e); NetworkManager handles association.
   networking.networkmanager.enable = true;
 

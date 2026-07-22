@@ -1,6 +1,13 @@
 # Headless dev-server role: remote access hardening + tailnet.
 # The shell/editor/zellij world comes from home/core.nix; nothing desktop here.
 {...}: {
+  # Headless: closing the lid must never suspend the machine.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
+
   services.openssh = {
     enable = true;
     settings = {
