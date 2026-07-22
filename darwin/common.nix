@@ -30,7 +30,6 @@
 
   homebrew = {
     enable = true;
-    taps = ["macos-fuse-t/cask"];
     onActivation = {
       autoUpdate = true;
       upgrade = true;
@@ -43,12 +42,9 @@
       "signal"
       "whatsapp"
       "spotify"
-      "notion"
       "obsidian"
-      "claude"
+      # Claude Desktop self-updates; left out so brew doesn't fight it.
       "ghostty"
-      "fuse-t"
-      "fuse-t-sshfs"
     ];
     # App Store-only apps (need `mas` + Apple ID). Enable later if wanted:
     # masApps = { Goodnotes = 1444383602; };
