@@ -70,8 +70,3 @@ The Mac cannot build Linux derivations, so verify with evaluation, not build:
 
 `nixos-rebuild --flake github:...` caches the flake for ~1h; pass `--refresh` (or
 pin the commit rev) to pick up a just-pushed change.
-
-## Known gaps
-
-- Server root is LUKS1; TPM auto-unlock needs LUKS2. Until converted, a cold boot
-  waits for the passphrase at the console. See issue #1.
