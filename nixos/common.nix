@@ -39,6 +39,12 @@
     libraries = with pkgs; [stdenv.cc.cc.lib zlib openssl curl];
   };
 
+  # Claude Code policy. Managed settings is the one config file the CLI never
+  # writes, so nix can own it outright; ~/.claude/settings.json stays imperative
+  # because the CLI rewrites it (plugin toggles, /config). Managed rules merge
+  # with the other scopes rather than replacing them.
+  environment.etc."claude-code/managed-settings.json".source = ../claude/managed-settings.json;
+
   security.sudo.wheelNeedsPassword = false;
   users.defaultUserShell = pkgs.zsh;
   users.users.${user} = {

@@ -1,0 +1,52 @@
+{
+  "autoUpdatesChannel": "latest",
+  "permissions": {
+    "allow": [
+      "Bash(nix eval *)",
+      "Bash(nix build *)",
+      "Bash(nix flake *)",
+      "Bash(nix fmt *)",
+      "Bash(nix repl *)",
+      "Bash(alejandra *)",
+      "Bash(cargo check *)",
+      "Bash(cargo build *)",
+      "Bash(cargo test *)",
+      "Bash(cargo clippy *)",
+      "Bash(cargo fmt *)",
+      "Bash(cargo doc *)",
+      "Bash(just *)",
+      "Bash(typst compile *)",
+      "Bash(uv run *)",
+      "Bash(ruff *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git blame *)",
+      "Bash(jj status *)",
+      "Bash(jj diff *)",
+      "Bash(jj log *)",
+      "Bash(rg *)",
+      "Bash(fd *)",
+      "Bash(eza *)",
+      "Bash(bat *)",
+      "Bash(tokei *)",
+      "Bash(hyperfine *)",
+      "Bash(* --version)",
+      "Bash(* --help *)"
+    ],
+    "deny": [
+      "Bash(sudo *)",
+      "Bash(doas *)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/id_ed25519)",
+      "Read(**/id_rsa)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.claude/.credentials.json)"
+    ]
+  }
+}

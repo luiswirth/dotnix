@@ -104,6 +104,14 @@
     };
   };
 
+  # Claude Code policy, same tracked file as NixOS. macOS reads it from
+  # /Library/Application Support/ClaudeCode, which environment.etc (/etc only)
+  # cannot reach, so place it during root activation.
+  system.activationScripts.extraActivation.text = ''
+    mkdir -p "/Library/Application Support/ClaudeCode"
+    ln -sf ${../claude/managed-settings.json} "/Library/Application Support/ClaudeCode/managed-settings.json"
+  '';
+
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToEscape = true;
