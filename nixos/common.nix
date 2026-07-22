@@ -24,6 +24,10 @@
   time.timeZone = "Europe/Zurich";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # Ghostty sets TERM=xterm-ghostty; ship its terminfo so SSH sessions from the
+  # Mac don't error on a missing terminal definition.
+  environment.systemPackages = [pkgs.ghostty.terminfo];
+
   programs.zsh.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
