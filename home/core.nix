@@ -6,6 +6,7 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }: {
   home.stateVersion = "26.11";
@@ -116,7 +117,12 @@
       # Forward the agent so git on the server can reach GitHub with the key
       # that never leaves this machine. Anyone with root on the far end can use
       # the agent for the life of the connection; acceptable for our own box.
-      "lwirth-server".ForwardAgent = true;
+      # User is spelled out rather than left to ssh's local-username default:
+      # the two only coincide because one flake defines both accounts.
+      "lwirth-server" = {
+        ForwardAgent = true;
+        User = user;
+      };
       "euler" = {
         HostName = "euler.ethz.ch";
         User = "luwirth";
