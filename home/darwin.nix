@@ -2,12 +2,13 @@
 {
   config,
   pkgs,
+  flakePath,
   ...
 }: {
   # nix-darwin has no programs.nh; drive it from Home Manager instead.
   programs.nh = {
     enable = true;
-    flake = "${config.home.homeDirectory}/dev/dotnix";
+    flake = flakePath;
     clean = {
       enable = true;
       extraArgs = "--keep 5 --keep-since 7d";

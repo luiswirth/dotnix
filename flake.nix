@@ -27,13 +27,27 @@
   }: let
     user = "luis";
 
+    # Where this repo is checked out on a running host. Only nh needs it, but
+    # both platforms and home-manager do, so it is defined once here rather than
+    # repeated as a literal per host, where the two drift apart.
+    flakePathIn = homeRoot: "${homeRoot}/${user}/dev/dotnix";
+
+    nixosArgs = {
+      inherit inputs user;
+      flakePath = flakePathIn "/home";
+    };
+    darwinArgs = {
+      inherit inputs user;
+      flakePath = flakePathIn "/Users";
+    };
+
     # Home-manager wired as a system module, shared by both builders.
-    hmModule = hmModules: {
+    hmModule = specialArgs: hmModules: {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "backup";
-        extraSpecialArgs = {inherit inputs user;};
+        extraSpecialArgs = specialArgs;
         users.${user}.imports = hmModules;
       };
     };
@@ -45,10 +59,10 @@
     }:
       nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs user;};
+        specialArgs = nixosArgs;
         modules =
           modules
-          ++ [home-manager.nixosModules.home-manager (hmModule home)];
+          ++ [home-manager.nixosModules.home-manager (hmModule nixosArgs home)];
       };
 
     mkDarwin = {
@@ -58,10 +72,10 @@
     }:
       nix-darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = {inherit inputs user;};
+        specialArgs = darwinArgs;
         modules =
           modules
-          ++ [home-manager.darwinModules.home-manager (hmModule home)];
+          ++ [home-manager.darwinModules.home-manager (hmModule darwinArgs home)];
       };
     forEachSystem = f:
       nixpkgs.lib.genAttrs ["aarch64-darwin" "x86_64-linux"]

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  flakePath,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
@@ -24,7 +25,7 @@
     enable = true;
     #clean.enable = true;
     #clean.extraArgs = "--keep-since 7d --keep 3";
-    flake = "/home/luis/.dotnix";
+    flake = flakePath;
   };
 
   programs.command-not-found.enable = false;
