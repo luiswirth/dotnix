@@ -115,6 +115,10 @@
         AddKeysToAgent = "yes";
         IdentityFile = "~/.ssh/id_ed25519";
       };
+      # Forward the agent so git on the server can reach GitHub with the key
+      # that never leaves this machine. Anyone with root on the far end can use
+      # the agent for the life of the connection; acceptable for our own box.
+      "lwirth-server".ForwardAgent = true;
       "euler" = {
         HostName = "euler.ethz.ch";
         User = "luwirth";

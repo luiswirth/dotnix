@@ -23,7 +23,18 @@
   # macOS-only SSH: store key passphrases in the Keychain, and the ETH VLSI
   # course hosts (VNC over forwarded ports, via the EE login gateway).
   programs.ssh.settings = {
-    "*".UseKeychain = "yes";
+    "*" = {
+      UseKeychain = "yes";
+      # A sleeping laptop drops the TCP connection silently; keepalives turn a
+      # hung terminal into a clean exit. The work survives regardless: it lives
+      # in zellij on the far end, not in this connection.
+      ServerAliveInterval = 60;
+      ServerAliveCountMax = 3;
+      # Reuse one authenticated connection for subsequent ssh/scp to the host.
+      ControlMaster = "auto";
+      ControlPath = "~/.ssh/control-%r@%h:%p";
+      ControlPersist = "10m";
+    };
     "vlsi2" = {
       HostName = "tardis-a34.ee.ethz.ch";
       User = "vlsi2_19fs26";
