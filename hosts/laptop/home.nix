@@ -109,7 +109,6 @@
       };
     };
   };
-  services.ssh-agent.enable = true;
 
   programs.btop.enable = true;
 
