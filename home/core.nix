@@ -45,15 +45,14 @@
       ignoreDups = true;
       append = true;
     };
-    # zsh-vi-mode may clobber fzf's Ctrl-R binding on init; if that bites, rebind
-    # inside a zvm_after_init hook.
-    plugins = [
-      {
-        name = "zsh-vi-mode";
-        src = pkgs.zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
-    ];
+    # Stock zle vi mode, deliberately not the zsh-vi-mode plugin: that plugin
+    # rebuilds its keymaps after init from zsh's bare viins/vicmd, discarding
+    # every binding fzf/atuin/zoxide installed before it.
+    defaultKeymap = "viins";
+    # viins leaves Ctrl-D on list-choices, so EOF stops closing the shell.
+    initContent = ''
+      bindkey -M viins '^D' delete-char-or-list
+    '';
   };
 
   # starship/zoxide/fzf/direnv auto-integrate into zsh when enabled.
