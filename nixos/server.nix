@@ -76,4 +76,13 @@
     trustedInterfaces = ["tailscale0"];
     allowedTCPPorts = [22];
   };
+
+  # Detect disk failure early.
+  services.smartd.enable = true;
+
+  # Better out-of-memory killing.
+  services.earlyoom.enable = true;
+
+  # Limit journal log size.
+  services.journald.extraConfig = "SystemMaxUse=1G";
 }
