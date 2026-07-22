@@ -59,7 +59,11 @@
     enable = true;
     options = ["--cmd cd"];
   };
-  programs.fzf.enable = true;
+  programs.fzf = {
+    enable = true;
+    # atuin owns Ctrl-R (synced history); fzf keeps Ctrl-T / Alt-C.
+    historyWidget.command = "";
+  };
   programs.btop.enable = true;
 
   programs.direnv = {
@@ -70,7 +74,6 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    delta.enable = true;
     # macOS still writes .DS_Store on local volumes (no OS toggle for that);
     # keep them out of every repo globally.
     ignores = [".DS_Store" "**/.claude/settings.local.json"];
@@ -89,6 +92,11 @@
       git_protocol = "ssh";
       aliases.co = "pr checkout";
     };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
   };
   programs.jujutsu.enable = true;
 
@@ -213,7 +221,7 @@
 
   programs.yazi.enable = true;
 
-  programs.man.generateCaches = true;
+  programs.man.generateCaches = pkgs.stdenv.isLinux;
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
