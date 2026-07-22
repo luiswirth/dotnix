@@ -1,11 +1,34 @@
 # Headless dev-server role: remote access hardening + tailnet.
 # The shell/editor/zellij world comes from home/core.nix; nothing desktop here.
-{...}: {
+{
+  pkgs,
+  user,
+  ...
+}: {
   # Headless: closing the lid must never suspend the machine.
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
     HandleLidSwitchExternalPower = "ignore";
     HandleLidSwitchDocked = "ignore";
+  };
+
+  # A long-running agent session must outlive both the SSH connection and the
+  # machine. zellij handles the first; these two handle the second. Lingering
+  # starts the user manager at boot, so the session exists before anyone logs
+  # in -- without it the unit below would only run after a first login.
+  users.users.${user}.linger = true;
+
+  systemd.user.services.zellij-main = {
+    description = "Persistent zellij session for long-running agent work";
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      # The command creates the session and exits; the zellij server it spawns
+      # daemonizes and is not tracked by this unit. RemainAfterExit keeps the
+      # unit "active" so it isn't re-run on every default.target reach.
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.zellij}/bin/zellij attach --create-background main";
+    };
   };
 
   services.openssh = {
