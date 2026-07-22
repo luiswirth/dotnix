@@ -50,6 +50,11 @@
     # masApps = { Goodnotes = 1444383602; };
   };
 
+  # The module only installs the launchd agent, so the `aerospace` CLI is not on
+  # PATH. Take it from the service's own package: the client can never drift
+  # from the running agent.
+  environment.systemPackages = [config.services.aerospace.package];
+
   # AeroSpace: i3-style tiling WM. Installed from nixpkgs and run as a launchd
   # agent by this module; no SIP disable, no cask needed.
   services.aerospace = {
@@ -65,6 +70,19 @@
         outer.top = 8;
         outer.bottom = 8;
       };
+      # Workspaces are bound to monitors one-to-one, so a split has to be
+      # declared: 1-5 stay on the laptop, 6-10 go to whatever external display
+      # is attached. Matched by position, never by name: the external is a
+      # different borrowed monitor at every desk. With nothing attached the
+      # pattern matches nothing and all ten fall back to the built-in display.
+      workspace-to-monitor-force-assignment = {
+        "6" = "secondary";
+        "7" = "secondary";
+        "8" = "secondary";
+        "9" = "secondary";
+        "10" = "secondary";
+      };
+
       mode.main.binding = {
         alt-h = "focus left";
         alt-j = "focus down";
@@ -90,6 +108,7 @@
         alt-7 = "workspace 7";
         alt-8 = "workspace 8";
         alt-9 = "workspace 9";
+        alt-0 = "workspace 10";
 
         alt-shift-1 = "move-node-to-workspace 1";
         alt-shift-2 = "move-node-to-workspace 2";
@@ -100,6 +119,12 @@
         alt-shift-7 = "move-node-to-workspace 7";
         alt-shift-8 = "move-node-to-workspace 8";
         alt-shift-9 = "move-node-to-workspace 9";
+        alt-shift-0 = "move-node-to-workspace 10";
+
+        # A workspace lives on one monitor at a time, so crossing displays is a
+        # separate axis from switching workspaces.
+        alt-tab = "focus-monitor next --wrap-around";
+        alt-shift-tab = "move-node-to-monitor next --wrap-around --focus-follows-window";
       };
     };
   };
