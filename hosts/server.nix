@@ -27,10 +27,13 @@
 
   # systemd-initrd is required for TPM2-based LUKS unlock.
   boot.initrd.systemd.enable = true;
-  # Auto-unlock the encrypted root via the TPM so the box boots unattended
-  # (survives power loss with no keyboard). Enroll once on the machine:
-  #   systemd-cryptenroll --tpm2-device=auto \
-  #     /dev/disk/by-uuid/5bed133c-e06f-42ec-aa69-19a763197b8f
+  # Auto-unlock the encrypted root via the TPM so the box boots unattended.
+  # PREREQUISITE: the root header is currently LUKS1; TPM enrollment needs
+  # LUKS2. Convert first (with a header backup), then enroll. Until then this
+  # option is a harmless no-op and boot falls back to the passphrase. See #1.
+  #   cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file hdr.img
+  #   cryptsetup convert /dev/nvme0n1p2 --type luks2
+  #   systemd-cryptenroll --tpm2-device=auto /dev/nvme0n1p2
   boot.initrd.luks.devices."luks-5bed133c-e06f-42ec-aa69-19a763197b8f".crypttabExtraOpts = ["tpm2-device=auto"];
 
   # Fresh server generation on this machine.
