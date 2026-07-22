@@ -273,7 +273,12 @@
     typst
     tinymist
     neovim
-    claude-code
+    # claude-code is deliberately not from nixpkgs: the store is read-only, so
+    # the binary cannot self-update. It comes from the native installer
+    # (https://claude.ai/install.sh), which owns ~/.local/bin/claude and updates
+    # in the background. Nix must never manage that path -- a foreign symlink
+    # there makes the updater stop managing the launcher and keep every version
+    # on disk. ~/.local/bin is already on home.sessionPath above.
 
     # fonts
     nerd-fonts.fira-code
