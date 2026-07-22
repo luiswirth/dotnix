@@ -97,10 +97,6 @@
     };
   };
 
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-  };
   programs.jujutsu.enable = true;
 
   # SQLite shell history with fuzzy search, synced across Mac and the server.
