@@ -45,6 +45,10 @@ One concern is one file until it outgrows the head; folders only then.
   system profile); darwin drives nh from Home Manager (nix-darwin has no module).
 - **AeroSpace runs via nixpkgs + launchd**, not a cask and not yabai: no SIP
   disable. `start-at-login = false` (the module's launchd agent handles autostart).
+- **The Claude CLI has a second account available.** `claude` uses the default
+  profile in `~/.claude`; the `claude-alt` alias points `CLAUDE_CONFIG_DIR` at
+  `~/.claude-alt`, a separate profile with its own login. Which account sits in
+  which profile is not this repo's concern.
 - **The checkout path is defined once**, as `flakePath` in `flake.nix`'s
   `specialArgs`/`extraSpecialArgs`. Every `programs.nh.flake` takes it from
   there; hardcoding the literal per host is how the two platforms drifted apart

@@ -28,6 +28,9 @@
     mv = "mv -iv";
     mkdir = "mkdir -pv";
     ed = "$EDITOR";
+
+    # Claude CLI under a second account, isolated from the default profile.
+    claude-alt = "CLAUDE_CONFIG_DIR=${config.home.homeDirectory}/.claude-alt claude";
   };
 
   programs.zsh = {
