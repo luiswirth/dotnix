@@ -84,7 +84,10 @@
       push.default = "current";
       pull.ff = "only";
     };
-    signing.key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+    signing = {
+      format = "ssh";
+      key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+    };
   };
   programs.gh = {
     enable = true;
@@ -250,7 +253,6 @@
     curl
     zip
     unzip
-    unar
     moreutils
     magic-wormhole
     openconnect
