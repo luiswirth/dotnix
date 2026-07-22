@@ -63,11 +63,18 @@
           modules
           ++ [home-manager.darwinModules.home-manager (hmModule home)];
       };
+    forEachSystem = f:
+      nixpkgs.lib.genAttrs ["aarch64-darwin" "x86_64-linux"]
+      (system: f nixpkgs.legacyPackages.${system});
   in {
-    formatter = {
-      aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
-      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    };
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
+
+    # Tooling for working on this repo; .envrc loads it through direnv.
+    devShells = forEachSystem (pkgs: {
+      default = pkgs.mkShell {
+        packages = [pkgs.alejandra pkgs.nil pkgs.nix-output-monitor];
+      };
+    });
 
     nixosConfigurations = {
       # Frozen: old ThinkPad daily driver. Kept for evaluation, not developed.
