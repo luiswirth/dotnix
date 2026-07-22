@@ -30,6 +30,15 @@
 
   programs.zsh.enable = true;
 
+  # NixOS ships no /lib64/ld-linux-x86-64.so.2, so prebuilt generic-Linux
+  # binaries fail at the loader (stub-ld prints the explanation). nix-ld puts a
+  # real loader there backed by these libraries. Needed by anything installed
+  # outside nix -- the Claude Code native installer, rustup, prebuilt wheels.
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [stdenv.cc.cc.lib zlib openssl curl];
+  };
+
   security.sudo.wheelNeedsPassword = false;
   users.defaultUserShell = pkgs.zsh;
   users.users.${user} = {
