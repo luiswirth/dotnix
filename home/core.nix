@@ -38,13 +38,8 @@
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    history = {
-      size = 10000;
-      save = 10000;
-      share = true;
-      ignoreDups = true;
-      append = true;
-    };
+    # Every other history option is already the default.
+    history.append = true;
     # Stock zle vi mode, deliberately not the zsh-vi-mode plugin: that plugin
     # rebuilds its keymaps after init from zsh's bare viins/vicmd, discarding
     # every binding fzf/atuin/zoxide installed before it.
@@ -159,16 +154,14 @@
         indent-guides = {
           render = true;
           character = "┊";
-          skip-levels = 0;
         };
         color-modes = true;
         cursor-shape = {
           insert = "bar";
-          normal = "block";
           select = "underline";
         };
         file-picker.hidden = false;
-        gutters = ["diagnostics" "spacer" "line-numbers" "spacer"];
+        gutters = ["diagnostics" "spacer" "line-numbers" "spacer" "diff"];
         statusline = {
           left = ["mode" "spinner" "version-control" "read-only-indicator" "file-name" "file-modification-indicator"];
           center = ["diagnostics" "workspace-diagnostics"];
@@ -196,13 +189,20 @@
           args = ["--stdio"];
         };
       };
-      language = [
-        {
-          name = "python";
-          language-servers = ["ruff" "pyright"];
-          auto-format = true;
-        }
-      ];
+      language =
+        [
+          {
+            name = "python";
+            language-servers = ["ruff" "pyright"];
+            auto-format = true;
+          }
+        ]
+        # Prose is written one semantic unit per line, so lines are long by
+        # design; soft-wrap keeps them readable without hard line breaks.
+        ++ map (name: {
+          inherit name;
+          soft-wrap.enable = true;
+        }) ["typst" "latex" "markdown"];
     };
   };
 

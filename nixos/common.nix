@@ -52,7 +52,6 @@
     isNormalUser = true;
     description = "Luis Wirth";
     extraGroups = ["wheel" "networkmanager"];
-    shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMaKCRCE1/4DkpMmcp02vu8V/YeOKU1pVnesEtuAVOIk lwirth2000@gmail.com"
     ];
